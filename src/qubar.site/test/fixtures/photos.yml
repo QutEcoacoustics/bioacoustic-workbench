@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  uri: MyString
-  copyright: MyText
+  uri: "https://www.google.com"
+  copyright: Google (c) 2012
 
 two:
-  uri: MyString
-  copyright: MyText
+  uri: http://www.mirosoft.com
+  copyright: "(c) Microsoft 2011"
