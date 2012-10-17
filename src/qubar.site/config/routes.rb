@@ -1,4 +1,8 @@
 QubarSite::Application.routes.draw do
+  resources :sites
+
+  resources :projects
+
   resources :photos
 
   get "home/index"

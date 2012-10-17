@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: "Project 1"
+  description: "This is project 1"
+  urn: "project1"
+  notes: ""
+
+two:
+  name: "Project 2"
+  description: "This is project 1"
+  urn: "project2"
+  notes: ""

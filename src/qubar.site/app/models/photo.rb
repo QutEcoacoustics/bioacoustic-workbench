@@ -1,4 +1,5 @@
 class Photo < ActiveRecord::Base
+  belongs_to :imageable, :polymorphic => true
   attr_accessible :copyright, :uri
   
   validates :uri, :presence => true

@@ -2,7 +2,7 @@
 
 one:
   uri: "https://www.google.com"
-  copyright: Google (c) 2012
+  copyright: "Google (c) 2012"
 
 two:
   uri: http://www.mirosoft.com
