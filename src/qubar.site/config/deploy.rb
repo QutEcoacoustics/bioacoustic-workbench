@@ -1,8 +1,10 @@
 set :application, "set your application name here"
-set :repository,  "set your repository location here"
+
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :repository,  "git@github.com:QutBioacousticsResearchGroup/bioacoustic-workbench.git"
+set :scm_passphrase, ""
 
 role :web, "your web-server here"                          # Your HTTP server, Apache/etc
 role :app, "your app-server here"                          # This may be the same as your `Web` server
