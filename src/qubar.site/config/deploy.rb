@@ -14,6 +14,9 @@ role :db,  "your slave db-server here"
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
+# i have no idea if this works http://gembundler.com/deploying.html
+require "bundler/capistrano"
+
 # If you are using Passenger mod_rails uncomment this:
 # namespace :deploy do
 #   task :start do ; end
