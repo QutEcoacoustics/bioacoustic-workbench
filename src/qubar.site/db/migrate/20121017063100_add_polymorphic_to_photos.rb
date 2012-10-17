@@ -1,4 +1,4 @@
-class AddPolyphormicToPhotos < ActiveRecord::Migration
+class AddPolymorphicToPhotos < ActiveRecord::Migration
   def up
     change_table :photos do |t|
       t.references :imageable, :polymorphic => true
