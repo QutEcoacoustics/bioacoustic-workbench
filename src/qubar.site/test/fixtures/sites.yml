@@ -1,18 +1,18 @@
 --- 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-one: 
+site_one: 
   latitude: -27.472778
   longitude: 153.027778
   name: "A site in Brisbane"
   notes: 
     somewhere: "in the great beyond"
-two: 
+site_two: 
   latitude: -27.37
   longitude: 152.886944
   name: Samford
   notes: 
     Jasons: backyard
-three: 
+site_three: 
   latitude: 55.676111
   longitude: 12.568333
   name: "A place in Denmark"

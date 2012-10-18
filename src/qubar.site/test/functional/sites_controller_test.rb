@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SitesControllerTest < ActionController::TestCase
   setup do
-    @site = sites(:one)
+    @site = sites(:site_one)
   end
 
   test "should get index" do

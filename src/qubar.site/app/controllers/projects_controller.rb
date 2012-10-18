@@ -26,6 +26,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
 	@project.sites.build
+	@all_sites = Site.all
 
     respond_to do |format|
       format.html # new.html.erb

@@ -1,13 +1,13 @@
 --- 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-one: 
+project_one: 
   description: "This is project 1"
   name: "Project 1"
   notes: 
     hello: world
     item1: "value 1"
   urn: project1
-two: 
+project_two: 
   description: "This is project 2"
   name: "Project 2"
   notes: 
@@ -15,7 +15,7 @@ two:
     let: me
     tell: you
   urn: project2
-three: 
+project_three: 
   description: "This is project 3"
   name: "Project 3"
   notes: 
@@ -23,7 +23,7 @@ three:
     once: upon
     there: was
   urn: project3
-four: 
+project_four: 
   description: ~
   name: ~
   notes: ~
