@@ -1,5 +1,6 @@
 class Photo < ActiveRecord::Base
-  attr_accessible :copyright, :uri
+  belongs_to :imageable, :polymorphic => true
+  attr_accessible :copyright, :uri, :description
   
   validates :uri, :presence => true
   validates_format_of :uri, :with => URI::regexp(%w(http https))

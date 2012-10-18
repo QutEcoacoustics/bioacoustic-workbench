@@ -11,11 +11,39 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015041304) do
+ActiveRecord::Schema.define(:version => 20121018000000) do
 
   create_table "photos", :force => true do |t|
     t.string   "uri"
-    t.text     "copyright"
+    t.string   "copyright"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.text     "description"
+  end
+
+  create_table "project_sites", :id => false, :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "site_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "urn"
+    t.text     "notes"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "sites", :force => true do |t|
+    t.string   "name"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.text     "notes"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

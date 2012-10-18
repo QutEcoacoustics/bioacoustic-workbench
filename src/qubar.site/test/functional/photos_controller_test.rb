@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PhotosControllerTest < ActionController::TestCase
   setup do
-    @photo = photos(:one)
+    @photo = photos(:photo_one)
   end
 
   test "should get index" do
@@ -17,7 +17,7 @@ class PhotosControllerTest < ActionController::TestCase
   end
 
   test "should create photo" do
-    puts "OUT! ---> " + Photo.count.to_s()
+    #puts "OUT! ---> " + Photo.count.to_s()
     assert_difference('Photo.count') do
       post :create, photo: { copyright: @photo.copyright, uri: @photo.uri }
     end
@@ -36,7 +36,7 @@ class PhotosControllerTest < ActionController::TestCase
   end
 
   test "should update photo" do
-    put :update, id: @photo, photo: { copyright: (@photo.copyright + "a change!"), uri: @photo.uri }
+    put :update, id: @photo, photo: { copyright: (@photo.copyright + "a change!"), uri: @photo.uri, description: (@photo.description + " more text") }
     assert_redirected_to photo_path(assigns(:photo))
   end
 
