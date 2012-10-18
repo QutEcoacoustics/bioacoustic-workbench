@@ -60,6 +60,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.json
   # http://stackoverflow.com/questions/10743784/ruby-on-rails-multi-selector-with-many-to-many-relation
   # http://www.nearinfinity.com/blogs/jim_clark/activerecord_nested_attributes.html
+  # http://iqbalfarabi.net/2011/01/20/rails-nested-form-with-has-many-through-association/
   def update
     @project = Project.find(params[:id])
 	

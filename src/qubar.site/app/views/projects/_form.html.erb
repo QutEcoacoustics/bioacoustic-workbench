@@ -29,7 +29,7 @@
   </div>
   <div class="sites">
 	<%= f.label :sites %><br />
-	<%= f.collection_select :sites, @all_sites, :id, :name, { :selected => @project.sites.collect { |s| s.id } }, { :multiple => true }  %>
+	<%= f.collection_select :site_ids, @all_sites, :id, :name, { :selected => @project.sites.collect { |s| s.id } }, { :multiple => true }  %>
   </div>
   <div class="actions">
     <%= f.submit %>

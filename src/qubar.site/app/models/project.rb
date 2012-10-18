@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   store :notes
-  attr_accessible :description, :name, :urn, :notes, :sites, :sites_attributes
+  # http://stackoverflow.com/questions/4934194/resulttype-614051528-expected-got-string-608366078-with-many-to-many-as
+  attr_accessible :description, :name, :urn, :notes, :sites, :sites_attributes, :site_ids
   has_many :photos, :as => :imageable
   has_many :project_sites
   has_many :sites, :through => :project_sites
