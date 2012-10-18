@@ -1,0 +1,26 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+photo_one:
+  uri: "https://www.google.com"
+  copyright: "Google (c) 2012"
+  description: "Yea, not sure this is a picture"
+
+photo_two:
+  uri: http://www.mirosoft.com
+  copyright: "(c) Microsoft 2011"
+  description: "not really a picture"
+
+photo_three:
+  uri: http://weknowmemes.com/wp-content/uploads/2012/07/i-have-some-sort-of-idea-what-im-doing-dog.jpeg
+  copyright: "Someone on the Internet 2012"
+  description: "I have some sort of idea what I am doing"
+
+photo_four:
+  uri: http://img2.ranker.com/list_img/5342/385342/full/the-very-best-of-the-success-kid-meme.jpg?version=1348585517000
+  copyright: "Another random person"
+  description: "Sucess"
+  
+photo_five:
+  uri: ~
+  copyright: ~
+  description: ~
