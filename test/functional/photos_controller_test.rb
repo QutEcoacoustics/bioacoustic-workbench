@@ -17,7 +17,6 @@ class PhotosControllerTest < ActionController::TestCase
   end
 
   test "should create photo" do
-    #puts "OUT! ---> " + Photo.count.to_s()
     assert_difference('Photo.count') do
       post :create, photo: { copyright: @photo.copyright, uri: @photo.uri }
     end
@@ -36,8 +35,12 @@ class PhotosControllerTest < ActionController::TestCase
   end
 
   test "should update photo" do
-    put :update, id: @photo, photo: { copyright: (@photo.copyright + "a change!"), uri: @photo.uri, description: (@photo.description + " more text") }
-    assert_redirected_to photo_path(assigns(:photo))
+    @old_name = @photo.description
+	@new_name = @photo.description + " more text!"
+    put :update, id: @photo, photo: { copyright: (@photo.copyright + "a change!"), uri: @photo.uri, description: @new_name }
+    
+	assert_equal @new_name, assigns(:photo).description
+	assert_redirected_to photo_path(assigns(:photo))
   end
 
   test "should destroy photo" do
