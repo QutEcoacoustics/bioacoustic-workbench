@@ -6,7 +6,6 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'pg'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,6 +24,11 @@ gem 'jquery-rails'
 # group for running tests
 group :test do
   gem 'rake'
+end
+
+# production gems
+group :production do
+  #gem 'pg'
 end
 
 # To use ActiveModel has_secure_password
