@@ -5,7 +5,7 @@ class SitesControllerTest < ActionController::TestCase
     @site = sites(:site_one)
   end
 
-  test "should get index" d
+  test "should get index" 
     get :index
     assert_response :success
     assert_not_nil assigns(:sites)
