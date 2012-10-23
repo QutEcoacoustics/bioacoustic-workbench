@@ -14,11 +14,23 @@ class SpectrogramTest < ActiveSupport::TestCase
     
     result = Spectrogram::generate(input_audio, output_image)
     
-    print result
+    # ensure source and destination files exist
     assert result[3]
     assert result[4]
     
+    # ensure the input audio has content
+    file_size_in = File.size? input_audio
+    assert_operator file_size_in, :>=, 1300000
+    
+    # ensure the output image has content
+    file_size_out = File.size? output_image
+    assert_operator file_size_out, :>, 100000
+    
     #tidy up
     File.delete output_image
+  end
+  
+  test "using an invalid source file" do
+    
   end
 end
