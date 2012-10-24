@@ -1,12 +1,9 @@
 QubarSite::Application.routes.draw do
-  resources :sites
 
-  resources :projects
-
-  resources :photos
+  resources :projects, :sites, :photos
   
-  resources :media
-
+  match 'media/:action' => 'media'
+  
   get "home/index"
 
   # The priority is based upon order of creation:
