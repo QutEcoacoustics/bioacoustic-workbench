@@ -2,7 +2,34 @@ QubarSite::Application.routes.draw do
 
   resources :projects, :sites, :photos, :users
   
-  match 'media/:action' => 'media'
+  # audio and spectrogram media items
+  # (?<id>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})_(?<start_offset>\d{9})_(?<end_offset>\d{9})_(?<channel>\d{1,4})_(?<sample_rate>\d{1,6}).(?<format>\S{1,4})
+  # audio: http://localhost:3000/media/21EC2020-3AEA-1069-A2DD-08002B30309D_012345678_012345678_1024_100000.webma
+  # image: http://localhost:3000/media/21EC2020-3AEA-1069-A2DD-08002B30309D_012345678_012345678_1024_100000_1024_g.png
+  match 'media' => 'media#index'
+  match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)_(:window)_(:colour)(:format)' => 'media#item', 
+    :constraints => { 
+      :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
+      :start_offset    => /\d{1,9}/,
+      :end_offset      => /\d{1,9}/,
+      :channel         => /\d{1,4}/,
+      :sample_rate     => /\d{1,6}/,
+      :window          => /\d{1,4}/,
+      :colour          => /[a-zA-Z]{1}/,
+      :format          => /\.\S{1,5}/
+    }
+  match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)(:format)' => 'media#item', 
+    :constraints => { 
+      :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
+      :start_offset    => /\d{1,9}/,
+      :end_offset      => /\d{1,9}/,
+      :channel         => /\d{1,4}/,
+      :sample_rate     => /\d{1,6}/,
+      :format          => /\.\S{1,5}/
+    }
+  
+  
+  
   
   get "home/index"
 

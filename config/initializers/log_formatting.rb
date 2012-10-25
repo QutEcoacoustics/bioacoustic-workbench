@@ -7,7 +7,7 @@ end
 class Formatter
   SEVERITY_TO_TAG_MAP     = {'DEBUG'=>'meh', 'INFO'=>'fyi', 'WARN'=>'hmm', 'ERROR'=>'wtf', 'FATAL'=>'omg', 'UNKNOWN'=>'???'}
   SEVERITY_TO_COLOR_MAP   = {'DEBUG'=>'0;37', 'INFO'=>'32', 'WARN'=>'33', 'ERROR'=>'31', 'FATAL'=>'31', 'UNKNOWN'=>'37'}
-  USE_HUMOROUS_SEVERITIES = true
+  USE_HUMOROUS_SEVERITIES = false
 
   def call(severity, time, progname, msg)
     if USE_HUMOROUS_SEVERITIES
