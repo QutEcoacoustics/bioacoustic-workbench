@@ -1,4 +1,6 @@
 QubarSite::Application.routes.draw do
+  resources :users
+
   resources :sites
 
   resources :projects

@@ -5,3 +5,19 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Super user setup
+dummy = User.create({display_name: "admin"})
+dummy.creator_id = dummy.id
+dummy.updater_id = dummy.id
+dummy.save
+
+
+
+case Rails.env
+when "development"
+   
+   
+when "production"
+   
+end

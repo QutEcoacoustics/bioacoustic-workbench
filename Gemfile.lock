@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/delynn/userstamp.git
+  revision: 777633aa564f8457c999ddb96afa4c5ae18d319f
+  specs:
+    userstamp (2.0.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -87,6 +93,8 @@ GEM
       activesupport (= 3.2.8)
       bundler (~> 1.0)
       railties (= 3.2.8)
+    rails3_acts_as_paranoid (0.2.4)
+      activerecord (~> 3.2)
     railties (3.2.8)
       actionpack (= 3.2.8)
       activesupport (= 3.2.8)
@@ -128,7 +136,9 @@ DEPENDENCIES
   jquery-rails
   pg
   rails (= 3.2.8)
+  rails3_acts_as_paranoid (~> 0.2.0)
   rake
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)
+  userstamp!

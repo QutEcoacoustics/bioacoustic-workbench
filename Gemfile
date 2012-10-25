@@ -7,6 +7,11 @@ gem 'rails', '3.2.8'
 
 gem 'sqlite3'
 
+# https://github.com/delynn/userstamp
+gem 'userstamp', :git => "https://github.com/delynn/userstamp.git"
+# https://github.com/goncalossilva/rails3_acts_as_paranoid
+gem "rails3_acts_as_paranoid", "~>0.2.0"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
