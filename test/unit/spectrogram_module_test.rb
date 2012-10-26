@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SpectrogramTest < ActiveSupport::TestCase
+class SpectrogramModuleTest < ActiveSupport::TestCase
   include Spectrogram
   test "source and destination files exist" do
     input_path = './test/fixtures/'

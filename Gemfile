@@ -1,14 +1,20 @@
 source 'http://rubygems.org'
 
+# core rails gem
 gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'jquery-rails'
 
+# checks image formats using contents of the file.
+gem 'ruby-imagespec'
+
+# gems for user storage
 # https://github.com/delynn/userstamp
 gem 'userstamp', :git => 'https://github.com/theepan/userstamp.git'
+
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
 gem "rails3_acts_as_paranoid", "~>0.2.0"
 
@@ -24,8 +30,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-
 # group for running tests
 group :test do
   gem 'rake'
@@ -36,6 +40,7 @@ group :development do
   #gem 'ruby-debug-base19', '0.11.26'
   #gem 'ruby-debug19', :require => 'ruby-debug'
   #gem 'debugger'
+  gem 'sqlite3'
 end
 
 # production gems

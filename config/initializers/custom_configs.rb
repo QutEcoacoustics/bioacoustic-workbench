@@ -2,10 +2,12 @@ module QubarSite
   class Application
     config.media_file_config = OpenStruct.new
     
-    config.media_file_config.media_file_root = File.join(Rails.root, 'media')
+    config.media_file_config.original_audio_paths = [File.join(Rails.root, 'media', 'original1'), File.join(Rails.root, 'media', 'original2')]
+    config.media_file_config.cached_spectrogram_paths = [File.join(Rails.root, 'media', 'cachedimages2'), File.join(Rails.root, 'media', 'cachedimages1')]
+    config.media_file_config.cached_audio_paths = [File.join(Rails.root, 'media', 'cachedaudio'), File.join(Rails.root, 'media', 'cachedaudio2')]
     
-    config.media_file_config.original_audio_path = File.join(config.media_file_config.media_file_root, 'original')
-    config.media_file_config.cached_image_path = File.join(config.media_file_config.media_file_root, 'cachedimages')
-    config.media_file_config.cached_audio_path = File.join(config.media_file_config.media_file_root, 'cachedaudio')
+    config.media_file_config.cached_audio_defaults = [{:channel => 0, :sample_rate => 22050, :format => '.webma'}, {:channel => 0, :sample_rate => 22050, :format => '.mp3'}]
+    config.media_file_config.cached_spectrogram_defaults = [{:channel => 0, :sample_rate => 22050, :window => 512, :colour => 'a', :format => '.png'}]
+    
   end
 end

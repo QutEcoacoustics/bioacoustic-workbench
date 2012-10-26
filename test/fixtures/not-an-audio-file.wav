@@ -1,0 +1,30 @@
+--- 
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+project_one: 
+  description: "This is project 1"
+  name: "Project 1"
+  notes: 
+    hello: world
+    item1: "value 1"
+  urn: project1
+project_two: 
+  description: "This is project 2"
+  name: "Project 2"
+  notes: 
+    a: story
+    let: me
+    tell: you
+  urn: project2
+project_three: 
+  description: "This is project 3"
+  name: "Project 3"
+  notes: 
+    a: time
+    once: upon
+    there: was
+  urn: project3
+project_four: 
+  description: ~
+  name: ~
+  notes: ~
+  urn: ~
