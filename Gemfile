@@ -7,6 +7,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'jquery-rails'
+gem 'sqlite3'
 
 # checks image formats using contents of the file.
 gem 'ruby-imagespec'
@@ -40,7 +41,6 @@ group :development do
   #gem 'ruby-debug-base19', '0.11.26'
   #gem 'ruby-debug19', :require => 'ruby-debug'
   #gem 'debugger'
-  gem 'sqlite3'
 end
 
 # production gems
