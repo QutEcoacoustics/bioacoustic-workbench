@@ -52,8 +52,8 @@ class ProjectsControllerTest < ActionController::TestCase
     
 	@new_sites = assigns(:project).sites
 	assert_equal 2, @new_sites.count
-	assert (@new_sites.include? sites(:site_one))
-	assert (@new_sites.include? sites(:site_three))
+	assert(@new_sites.include? sites(:site_one))
+	assert(@new_sites.include? sites(:site_three))
 	
 	assert_redirected_to project_path(assigns(:project))
 	assert_equal 'Project was successfully updated.', flash[:notice]
@@ -64,8 +64,8 @@ class ProjectsControllerTest < ActionController::TestCase
     
 	@new_sites = assigns(:project).sites
 	assert_equal 2, @new_sites.count
-	assert (@new_sites.include? sites(:site_one))
-	assert (@new_sites.include? sites(:site_three))
+	assert(@new_sites.include? sites(:site_one))
+	assert(@new_sites.include? sites(:site_three))
 	
 	assert_redirected_to project_path(assigns(:project))
 	assert_equal 'Project was successfully updated.', flash[:notice]
@@ -94,8 +94,8 @@ class ProjectsControllerTest < ActionController::TestCase
 	
 	@new_sites = assigns(:project).sites
 	assert_equal 2, @new_sites.count
-	assert (@new_sites.include? sites(:site_two))
-	assert (@new_sites.include? sites(:site_three))
+	assert(@new_sites.include? sites(:site_two))
+	assert(@new_sites.include? sites(:site_three))
 	
     assert_redirected_to project_path(assigns(:project))
 	assert_equal 'Project was successfully created.', flash[:notice]

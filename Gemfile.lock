@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/delynn/userstamp.git
-  revision: 777633aa564f8457c999ddb96afa4c5ae18d319f
+  remote: https://github.com/theepan/userstamp.git
+  revision: bf05d832ee27a717ea9455d685c83ae2cfb80310
   specs:
     userstamp (2.0.2)
 
@@ -50,7 +50,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.3.3)
+    coffee-script-source (1.4.0)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)

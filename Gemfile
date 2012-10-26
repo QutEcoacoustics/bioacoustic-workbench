@@ -8,7 +8,7 @@ gem 'rails', '3.2.8'
 gem 'sqlite3'
 
 # https://github.com/delynn/userstamp
-gem 'userstamp', :git => "https://github.com/theepan/userstamp.git"
+gem 'userstamp', :git => 'https://github.com/theepan/userstamp.git'
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
 gem "rails3_acts_as_paranoid", "~>0.2.0"
 
@@ -29,6 +29,13 @@ gem 'jquery-rails'
 # group for running tests
 group :test do
   gem 'rake'
+end
+
+group :development do
+  #gem 'linecache19', '0.5.13'
+  #gem 'ruby-debug-base19', '0.11.26'
+  #gem 'ruby-debug19', :require => 'ruby-debug'
+  #gem 'debugger'
 end
 
 # production gems
