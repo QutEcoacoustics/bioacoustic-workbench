@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 module QubarSite
   class Application
     config.media_file_config = OpenStruct.new
@@ -11,3 +12,6 @@ module QubarSite
     
   end
 end
+=======
+require_relative '../settings.rb'
+>>>>>>> ef586d050eeaea67953ee5f56b1f07d772961e13
