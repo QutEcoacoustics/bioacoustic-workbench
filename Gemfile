@@ -41,6 +41,8 @@ group :development do
   #gem 'ruby-debug-base19', '0.11.26'
   #gem 'ruby-debug19', :require => 'ruby-debug'
   #gem 'debugger'
+  gem 'test-unit'
+  gem 'ruby-prof'
 end
 
 # production gems
