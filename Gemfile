@@ -10,7 +10,7 @@ gem 'sqlite3'
 # https://github.com/delynn/userstamp
 gem 'userstamp', :git => 'https://github.com/theepan/userstamp.git'
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
-gem "rails3_acts_as_paranoid", "~>0.2.0"
+gem 'rails3_acts_as_paranoid', '~>0.2.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -29,13 +29,22 @@ gem 'jquery-rails'
 # group for running tests
 group :test do
   gem 'rake'
+
+  gem 'ruby-prof'
+  gem 'test-unit'
+
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
 end
+
 
 group :development do
   #gem 'linecache19', '0.5.13'
   #gem 'ruby-debug-base19', '0.11.26'
   #gem 'ruby-debug19', :require => 'ruby-debug'
   #gem 'debugger'
+
 end
 
 # production gems
