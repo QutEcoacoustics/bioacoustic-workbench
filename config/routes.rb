@@ -7,6 +7,8 @@ QubarSite::Application.routes.draw do
   # audio: http://localhost:3000/media/21EC2020-3AEA-1069-A2DD-08002B30309D_012345678_012345678_1024_100000.webma
   # image: http://localhost:3000/media/21EC2020-3AEA-1069-A2DD-08002B30309D_012345678_012345678_1024_100000_1024_g.png
   match 'media' => 'media#index'
+  
+  # for cached spectrograms
   match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)_(:window)_(:colour)(:format)' => 'media#item', 
     :constraints => { 
       :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
@@ -18,6 +20,8 @@ QubarSite::Application.routes.draw do
       :colour          => /[a-zA-Z]{1}/,
       :format          => /\.\S{1,5}/
     }
+  
+  # for cached audio
   match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)(:format)' => 'media#item', 
     :constraints => { 
       :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
@@ -25,6 +29,15 @@ QubarSite::Application.routes.draw do
       :end_offset      => /\d{1,9}/,
       :channel         => /\d{1,4}/,
       :sample_rate     => /\d{1,6}/,
+      :format          => /\.\S{1,5}/
+    }
+  
+  # for original audio
+  match 'media/(:id)_(:date)_(:time)(:format)' => 'media#item', 
+    :constraints => { 
+      :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
+      :date            => /\d{8}/,
+      :time            => /\d{6}/,
       :format          => /\.\S{1,5}/
     }
   
