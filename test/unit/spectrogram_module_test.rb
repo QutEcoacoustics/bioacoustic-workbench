@@ -12,7 +12,7 @@ class SpectrogramModuleTest < ActiveSupport::TestCase
     input_audio = input_path + audio
     output_image = output_path + image
     
-    result = Spectrogram::generate(input_audio, output_image)
+    result = Spectrogram::generate(input_audio, output_image, [])
     
     # ensure source and destination files exist
     assert result[3]

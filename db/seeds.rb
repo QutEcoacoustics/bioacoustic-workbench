@@ -19,5 +19,7 @@ when "development"
    
    
 when "production"
-   
+
+when "test"
+  # these seeds should be put in the fixtures folder
 end

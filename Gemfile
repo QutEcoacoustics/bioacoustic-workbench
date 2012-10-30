@@ -38,8 +38,8 @@ group :test do
   gem 'ruby-prof'
   gem 'test-unit'
 
-  gem 'cucumber'
-  gem 'cucumber-rails'
+  gem 'cucumber', :require => false
+  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 end
 

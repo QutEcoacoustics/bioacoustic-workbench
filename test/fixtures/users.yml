@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  display_name: MyString
+  display_name: tester
+  updater_id: 1
+  creator_id: 1
 
 two:
   display_name: MyString
