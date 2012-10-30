@@ -1,5 +1,7 @@
 QubarSite::Application.routes.draw do
 
+  devise_for :users
+
   resources :projects, :sites, :photos, :users
   
   # audio and spectrogram media items
