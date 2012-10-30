@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  recorded_date: 2012-10-30 11:53:47
+  site: 
+  duration_seconds: 9.99
+  sample_rate_hertz: 1
+  channels: 1
+  bit_rate_bps: 1
+  media_type: MyString
+  data_length_bytes: 1
+  hash: MyString
+  status: MyString
+  notes: MyText
+
+two:
+  user: 
+  recorded_date: 2012-10-30 11:53:47
+  site: 
+  duration_seconds: 9.99
+  sample_rate_hertz: 1
+  channels: 1
+  bit_rate_bps: 1
+  media_type: MyString
+  data_length_bytes: 1
+  hash: MyString
+  status: MyString
+  notes: MyText

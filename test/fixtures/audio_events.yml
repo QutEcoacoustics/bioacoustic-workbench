@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  audio_recording: 
+  start_time_seconds: 9.99
+  end_time_seconds: 9.99
+  low_frequency_hertz: 9.99
+  high_frequency: 9.99
+  is_reference: 
+
+two:
+  audio_recording: 
+  start_time_seconds: 9.99
+  end_time_seconds: 9.99
+  low_frequency_hertz: 9.99
+  high_frequency: 9.99
+  is_reference: 

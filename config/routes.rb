@@ -1,5 +1,9 @@
 QubarSite::Application.routes.draw do
 
+  resources :audio_events
+
+  resources :audio_recordings
+
   resources :projects, :sites, :photos, :users
   
   # audio and spectrogram media items
