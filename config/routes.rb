@@ -1,6 +1,6 @@
 QubarSite::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 
   resources :projects, :sites, :photos, :users
   
