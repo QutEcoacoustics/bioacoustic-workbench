@@ -28,6 +28,12 @@ gem 'userstamp', :git => 'https://github.com/theepan/userstamp.git'
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
 gem 'rails3_acts_as_paranoid', '~>0.2.0'
 
+# GUID generation
+gem 'uuidtools'
+
+# date validation
+gem 'validates_timeliness', '~> 3.0'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -42,7 +48,7 @@ end
 
 # group for running tests
 group :test do
-  gem 'rake'
+  gem 'rake', '10.0.0.beta.2'
 
   gem 'ruby-prof'
   gem 'test-unit'
