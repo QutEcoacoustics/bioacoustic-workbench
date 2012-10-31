@@ -9,6 +9,15 @@ gem 'rails', '3.2.8'
 gem 'jquery-rails'
 gem 'sqlite3'
 
+gem 'devise'
+gem 'omniauth'
+
+# omniauth gems for strategies we want to use
+gem 'omniauth-browserid'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
+
 # checks image formats using contents of the file.
 gem 'ruby-imagespec'
 
