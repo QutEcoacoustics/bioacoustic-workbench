@@ -28,6 +28,9 @@ gem 'userstamp', :git => 'https://github.com/theepan/userstamp.git'
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
 gem 'rails3_acts_as_paranoid', '~>0.2.0'
 
+# enumeration suport
+gem 'enumerize'
+
 # GUID generation
 gem 'uuidtools'
 
