@@ -1,12 +1,8 @@
 QubarSite::Application.routes.draw do
 
-  resources :tags
-
-  resources :permissions
-
   devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 
-  resources :projects, :sites, :photos, :users, :audio_events, :audio_recordings
+  resources :projects, :sites, :photos, :users, :audio_events, :audio_recordings, :permissions, :tags
   
   # audio and spectrogram media items
   # (?<id>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})_(?<start_offset>\d{9})_(?<end_offset>\d{9})_(?<channel>\d{1,4})_(?<sample_rate>\d{1,6}).(?<format>\S{1,4})
@@ -15,7 +11,7 @@ QubarSite::Application.routes.draw do
   match 'media' => 'media#index'
   
   # for cached spectrograms
-  match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)_(:window)_(:colour)(:format)' => 'media#item', 
+  match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)_(:window)_(:colour)' => 'media#item',
     :constraints => { 
       :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
       :start_offset    => /\d{1,9}/,
@@ -23,28 +19,25 @@ QubarSite::Application.routes.draw do
       :channel         => /\d{1,4}/,
       :sample_rate     => /\d{1,6}/,
       :window          => /\d{1,4}/,
-      :colour          => /[a-zA-Z]{1}/,
-      :format          => /\.\S{1,5}/
+      :colour          => /[a-zA-Z]/
     }
   
   # for cached audio
-  match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)(:format)' => 'media#item', 
+  match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)' => 'media#item',
     :constraints => { 
       :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
       :start_offset    => /\d{1,9}/,
       :end_offset      => /\d{1,9}/,
       :channel         => /\d{1,4}/,
-      :sample_rate     => /\d{1,6}/,
-      :format          => /\.\S{1,5}/
+      :sample_rate     => /\d{1,6}/
     }
   
   # for original audio
-  match 'media/(:id)_(:date)_(:time)(:format)' => 'media#item', 
+  match 'media/(:id)_(:date)_(:time)' => 'media#item',
     :constraints => { 
       :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
       :date            => /\d{8}/,
-      :time            => /\d{6}/,
-      :format          => /\.\S{1,5}/
+      :time            => /\d{6}/
     }
   
   
