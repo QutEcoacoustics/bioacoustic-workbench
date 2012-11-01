@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  text: MyString
+  is_taxanomic: false
+  class: MyString
+  type_of_tag: MyString
+
+two:
+  text: MyString
+  is_taxanomic: false
+  class: MyString
+  type_of_tag: MyString

@@ -2,7 +2,9 @@ class CreatePermissions < ActiveRecord::Migration
   def change
     create_table :permissions do |t|
       t.references :user
-      t.string :level
+      t.string :level, :null => false
+
+      t.references :permissionable, :polymorphic => true
 
       t.timestamps
       t.userstamps
