@@ -1,4 +1,4 @@
-Feature: User stamping
+Feature: Table audit actions
   In order to track changes to tables, a user stamp should be applied when changed
 
   Scenario Outline: User stamping a table
@@ -8,8 +8,13 @@ Feature: User stamping
 
     Examples:
       | u  | t |
+      | tester | Permission |
       | tester | Project |
       | tester | Site |
+      | tester | AudioRecording |
+      | tester | AudioEvent |
+      | tester | Tag |
+
 
 
   Scenario Outline: User stamping a table
@@ -20,5 +25,9 @@ Feature: User stamping
 
     Examples:
       | u  | t |
+      | tester | Permission |
       | tester | Project |
-      | tester | Project |
+      | tester | Site |
+      | tester | AudioRecording |
+      | tester | AudioEvent |
+      | tester | Tag |
