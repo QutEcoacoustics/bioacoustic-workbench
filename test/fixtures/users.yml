@@ -4,7 +4,7 @@
 
 two:
   id: 2
-  display_name: 'user 2'
+  display_name: 'user2'
   email: 'example2@example.com'
 
 three:

@@ -9,16 +9,16 @@ Feature: Table audit actions
 
     Examples:
       | u  | t |
-      | tester | Permission |
-      | tester | Project |
-      | tester | Site |
-      | tester | AudioRecording |
-      | tester | AudioEvent |
-      | tester | Tag |
-      | tester | User |
-      | tester | AudioEventTag |
-      | tester | Authorization |
-      | tester | ProjectSite |
+      | user2 | Permission |
+      | user2 | Project |
+      | user2 | Site |
+      | user2 | AudioRecording |
+      | user2 | AudioEvent |
+      | user2 | Tag |
+      | user2 | User |
+      | user2 | AudioEventTag |
+      | user2 | Authorization |
+      | user2 | ProjectSite |
 
   Scenario Outline: User stamping a table on row creation
     Given A <u> user from the database
@@ -30,16 +30,16 @@ Feature: Table audit actions
 
     Examples:
       | u  | t |
-      | tester | Permission |
-      | tester | Project |
-      | tester | Site |
-      | tester | AudioRecording |
-      | tester | AudioEvent |
-      | tester | Tag |
-      | tester | User |
-      | tester | AudioEventTag |
-      | tester | Authorization |
-      | tester | ProjectSite |
+      | user2 | Permission |
+      | user2 | Project |
+      | user2 | Site |
+      | user2 | AudioRecording |
+      | user2 | AudioEvent |
+      | user2 | Tag |
+      | user2 | User |
+      | user2 | AudioEventTag |
+      | user2 | Authorization |
+      | user2 | ProjectSite |
 
   Scenario Outline: User stamping an archived record
     Given A <u> user from the database
@@ -49,12 +49,12 @@ Feature: Table audit actions
 
   Examples:
     | u | t|
-    | tester | Permission |
-    | tester | Project |
-    | tester | Site |
-    | tester | AudioRecording |
-    | tester | AudioEvent |
-    | tester | Tag |
+    | user2 | Permission |
+    | user2 | Project |
+    | user2 | Site |
+    | user2 | AudioRecording |
+    | user2 | AudioEvent |
+    | user2 | Tag |
 
 
   Scenario Outline: User stamping an archived record
@@ -65,12 +65,12 @@ Feature: Table audit actions
 
   Examples:
     | u | t|
-    | tester | Permission |
-    | tester | Project |
-    | tester | Site |
-    | tester | AudioRecording |
-    | tester | AudioEvent |
-    | tester | Tag |
+    | user2 | Permission |
+    | user2 | Project |
+    | user2 | Site |
+    | user2 | AudioRecording |
+    | user2 | AudioEvent |
+    | user2 | Tag |
 
   Scenario Outline: deleting a record
     Given A <u> user from the database
@@ -79,7 +79,7 @@ Feature: Table audit actions
 
   Examples:
     | u | t|
-    | tester | User |
-    | tester | AudioEventTag |
-    | tester | Authorization |
-    | tester | ProjectSite |
+    | user2 | User |
+    | user2 | AudioEventTag |
+    | user2 | Authorization |
+    | user2 | ProjectSite |
