@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031060534) do
+ActiveRecord::Schema.define(:version => 20121102043637) do
 
   create_table "audio_event_tags", :id => false, :force => true do |t|
     t.integer  "audio_event_id", :null => false
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20121031060534) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "deleter_id"
+    t.datetime "deleted_at"
   end
 
   add_index "audio_events", ["audio_recording_id"], :name => "index_audio_events_on_audio_recording_id"
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20121031060534) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "deleter_id"
+    t.datetime "deleted_at"
   end
 
   add_index "audio_recordings", ["site_id"], :name => "index_audio_recordings_on_site_id"
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20121031060534) do
     t.datetime "updated_at",          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.datetime "deleted_at"
   end
 
   add_index "permissions", ["user_id"], :name => "index_permissions_on_user_id"
@@ -114,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20121031060534) do
     t.datetime "updated_at",  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.datetime "deleted_at"
   end
 
   create_table "sites", :force => true do |t|
@@ -125,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20121031060534) do
     t.datetime "updated_at", :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.datetime "deleted_at"
   end
 
   create_table "tags", :force => true do |t|
@@ -137,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20121031060534) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "deleter_id"
+    t.datetime "deleted_at"
   end
 
   add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true
