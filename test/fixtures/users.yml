@@ -1,9 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  display_name: tester
-  updater_id: 1
-  creator_id: 1
+# don't need a one - this is the admin that is seeded in the db.
 
 two:
-  display_name: MyString
+  id: 2
+  display_name: 'user 2'
+  email: 'example2@example.com'
+
+three:
+  id: 3
+  display_name: 'user 3'
+  email: 'example3@example.com'
+  
+four:
+  id: 4
+  display_name: 'user 4'
+  email: 'example4@example.com'

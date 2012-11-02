@@ -1,9 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  user: 
-  level: MyString
-
+  user_id: 1
+  level: 'owner'
+  permissionable_id: 1
+  permissionable_type: 'Project'
+  
 two:
-  user: 
-  level: MyString
+  user_id: 2
+  level: 'writer'
+  permissionable_id: 1
+  permissionable_type: 'Project'
+
+three:
+  user_id: 3
+  level: 'reader'
+  permissionable_id: 1
+  permissionable_type: 'Project'
