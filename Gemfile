@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # core rails gem
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9.rc2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -29,7 +29,8 @@ gem 'userstamp', :git => 'https://github.com/theepan/userstamp.git'
 gem 'rails3_acts_as_paranoid', '~>0.2.0'
 
 # enumeration suport
-gem 'enumerize'
+# https://github.com/brainspec/enumerize/issues/44
+gem 'enumerize', git: 'git://github.com/brainspec/enumerize.git', branch: 'master'
 
 # GUID generation
 gem 'uuidtools'
@@ -65,7 +66,9 @@ end
 
 group :development do
   #gem 'linecache19', '0.5.13'
-  #gem 'ruby-debug-base19', '0.11.26'
+  gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
+  gem 'ruby-debug-ide', '>= 0.4.17.beta14'
+
   #gem 'ruby-debug19', :require => 'ruby-debug'
   #gem 'debugger'
 
