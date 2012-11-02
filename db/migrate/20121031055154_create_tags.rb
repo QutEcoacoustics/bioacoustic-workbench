@@ -3,7 +3,7 @@ class CreateTags < ActiveRecord::Migration
     create_table :tags do |t|
       t.string :text
       t.boolean :is_taxanomic, :null => false, :default => false
-      t.string :class
+
       t.string :type_of_tag
 
       t.timestamps
