@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -14,4 +17,20 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def get_source_audio_file_path(file_name)
+    input_path = './test/fixtures/audio'
+    File.join input_path, file_name
+  end
+
+  def get_target_file_path(file_name)
+    output_path = './tmp/testassests'
+    File.join output_path, file_name
+  end
+
+  def delete_if_exists(file_path)
+    if File.exists? file_path
+      File.delete file_path
+    end
+  end
 end

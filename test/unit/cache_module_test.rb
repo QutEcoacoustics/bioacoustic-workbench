@@ -32,5 +32,32 @@ class CacheModuleTest < ActiveSupport::TestCase
     
     assert url_file_name == file_name
   end
+
+  test "full paths are created correctly" do
+    paths = Cache::possible_paths(['/path1/','/path2','/path3/path4'], 'thefilename.txt').sort { |a,b| a <=> b }
+    assert_equal paths[0], '/path1/thefilename.txt'
+    assert_equal paths[1], '/path2/thefilename.txt'
+    assert_equal paths[2], '/path3/path4/thefilename.txt'
+  end
+
+  test "full paths are filtered by whether they exist or not" do
+    base_path = './test/fixtures/audio'
+    file_names = ['20081202-07-koala-calls.mp3','Lewins Rail Kekkek.webm',
+                  'not-an-audio-file.wav','ocioncosta-lindamenina.ogg',
+                  'TestAudio1.wv','TorresianCrow.wav', 'This one is not there.Imnothere']
+    result = []
+    file_names.each do |file_name|
+      result.concat Cache::existing_paths([base_path], file_name).sort { |a,b| a <=> b }
+    end
+    assert_equal result.length, 6
+    assert_equal result[0], './test/fixtures/audio/20081202-07-koala-calls.mp3'
+    assert_equal result[1], './test/fixtures/audio/Lewins Rail Kekkek.webm'
+    assert_equal result[2], './test/fixtures/audio/not-an-audio-file.wav'
+    assert_equal result[3], './test/fixtures/audio/ocioncosta-lindamenina.ogg'
+    assert_equal result[4], './test/fixtures/audio/TestAudio1.wv'
+    assert_equal result[5], './test/fixtures/audio/TorresianCrow.wav'
+  end
+
+
   
 end
