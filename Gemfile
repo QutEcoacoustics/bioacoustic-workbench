@@ -59,6 +59,7 @@ group :test do
   gem 'cucumber', :require => false
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
+  gem 'simplecov', :require => false
 end
 
 
@@ -70,6 +71,7 @@ group :development do
 
   gem 'test-unit'
   gem 'ruby-prof'
+
 end
 
 # production gems
