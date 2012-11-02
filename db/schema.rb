@@ -135,7 +135,6 @@ ActiveRecord::Schema.define(:version => 20121102043637) do
   create_table "tags", :force => true do |t|
     t.string   "text"
     t.boolean  "is_taxanomic", :default => false, :null => false
-    t.string   "class"
     t.string   "type_of_tag"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
