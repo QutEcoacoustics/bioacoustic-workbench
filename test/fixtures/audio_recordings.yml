@@ -12,7 +12,7 @@ one:
   #bit_rate_bps
   media_type: 'audio/mpeg'
   data_length_bytes: 500000
-  hash: 'LVBE278345vernvtu374t'
+  media_data_hash: 'LVBE278345vernvtu374t'
   status: 'ready'
   notes: 
     uploaded_date: 2012-10-31 11:00:00

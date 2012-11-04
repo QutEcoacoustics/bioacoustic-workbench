@@ -18,7 +18,7 @@ class AudioEventsControllerTest < ActionController::TestCase
 
   test "should create audio_event" do
     assert_difference('AudioEvent.count') do
-      post :create, audio_event: { end_time_seconds: @audio_event.end_time_seconds, high_frequency: @audio_event.high_frequency, is_reference: @audio_event.is_reference, low_frequency_hertz: @audio_event.low_frequency_hertz, start_time_seconds: @audio_event.start_time_seconds }
+      post :create, audio_event: { audio_recording_id: @audio_event.audio_recording_id, end_time_seconds: @audio_event.end_time_seconds, high_frequency_hertz: @audio_event.high_frequency_hertz, is_reference: @audio_event.is_reference, low_frequency_hertz: @audio_event.low_frequency_hertz, start_time_seconds: @audio_event.start_time_seconds }
     end
 
     assert_redirected_to audio_event_path(assigns(:audio_event))
@@ -35,7 +35,7 @@ class AudioEventsControllerTest < ActionController::TestCase
   end
 
   test "should update audio_event" do
-    put :update, id: @audio_event, audio_event: { end_time_seconds: @audio_event.end_time_seconds, high_frequency: @audio_event.high_frequency, is_reference: @audio_event.is_reference, low_frequency_hertz: @audio_event.low_frequency_hertz, start_time_seconds: @audio_event.start_time_seconds }
+    put :update, id: @audio_event, audio_event: { end_time_seconds: @audio_event.end_time_seconds, high_frequency_hertz: @audio_event.high_frequency_hertz, is_reference: @audio_event.is_reference, low_frequency_hertz: @audio_event.low_frequency_hertz, start_time_seconds: @audio_event.start_time_seconds }
     assert_redirected_to audio_event_path(assigns(:audio_event))
   end
 

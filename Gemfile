@@ -75,6 +75,8 @@ group :development do
   gem 'test-unit'
   gem 'ruby-prof'
 
+  gem 'therubyracer', :platforms => :ruby
+
 end
 
 # production gems

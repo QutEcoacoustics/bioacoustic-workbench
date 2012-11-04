@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20121102043637) do
     t.integer  "bit_rate_bps"
     t.string   "media_type",                       :null => false
     t.integer  "data_length_bytes",                :null => false
-    t.string   "hash",              :limit => 524, :null => false
+    t.string   "media_data_hash",   :limit => 524, :null => false
     t.string   "status"
     t.text     "notes"
     t.datetime "created_at",                       :null => false

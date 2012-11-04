@@ -2,17 +2,17 @@
 
 # don't need a one - this is the admin that is seeded in the db.
 
-two:
+one:
   id: 2
   display_name: 'user2'
   email: 'example2@example.com'
 
-three:
+two:
   id: 3
   display_name: 'user 3'
   email: 'example3@example.com'
   
-four:
+three:
   id: 4
   display_name: 'user 4'
   email: 'example4@example.com'

@@ -17,7 +17,7 @@ class SpectrogramModuleTest < ActiveSupport::TestCase
 
     result = Spectrogram::generate(input_audio, output_image, [])
 
-    assert File.exists?(output_image), "Target image does not exist: #{output_image}"
+    assert File.exists?(output_image), "Target image does not exist: #{output_image}, #{result}"
 
     # ensure the input audio has content
     file_size_in = File.size? input_audio
