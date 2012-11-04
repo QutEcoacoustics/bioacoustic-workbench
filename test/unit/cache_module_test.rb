@@ -10,7 +10,7 @@ class CacheModuleTest < ActiveSupport::TestCase
     
     file_name = Cache::cached_spectrogram_file(params)
     
-    assert url_file_name == file_name
+    assert url_file_name == file_name, "Expected #{url_file_name}, but was #{file_name}."
   end
   
   test "creating correct cached audio file name" do
@@ -20,7 +20,7 @@ class CacheModuleTest < ActiveSupport::TestCase
     
     file_name = Cache::cached_audio_file(params)
     
-    assert url_file_name == file_name
+    assert url_file_name == file_name, "Expected #{url_file_name}, but was #{file_name}."
   end
   
   test "creating correct original audio file name" do
@@ -30,7 +30,7 @@ class CacheModuleTest < ActiveSupport::TestCase
     
     file_name = Cache::original_audio_file(params)
     
-    assert url_file_name == file_name
+    assert url_file_name == file_name, "Expected #{url_file_name}, but was #{file_name}."
   end
 
   test "full paths are created correctly" do

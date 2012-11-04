@@ -34,3 +34,9 @@ class ActiveSupport::TestCase
     end
   end
 end
+
+require 'enumerize'
+
+class ActionController::TestCase
+  include Devise::TestHelpers
+end

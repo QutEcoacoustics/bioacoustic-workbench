@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  audio_recording: 1
+  audio_recording_id: 1
   start_time_seconds: 0.0
   end_time_seconds: 5.0
   low_frequency_hertz: 0
