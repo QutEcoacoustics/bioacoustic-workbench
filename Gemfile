@@ -65,15 +65,16 @@ end
 
 
 group :development do
-  #gem 'linecache19', '0.5.13'
   gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
   gem 'ruby-debug-ide', '>= 0.4.17.beta14'
 
-  #gem 'ruby-debug19', :require => 'ruby-debug'
-  #gem 'debugger'
 
   gem 'test-unit'
   gem 'ruby-prof'
+
+  gem 'cucumber', :require => false
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
 
 end
 

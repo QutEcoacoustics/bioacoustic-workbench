@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102043637) do
+ActiveRecord::Schema.define(:version => 20121103085046) do
 
   create_table "audio_event_tags", :id => false, :force => true do |t|
     t.integer  "audio_event_id", :null => false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20121102043637) do
     t.integer  "bit_rate_bps"
     t.string   "media_type",                       :null => false
     t.integer  "data_length_bytes",                :null => false
-    t.string   "hash",              :limit => 524, :null => false
+    t.string   "file_hash",         :limit => 524, :null => false
     t.string   "status"
     t.text     "notes"
     t.datetime "created_at",                       :null => false
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20121102043637) do
   create_table "tags", :force => true do |t|
     t.string   "text"
     t.boolean  "is_taxanomic", :default => false, :null => false
+    t.string   "class"
     t.string   "type_of_tag"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false

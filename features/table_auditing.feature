@@ -3,22 +3,22 @@ Feature: Table audit actions
 
   Scenario Outline: User stamping a table on row modification
     Given A <u> user from the database
-    When <u> makes a change to the <t> table
+    When <u> makes a change to the <c> column in the <t> table
     Then the updater_id column should have <u>'s id
     And the updated_at column should have changed
 
     Examples:
-      | u  | t |
-      | user2 | Permission |
-      | user2 | Project |
-      | user2 | Site |
-      | user2 | AudioRecording |
-      | user2 | AudioEvent |
-      | user2 | Tag |
-      | user2 | User |
-      | user2 | AudioEventTag |
-      | user2 | Authorization |
-      | user2 | ProjectSite |
+      | u     | t               | c  |
+      | user2 | Permission      | level  |
+      | user2 | Project         | urn  |
+      | user2 | Site            | latitude  |
+      | user2 | AudioRecording  | channels  |
+      | user2 | AudioEvent      | end_time_seconds |
+      | user2 | Tag             | text  |
+      | user2 | User            | display_name  |
+      | user2 | AudioEventTag   | tag  |
+      | user2 | Authorization   | link  |
+      | user2 | ProjectSite     | site  |
 
   Scenario Outline: User stamping a table on row creation
     Given A <u> user from the database

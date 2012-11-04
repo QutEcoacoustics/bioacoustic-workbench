@@ -1,8 +1,5 @@
 class AddDeletedAtFields < ActiveRecord::Migration
   def change
-    change_table :permissions do |t|
-      t.datetime :deleted_at
-    end
     change_table :projects do |t|
       t.datetime :deleted_at
     end
