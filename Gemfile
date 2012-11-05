@@ -77,7 +77,6 @@ group :development do
   gem 'database_cleaner'
 
 
-  gem "angular-rails"
 end
 
 # production gems
