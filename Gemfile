@@ -76,6 +76,8 @@ group :development do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 
+
+  gem "angular-rails"
 end
 
 # production gems
