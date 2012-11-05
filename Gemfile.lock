@@ -266,7 +266,6 @@ DEPENDENCIES
   simplecov
   sqlite3
   test-unit
-  therubyracer
   uglifier (>= 1.0.3)
   userstamp!
   uuidtools
