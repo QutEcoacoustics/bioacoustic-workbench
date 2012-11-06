@@ -1,8 +1,14 @@
 QubarSite::Application.routes.draw do
 
+  #match '*path' => 'home#index',
+  #  :constraints => {
+  #      :via => :get,
+  #      :format => /.*text\/html.*/
+  #  }
+
   devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 
-  resources :projects, :sites, :photos, :users, :audio_events, :audio_recordings, :permissions, :tags
+  resources :home, :projects, :sites, :photos, :users, :audio_events, :audio_recordings, :permissions, :tags
   
   # audio and spectrogram media items
   # (?<id>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})_(?<start_offset>\d{9})_(?<end_offset>\d{9})_(?<channel>\d{1,4})_(?<sample_rate>\d{1,6}).(?<format>\S{1,4})
@@ -44,9 +50,7 @@ QubarSite::Application.routes.draw do
     }
   
   
-  
-  
-  get "home/index"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

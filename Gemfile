@@ -54,20 +54,17 @@ end
 group :test do
   gem 'rake', '10.0.0.beta.2'
 
-  gem 'ruby-prof'
-  gem 'test-unit'
-
-  gem 'cucumber', :require => false
-  gem 'cucumber-rails', :require => false
-  gem 'database_cleaner'
   gem 'simplecov', :require => false
+
 end
 
 
 group :development do
   gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
   gem 'ruby-debug-ide', '>= 0.4.17.beta14'
+end
 
+group :development, :test do
 
   gem 'test-unit'
   gem 'ruby-prof'
@@ -76,7 +73,8 @@ group :development do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 
-
+  gem 'jasmine', '>=1.0.2.1', :git => "https://github.com/pivotal/jasmine-gem.git"
+  gem 'headless', '0.1.0'
 end
 
 # production gems

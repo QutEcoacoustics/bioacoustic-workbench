@@ -7,6 +7,16 @@ GIT
       activesupport (>= 3.2)
 
 GIT
+  remote: https://github.com/pivotal/jasmine-gem.git
+  revision: 91c1306c6f14a1c5e33e88dc676fa39dc2ab4d33
+  specs:
+    jasmine (1.2.1)
+      jasmine-core (>= 1.2.0)
+      rack (~> 1.0)
+      rspec (>= 1.3.1)
+      selenium-webdriver (>= 0.1.3)
+
+GIT
   remote: https://github.com/theepan/userstamp.git
   revision: bf05d832ee27a717ea9455d685c83ae2cfb80310
   specs:
@@ -97,10 +107,12 @@ GEM
     gherkin (2.11.5-x86-mingw32)
       json (>= 1.4.6)
     hashie (1.2.0)
+    headless (0.1.0)
     highline (1.6.15)
     hike (1.2.1)
     httpauth (0.2.0)
     i18n (0.6.1)
+    jasmine-core (1.2.0)
     journey (1.0.4)
     jquery-rails (2.1.3)
       railties (>= 3.1.0, < 5.0)
@@ -185,6 +197,14 @@ GEM
     rake (10.0.0.beta.2)
     rdoc (3.12)
       json (~> 1.4)
+    rspec (2.11.0)
+      rspec-core (~> 2.11.0)
+      rspec-expectations (~> 2.11.0)
+      rspec-mocks (~> 2.11.0)
+    rspec-core (2.11.1)
+    rspec-expectations (2.11.3)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.11.3)
     ruby-debug-base19x (0.11.30.pre10)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
@@ -248,6 +268,8 @@ DEPENDENCIES
   database_cleaner
   devise
   enumerize!
+  headless (= 0.1.0)
+  jasmine (>= 1.0.2.1)!
   jquery-rails
   omniauth
   omniauth-browserid
