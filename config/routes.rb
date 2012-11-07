@@ -5,6 +5,7 @@ QubarSite::Application.routes.draw do
   #      :via => :get,
   #      :format => /.*text\/html.*/
   #  }
+  match 'listen' => 'home#index'
 
   devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 
