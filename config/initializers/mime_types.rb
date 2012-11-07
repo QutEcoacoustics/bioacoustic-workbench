@@ -10,3 +10,4 @@ Mime::Type.register "audio/webm", :webm
 Mime::Type.register "audio/webma", :webma
 Mime::Type.register "audio/ogg", :ogg
 Mime::Type.register "audio/oga", :oga
+Mime::Type.register "audio/wavpack", :wv
