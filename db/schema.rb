@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20121103085046) do
 
   create_table "audio_recordings", :force => true do |t|
     t.string   "uuid",              :limit => 36,  :null => false
-    t.integer  "user_id",                          :null => false
+    t.integer  "uploader_id",                      :null => false
     t.datetime "recorded_date",                    :null => false
     t.integer  "site_id",                          :null => false
     t.decimal  "duration_seconds",                 :null => false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20121103085046) do
   end
 
   add_index "audio_recordings", ["site_id"], :name => "index_audio_recordings_on_site_id"
-  add_index "audio_recordings", ["user_id"], :name => "index_audio_recordings_on_user_id"
+  add_index "audio_recordings", ["uploader_id"], :name => "index_audio_recordings_on_uploader_id"
   add_index "audio_recordings", ["uuid"], :name => "index_audio_recordings_on_uuid", :unique => true
 
   create_table "authorizations", :force => true do |t|
