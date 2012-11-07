@@ -3,7 +3,7 @@ class CreateAudioRecordings < ActiveRecord::Migration
     #noinspection SpellCheckingInspection
     create_table :audio_recordings do |t|
       t.string :uuid, :null => false, :limit => 36
-      t.references :user, :null => false
+      t.integer :uploader_id, :null => false
       t.datetime :recorded_date, :null => false
       t.references :site, :null => false
       t.decimal :duration_seconds, :null => false, :scale => 6
@@ -22,7 +22,7 @@ class CreateAudioRecordings < ActiveRecord::Migration
       t.timestamps
       t.userstamps include_deleted_by = true
     end
-    add_index :audio_recordings, :user_id
+    add_index :audio_recordings, :uploader_id
     add_index :audio_recordings, :site_id
     add_index :audio_recordings, :uuid, :unique => true
   end
