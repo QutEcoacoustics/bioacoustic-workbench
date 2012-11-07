@@ -48,6 +48,14 @@ QubarSite::Application.routes.draw do
       :date            => /\d{8}/,
       :time            => /\d{6}/
     }
+
+  # for original audio info
+  match 'media/(:id)_(:date)_(:time)' => 'media#item',
+        :constraints => {
+            :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
+            :date            => /\d{8}/,
+            :time            => /\d{6}/
+        }
   
   
 
