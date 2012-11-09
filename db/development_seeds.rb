@@ -50,24 +50,24 @@ def run_dev_seeds(admin_id)
   # photos -> sites
   sv Photo.create({description:"Koala Climbing a tree", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
-                   imageable_type: "site", imageable_id:p1.id })
+                   imageable_type: "Site", imageable_id:p1.id })
   sv Photo.create({description:"Lizard", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bartagame_fcm.jpg/250px-Bartagame_fcm.jpg",
-                    imageable_type: "site", imageable_id:p2.id })
+                    imageable_type: "Site", imageable_id:p2.id })
   sv Photo.create({description:"Canetoad on a rock", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
-                    imageable_type: "site", imageable_id:s3.id })
+                    imageable_type: "Site", imageable_id:s3.id })
 
   # photos -> projects
   sv Photo.create({description:"Koala Climbing  a tree", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
-                    imageable_type: "project", imageable_id:p1.id })
+                    imageable_type: "Project", imageable_id:p1.id })
   sv Photo.create({description:"Canetoad on a rock", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
-                    imageable_type: "project", imageable_id:p2.id })
+                    imageable_type: "Project", imageable_id:p2.id })
   sv Photo.create({description:"Jason Wimmer Deploying sensors", copyright:"Microsoft QUT eResearch center",
                     uri:"http://sensor.mquter.qut.edu.au/graphics/welcome1.jpg",
-                    imageable_type: "project", imageable_id:p3.id })
+                    imageable_type: "Project", imageable_id:p3.id })
 
 
   # audio recordings
