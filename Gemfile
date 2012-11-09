@@ -75,7 +75,7 @@ group :development, :test do
 
   gem 'jasmine', '>=1.0.2.1', :git => "https://github.com/pivotal/jasmine-gem.git"
   gem 'jasminerice'
-  gem 'headless', '0.1.0'
+  gem 'headless', '>=0.1.0'
 end
 
 # production gems
