@@ -12,4 +12,4 @@ Mime::Type.register "audio/ogg", :ogg
 Mime::Type.register "audio/oga", :oga
 Mime::Type.register "audio/wavpack", :wv
 Mime::Type.register "audio/wav", :wav
-Mime::Type.register "audio/x-wav", :wav
+#Mime::Type.register "audio/x-wav", :wav

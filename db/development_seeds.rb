@@ -50,24 +50,24 @@ def run_dev_seeds(admin_id)
   # photos -> sites
   sv Photo.create({description:"Koala Climbing a tree", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
-                   imageable_type: "site", imageable_id:p1.id })
+                   imageable_type: "Site", imageable_id:p1.id })
   sv Photo.create({description:"Lizard", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bartagame_fcm.jpg/250px-Bartagame_fcm.jpg",
-                    imageable_type: "site", imageable_id:p2.id })
+                    imageable_type: "Site", imageable_id:p2.id })
   sv Photo.create({description:"Canetoad on a rock", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
-                    imageable_type: "site", imageable_id:s3.id })
+                    imageable_type: "Site", imageable_id:s3.id })
 
   # photos -> projects
   sv Photo.create({description:"Koala Climbing  a tree", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
-                    imageable_type: "project", imageable_id:p1.id })
+                    imageable_type: "Project", imageable_id:p1.id })
   sv Photo.create({description:"Canetoad on a rock", copyright:"Wikimedia CC 3.0",
                     uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
-                    imageable_type: "project", imageable_id:p2.id })
+                    imageable_type: "Project", imageable_id:p2.id })
   sv Photo.create({description:"Jason Wimmer Deploying sensors", copyright:"Microsoft QUT eResearch center",
                     uri:"http://sensor.mquter.qut.edu.au/graphics/welcome1.jpg",
-                    imageable_type: "project", imageable_id:p3.id })
+                    imageable_type: "Project", imageable_id:p3.id })
 
 
   # audio recordings
@@ -79,7 +79,7 @@ def run_dev_seeds(admin_id)
   ar1 = ids (AudioRecording.create({uuid:ar1_uuid,  media_type:'audio/wavpack', status:'ready',
                                recorded_date:'2012/11/06', duration_seconds: 120.0, sample_rate_hertz: 22050,
                                channels: 1, bit_rate_bps:171000, data_length_bytes: 2560180,
-                               file_hash: 'MD5::EFB5B76BE5FD1F0D19CD5FE692AF1FC2' }));
+                               file_hash: 'MD5::EFB5B76BE5FD1F0D19CD5FE692AF1FC2' }))
 
   ar1.uploader_id = admin_id
 
@@ -91,7 +91,7 @@ def run_dev_seeds(admin_id)
 
   AudioRecording.send(:attr_protected, :uuid)
 
-  fakeReadings =
+  fake_readings =
     [
       ["4e01751b-b567-406c-af0a-c44f39f29f2c", s1],
       ["8a26c5cd-3f09-4b2f-b48c-142aff498483", s2],
@@ -101,14 +101,14 @@ def run_dev_seeds(admin_id)
     ]
 
   lengths = [120.0, 1440 * 60, 720 * 60]
-  fakeReadings.each { |row|
+  fake_readings.each { |row|
     time = rand(10.years).ago
 
     AudioRecording.send(:attr_accessible, :uuid)
     ar = ids (AudioRecording.create({uuid:row[0],  media_type:'audio/mpeg3', status:'ready',
                                 recorded_date:time, duration_seconds: lengths.sample, sample_rate_hertz: 22050,
                                 channels: 2, bit_rate_bps:171000, data_length_bytes: (rand * 10000).to_i,
-                                file_hash: 'INVALID', notes:{:fake => true} }));
+                                file_hash: 'INVALID', notes:{:fake => true} }))
     ar.uploader_id = admin_id
     ar.site = row[1]
     sv ar
@@ -116,8 +116,8 @@ def run_dev_seeds(admin_id)
   }
 
   # tags
-  dummyTags =["Koala Bellow", "Eastern Koel", "Torresian Crow", "Scared Kingfisher", "Lewin's Honeyeater", "Canetoad", "Crickets"]
-  dummyTags.each { |tagName|
+  dummy_tags =["Koala Bellow", "Eastern Koel", "Torresian Crow", "Scared Kingfisher", "Lewin's Honeyeater", "Canetoad", "Crickets"]
+  dummy_tags.each { |tagName|
     t = ids  Tag.create({text: tagName, is_taxanomic: true})
     t.type_of_tag = :common_name
     sv t
