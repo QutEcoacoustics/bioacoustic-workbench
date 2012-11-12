@@ -1,11 +1,30 @@
-QubarSite::Application.routes.draw do
+class AngularConstraint
+  def initialize
+    @exceptions = ['assets/']
+  end
+
+  # if any html request comes through then match it
+  # unless it is in the assets path
+  def matches?(request)
+    return false unless request.format.html?
+    
+    @exceptions.each {|p|
+      return !request.path.include?(p)
+    }
+
+     true
+  end
+end
+
+BawSite::Application.routes.draw do
 
   #match '*path' => 'home#index',
   #  :constraints => {
   #      :via => :get,
   #      :format => /.*text\/html.*/
   #  }
-  match 'listen(/:id)' => 'home#index'
+  match '*path' => 'home#index', :constraints =>AngularConstraint.new, :as => :angular_routing
+  #match 'listen(/:id)' => 'home#index'
 
   devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 

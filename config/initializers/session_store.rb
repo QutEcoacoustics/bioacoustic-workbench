@@ -1,8 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-QubarSite::Application.config.session_store :cookie_store, key: '_qubar.site_session'
+BawSite::Application.config.session_store :cookie_store, key: '_baw.site_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-# QubarSite::Application.config.session_store :active_record_store
+# BawSite::Application.config.session_store :active_record_store

@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-QubarSite::Application.load_tasks
+BawSite::Application.load_tasks
