@@ -1,7 +1,7 @@
-module QubarSite
+module BawSite
   
   def set(key, value)
-    QubarSite::Application.instance_variable_set
+    BawSite::Application.instance_variable_set
   end
   
   class Application
