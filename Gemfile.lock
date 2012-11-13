@@ -201,6 +201,8 @@ GEM
     rake (10.0.0.beta.2)
     rdoc (3.12)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -285,7 +287,8 @@ DEPENDENCIES
   rails (>= 3.2.9.rc2)
   rails3_acts_as_paranoid (~> 0.2.0)
   rake (= 10.0.0.beta.2)
-  ruby-debug-base19x (>= 0.11.30.pre10)
+  rest-client
+  ruby-debug-base19x (= 0.11.30.pre10)
   ruby-debug-ide (>= 0.4.17.beta14)
   ruby-imagespec
   ruby-prof
