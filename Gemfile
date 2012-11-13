@@ -12,6 +12,9 @@ gem 'sqlite3'
 gem 'devise'
 gem 'omniauth'
 
+# for harvester to make requests to the website
+gem 'rest-client'
+
 # omniauth gems for strategies we want to use
 gem 'omniauth-browserid'
 gem 'omniauth-facebook'
@@ -60,7 +63,7 @@ end
 
 
 group :development do
-  gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
+  gem 'ruby-debug-base19x', '0.11.30.pre10'
   gem 'ruby-debug-ide', '>= 0.4.17.beta14'
 end
 
