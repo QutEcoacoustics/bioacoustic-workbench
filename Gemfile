@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # core rails gem
-gem 'rails', '>=3.2.9.rc2'
+gem 'rails', '>=3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -55,7 +55,7 @@ end
 
 # group for running tests
 group :test do
-  gem 'rake', '10.0.0.beta.2'
+  gem 'rake', '>=10.0.0'
 
   gem 'simplecov', :require => false
 

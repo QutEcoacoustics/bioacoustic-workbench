@@ -7,7 +7,7 @@ class AngularConstraint
   # unless it is in the assets path
   def matches?(request)
     return false unless request.format.html?
-    
+
     @exceptions.each {|p|
       return !request.path.include?(p)
     }
