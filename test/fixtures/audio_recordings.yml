@@ -3,7 +3,7 @@
 one:
   id: 1
   uuid: 'e7f6ecf1-230b-44ba-bd11-d6f41239a771'
-  user_id: 1
+  uploader_id: 1
   recorded_date: 2012-10-30 11:53:47
   site_id: 1
   duration_seconds: 30.0

@@ -17,6 +17,7 @@ module BawSite
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/lib/modules)
+    config.autoload_paths += %W(#{config.root}/lib/external)
     config.autoload_paths += %W(#{config.root}/lib)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
