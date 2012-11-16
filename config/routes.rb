@@ -18,13 +18,8 @@ end
 
 BawSite::Application.routes.draw do
 
-  #match '*path' => 'home#index',
-  #  :constraints => {
-  #      :via => :get,
-  #      :format => /.*text\/html.*/
-  #  }
   match '*path' => 'home#index', :constraints =>AngularConstraint.new, :as => :angular_routing
-  #match 'listen(/:id)' => 'home#index'
+
 
   devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 
