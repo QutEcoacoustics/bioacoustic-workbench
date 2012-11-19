@@ -18,6 +18,15 @@ end
 
 BawSite::Application.routes.draw do
 
+  resources :bookmarks
+
+
+  resources :progresses
+
+
+  resources :saved_searches
+
+
   match '*path' => 'home#index', :constraints =>AngularConstraint.new, :as => :angular_routing
 
 
