@@ -12,8 +12,6 @@ gem 'sqlite3'
 gem 'devise'
 gem 'omniauth'
 
-# for harvester to make requests to the website
-gem 'rest-client'
 
 # omniauth gems for strategies we want to use
 gem 'omniauth-browserid'
@@ -56,11 +54,8 @@ end
 # group for running tests
 group :test do
   gem 'rake', '>=10.0.0'
-
   gem 'simplecov', :require => false
-
 end
-
 
 group :development do
   gem 'ruby-debug-base19x', '0.11.30.pre10'

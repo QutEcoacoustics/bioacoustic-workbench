@@ -1,6 +1,6 @@
 class AngularConstraint
   def initialize
-    @exceptions = ['assets/']
+    @exceptions = %w(assets/)
   end
 
   # if any html request comes through then match it
@@ -33,6 +33,12 @@ BawSite::Application.routes.draw do
   devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 
   resources :home, :projects, :sites, :photos, :users, :audio_events, :audio_recordings, :permissions, :tags
+
+  resources :audio_recordings do
+    collection do
+      get 'new'
+    end
+  end
   
   # audio and spectrogram media items
   # (?<id>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})_(?<start_offset>\d{9})_(?<end_offset>\d{9})_(?<channel>\d{1,4})_(?<sample_rate>\d{1,6}).(?<format>\S{1,4})

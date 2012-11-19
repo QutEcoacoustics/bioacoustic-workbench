@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CacheModuleTest < ActiveSupport::TestCase
+class ModuleCacheTest < ActiveSupport::TestCase
   include Cache
   test "creating correct cached spectrogram file name" do
   
