@@ -9,19 +9,18 @@ require_relative "./development_seeds"
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Super user setup
-dummy = User.create({display_name: "admin"})
-dummy.creator_id = dummy.id
-dummy.updater_id = dummy.id
-dummy.save
+admin_user = User.create({display_name: "admin"})
+admin_user.creator_id = admin_user.id
+admin_user.updater_id = admin_user.id
+admin_user.save!
 
-
-puts "BAW build :: Adding additional environment specific data to database..."
+puts "BAW build :: Adding additional environment ('#{Rails.env}') specific data to database..."
 case Rails.env
   when "development"
-    run_dev_seeds dummy.id
+    run_dev_seeds admin_user.id
   when "production"
 
   when "test"
     # these seeds should be put in the fixtures folder
-
+    run_dev_seeds admin_user.id
 end

@@ -1,9 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  name: MyString
-  search_object: MyText
+  name: "Saved Search 1"
+  search_object:
+    body:
+      projects_ids: [ 1 ]
+  creator_id: 1
 
 two:
-  name: MyString
-  search_object: MyText
+  name: "Saved Search 2"
+  search_object:
+      body:
+  creator_id: 1

@@ -27,6 +27,13 @@ module BawSite
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
+    # any query exceeding this many seconds will have its EXPLAIN automatically triggered and logged.
+    # In the case of relations, the threshold is compared to the total time needed to fetch records.
+    # So, a relation is seen as a unit of work, no matter whether the implementation of eager loading
+    # involves several queries under the hood.
+    # http://guides.rubyonrails.org/active_record_querying.html#conditions
+    config.active_record.auto_explain_threshold_in_seconds = 0.5
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'

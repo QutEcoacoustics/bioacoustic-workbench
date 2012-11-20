@@ -17,6 +17,8 @@ def add(obj)
 end
 
 def run_dev_seeds(admin_id)
+  puts "Seeding database..."
+
   @admin_id = admin_id
 
   # projects
