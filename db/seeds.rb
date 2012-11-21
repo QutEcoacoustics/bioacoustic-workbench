@@ -1,4 +1,5 @@
 require_relative "./development_seeds"
+require 'database_cleaner'
 
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
@@ -8,8 +9,13 @@ require_relative "./development_seeds"
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# clear database
+puts 'Cleaning database...'
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean
+
 # Super user setup
-admin_user = User.create({display_name: "admin"})
+admin_user = User.create({display_name: "admin", email: 'admin@example.com'})
 admin_user.creator_id = admin_user.id
 admin_user.updater_id = admin_user.id
 admin_user.save!
