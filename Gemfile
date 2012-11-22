@@ -13,7 +13,6 @@ gem 'sqlite3'
 gem 'devise'
 gem 'omniauth'
 
-
 # omniauth gems for strategies we want to use
 gem 'omniauth-browserid'
 gem 'omniauth-facebook'

@@ -119,30 +119,35 @@ def run_dev_seeds(admin_id)
   }
 
   # tags
-  dummy_tags =["Koala Bellow", "Eastern Koel", "Torresian Crow", "Scared Kingfisher", "Lewin's Honeyeater", "Canetoad", "Crickets"]
+  dummy_tags =["Koala Bellow", "Eastern Koel", "Torresian Crow", "Sacred Kingfisher", "Lewin's Honeyeater", "Canetoad", "Crickets"]
   dummy_tags.each { |tagName|
     t = ids  Tag.create({text: tagName, is_taxanomic: true})
     t.type_of_tag = :common_name
     sv t
   }
 
-  # annotations
+  # audo events
   tags = Tag.all
 
-  at1 = ids( AudioEvent.create({start_time_seconds: 11.0, end_time_seconds: 13.5, low_frequency_hertz: 150,
+  at1 = add( AudioEvent.create({start_time_seconds: 11.0, end_time_seconds: 13.5, low_frequency_hertz: 150,
                                 high_frequency_hertz: 8000, is_reference: false, audio_recording_id: ar1.id}))
-  at1.tags.push (tags.select{|i| i == "Torresian Crow"})
-  sv at1
 
-  at2 = ids( AudioEvent.create({start_time_seconds: 1.0, end_time_seconds: 2.5, low_frequency_hertz: 1000,
+
+  at2 = add( AudioEvent.create({start_time_seconds: 1.0, end_time_seconds: 2.5, low_frequency_hertz: 1000,
                                 high_frequency_hertz: 10000, is_reference: false, audio_recording_id: ar1.id}))
-  at2.tags.push (tags.select{|i| i == "Koala Bellow"})
-  sv at2
 
-  at3 = ids( AudioEvent.create({start_time_seconds: 5.2, end_time_seconds: 12.5, low_frequency_hertz: 200,
+  at3 = add( AudioEvent.create({start_time_seconds: 5.2, end_time_seconds: 12.5, low_frequency_hertz: 200,
                                 high_frequency_hertz: 2500, is_reference: false, audio_recording_id: ar1.id}))
-  at3.tags.push (tags.select{|i| i == "Lewin's Honeyeater"})
-  sv at3
+
+  at4 = add( AudioEvent.create({start_time_seconds: 5.2, end_time_seconds: 12.5, low_frequency_hertz: 200,
+                                high_frequency_hertz: 2500, is_reference: false, audio_recording_id: 2}))
+
+  # audio events <-> tags
+
+  aet1 = add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Torresian Crow"}.first))
+  aet2 = add(at2.audio_event_tags.build(:tag => tags.select{|i| i.text == "Koala Bellow"}.first))
+  aet3 = add(at3.audio_event_tags.build(:tag => tags.select{|i| i.text == "Lewin's Honeyeater"}.first))
+  aet4 = add(at4.audio_event_tags.build(:tag => tags.select{|i| i.text == "Sacred Kingfisher"}.first))
 
   # bookmarks
 
