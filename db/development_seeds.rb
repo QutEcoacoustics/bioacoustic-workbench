@@ -1,9 +1,6 @@
 def ids(obj)
   obj.creator_id = @admin_id
   obj.updater_id = @admin_id
-
-
-
   obj
 end
 
@@ -17,7 +14,13 @@ def add(obj)
 end
 
 def run_dev_seeds(admin_id)
+  puts "Seeding database..."
+
   @admin_id = admin_id
+
+  # other users
+  u1 = sv User.create({ display_name: 'A normal user', email: 'normal@example.com'})
+  u1 = sv User.create({ display_name: 'A complicated user', email: 'complicated@example.com'})
 
   # projects
   p1 = add (Project.create({ description: "SERF Acoustic study aimed at detecting the <__> species",
@@ -140,6 +143,18 @@ def run_dev_seeds(admin_id)
                                 high_frequency_hertz: 2500, is_reference: false, audio_recording_id: ar1.id}))
   at3.tags.push (tags.select{|i| i == "Lewin's Honeyeater"})
   sv at3
+
+  # bookmarks
+
+  # permissions
+
+  # progresses
+
+  # authorizations
+
+  # saved searches
+
+  # audio event tags
 
 
 end

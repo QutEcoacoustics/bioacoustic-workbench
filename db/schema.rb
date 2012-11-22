@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103085046) do
+ActiveRecord::Schema.define(:version => 20121119063100) do
 
   create_table "audio_event_tags", :id => false, :force => true do |t|
     t.integer  "audio_event_id", :null => false
@@ -77,6 +77,20 @@ ActiveRecord::Schema.define(:version => 20121103085046) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "bookmarks", :force => true do |t|
+    t.integer  "audio_recording_id", :null => false
+    t.decimal  "offset",             :null => false
+    t.string   "name"
+    t.text     "notes"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  add_index "bookmarks", ["audio_recording_id"], :name => "index_bookmarks_on_audio_recording_id"
+  add_index "bookmarks", ["creator_id"], :name => "index_bookmarks_on_creator_id"
+
   create_table "permissions", :force => true do |t|
     t.integer  "user_id"
     t.string   "level",               :null => false
@@ -100,6 +114,23 @@ ActiveRecord::Schema.define(:version => 20121103085046) do
     t.text     "description"
   end
 
+  create_table "progresses", :force => true do |t|
+    t.integer  "saved_search_id",      :null => false
+    t.integer  "audio_recording_id",   :null => false
+    t.string   "activity",             :null => false
+    t.decimal  "start_offset_seconds", :null => false
+    t.decimal  "end_offset_seconds",   :null => false
+    t.binary   "offset_list",          :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  add_index "progresses", ["audio_recording_id"], :name => "index_progresses_on_audio_recording_id"
+  add_index "progresses", ["creator_id", "activity", "saved_search_id", "audio_recording_id", "start_offset_seconds", "end_offset_seconds"], :name => "six_column_uniqueness_key", :unique => true
+  add_index "progresses", ["saved_search_id"], :name => "index_progresses_on_saved_search_id"
+
   create_table "project_sites", :id => false, :force => true do |t|
     t.integer  "project_id"
     t.integer  "site_id"
@@ -118,6 +149,17 @@ ActiveRecord::Schema.define(:version => 20121103085046) do
     t.integer  "updater_id"
     t.datetime "deleted_at"
   end
+
+  create_table "saved_searches", :force => true do |t|
+    t.string   "name"
+    t.text     "search_object", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  add_index "saved_searches", ["creator_id", "name", "search_object"], :name => "index_saved_searches_on_creator_id_and_name_and_search_object", :unique => true
 
   create_table "sites", :force => true do |t|
     t.string   "name"
@@ -169,4 +211,3 @@ ActiveRecord::Schema.define(:version => 20121103085046) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end
-
