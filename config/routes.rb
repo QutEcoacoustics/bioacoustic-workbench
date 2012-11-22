@@ -18,21 +18,13 @@ end
 
 BawSite::Application.routes.draw do
 
-  resources :bookmarks
-
-
-  resources :progresses
-
-
-  resources :saved_searches
-
-
+  # this is the catch-all route that allows rails to respond to any route, and essentially 'forward' it to angular
   match '*path' => 'home#index', :constraints =>AngularConstraint.new, :as => :angular_routing
 
 
   devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 
-  resources :home, :projects, :sites, :photos, :users, :audio_events, :audio_recordings, :permissions, :tags
+  resources :home, :projects, :sites, :photos, :users, :audio_events, :audio_recordings, :permissions, :tags, :saved_searches,  :progresses, :bookmarks
 
   resources :audio_recordings do
     collection do
