@@ -18,25 +18,22 @@ end
 
 BawSite::Application.routes.draw do
 
-  resources :bookmarks
-
-
-  resources :progresses
-
-
-  resources :saved_searches
-
-
   match '*path' => 'home#index', :constraints =>AngularConstraint.new, :as => :angular_routing
-
 
   devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
 
-  resources :home, :projects, :sites, :photos, :users, :audio_events, :audio_recordings, :permissions, :tags
+  resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions, :tags, :bookmarks,  :progresses, :saved_searches
+
 
   resources :audio_recordings do
     collection do
       get 'new'
+    end
+  end
+
+  resources :audio_events do
+    collection do
+      get 'download'
     end
   end
   
