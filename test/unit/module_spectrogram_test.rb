@@ -15,7 +15,7 @@ class SpectrogramModuleTest < ActiveSupport::TestCase
 
     assert File.exists?(input_audio), "Source audio file does not exist: #{input_audio}"
 
-    result = Spectrogram::generate(input_audio, output_image, [])
+    result = Spectrogram::generate(input_audio, output_image, {})
 
     assert File.exists?(output_image), "Target image does not exist: #{output_image}, #{result}"
 
@@ -43,7 +43,7 @@ class SpectrogramModuleTest < ActiveSupport::TestCase
 
     assert File.exists?(input_audio), "Source audio file does not exist: #{input_audio}"
 
-    exception = assert_raise(ArgumentError) { Spectrogram::generate(input_audio, output_image, []) }
+    exception = assert_raise(ArgumentError) { Spectrogram::generate(input_audio, output_image, {}) }
     assert_equal( "Source file was not a valid audio file: #{input_audio}.", exception.message )
 
     #tidy up
@@ -64,7 +64,7 @@ class SpectrogramModuleTest < ActiveSupport::TestCase
     assert File.exists?(input_audio), "Source audio file does not exist: #{input_audio}"
 
     # generate the spectrogram
-    result = Spectrogram::generate(input_audio, output_image, [])
+    result = Spectrogram::generate(input_audio, output_image, {})
 
     # ensure target file exists
     assert File.exists?(output_image), "Target image does not exist: #{output_image}"
