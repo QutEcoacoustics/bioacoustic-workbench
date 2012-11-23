@@ -1,3 +1,5 @@
+require 'database_cleaner'
+
 def ids(obj)
   obj.creator_id = @admin_id
   obj.updater_id = @admin_id
@@ -14,8 +16,13 @@ def add(obj)
 end
 
 def run_dev_seeds(admin_id)
-  puts "Seeding database..."
 
+  # clear database
+  puts 'Cleaning database...'
+  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.clean
+
+  puts "Seeding database..."
   @admin_id = admin_id
 
   # other users
@@ -24,16 +31,16 @@ def run_dev_seeds(admin_id)
 
   # projects
   p1 = add (Project.create({ description: "SERF Acoustic study aimed at detecting the <__> species",
-                    name:        "SERF AS Frogs", notes: { }, urn: "http://localhost:3000/projects/serf_as_frogs"
-                  }))
+                             name:        "SERF AS Frogs", notes: { }, urn: "http://localhost:3000/projects/serf_as_frogs"
+                           }))
 
   p2 = add (Project.create({ description: "Groote Island project dedicated to preventing canetoad infestation",
-                    name:        "Groote Canetoad", notes: { }, urn: "http://localhost:3000/projects/groote_canetoad",
-                  }))
+                             name:        "Groote Canetoad", notes: { }, urn: "http://localhost:3000/projects/groote_canetoad",
+                           }))
 
   p3 =add (Project.create({ description: "Collaborative study reusing data from several projects to monitor Koala calls",
-                    name:        "Qubar Collaborative", notes: { }, urn: "http://localhost:3000/projects/qubar_collaborative",
-                  }))
+                            name:        "Qubar Collaborative", notes: { }, urn: "http://localhost:3000/projects/qubar_collaborative",
+                          }))
 
 
   # sites
@@ -52,25 +59,25 @@ def run_dev_seeds(admin_id)
   # photos
   # photos -> sites
   sv Photo.create({description:"Koala Climbing a tree", copyright:"Wikimedia CC 3.0",
-                    uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
+                   uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
                    imageable_type: "Site", imageable_id:p1.id })
   sv Photo.create({description:"Lizard", copyright:"Wikimedia CC 3.0",
-                    uri:"http://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bartagame_fcm.jpg/250px-Bartagame_fcm.jpg",
-                    imageable_type: "Site", imageable_id:p2.id })
+                   uri:"http://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bartagame_fcm.jpg/250px-Bartagame_fcm.jpg",
+                   imageable_type: "Site", imageable_id:p2.id })
   sv Photo.create({description:"Canetoad on a rock", copyright:"Wikimedia CC 3.0",
-                    uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
-                    imageable_type: "Site", imageable_id:s3.id })
+                   uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
+                   imageable_type: "Site", imageable_id:s3.id })
 
   # photos -> projects
   sv Photo.create({description:"Koala Climbing  a tree", copyright:"Wikimedia CC 3.0",
-                    uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
-                    imageable_type: "Project", imageable_id:p1.id })
+                   uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
+                   imageable_type: "Project", imageable_id:p1.id })
   sv Photo.create({description:"Canetoad on a rock", copyright:"Wikimedia CC 3.0",
-                    uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
-                    imageable_type: "Project", imageable_id:p2.id })
+                   uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
+                   imageable_type: "Project", imageable_id:p2.id })
   sv Photo.create({description:"Jason Wimmer Deploying sensors", copyright:"Microsoft QUT eResearch center",
-                    uri:"http://sensor.mquter.qut.edu.au/graphics/welcome1.jpg",
-                    imageable_type: "Project", imageable_id:p3.id })
+                   uri:"http://sensor.mquter.qut.edu.au/graphics/welcome1.jpg",
+                   imageable_type: "Project", imageable_id:p3.id })
 
 
   # audio recordings
@@ -80,9 +87,9 @@ def run_dev_seeds(admin_id)
   ar1_uuid = '1bd0d668-1471-4396-adc3-09ccd8fe949a'
   #recorded_date:'2012/11/06',
   ar1 = ids (AudioRecording.create({uuid:ar1_uuid,  media_type:'audio/wavpack', status:'ready',
-                               recorded_date:'2012/11/06', duration_seconds: 120.0, sample_rate_hertz: 22050,
-                               channels: 1, bit_rate_bps:171000, data_length_bytes: 2560180,
-                               file_hash: 'MD5::EFB5B76BE5FD1F0D19CD5FE692AF1FC2' }))
+                                    recorded_date:'2012/11/06', duration_seconds: 120.0, sample_rate_hertz: 22050,
+                                    channels: 1, bit_rate_bps:171000, data_length_bytes: 2560180,
+                                    file_hash: 'MD5::EFB5B76BE5FD1F0D19CD5FE692AF1FC2' }))
 
   ar1.uploader_id = admin_id
 
@@ -95,13 +102,13 @@ def run_dev_seeds(admin_id)
   AudioRecording.send(:attr_protected, :uuid)
 
   fake_readings =
-    [
-      ["4e01751b-b567-406c-af0a-c44f39f29f2c", s1],
-      ["8a26c5cd-3f09-4b2f-b48c-142aff498483", s2],
-      ["d49ba8d4-9dde-46c2-a04d-94aba66366c9", s3],
-      ["f9f2b885-6f25-4fdb-8c53-e03dca3f7e8a", s1],
-      ["13990e57-42a8-4b35-8eb0-1613bbb83bf6", s2]
-    ]
+      [
+          ["4e01751b-b567-406c-af0a-c44f39f29f2c", s1],
+          ["8a26c5cd-3f09-4b2f-b48c-142aff498483", s2],
+          ["d49ba8d4-9dde-46c2-a04d-94aba66366c9", s3],
+          ["f9f2b885-6f25-4fdb-8c53-e03dca3f7e8a", s1],
+          ["13990e57-42a8-4b35-8eb0-1613bbb83bf6", s2]
+      ]
 
   lengths = [120.0, 1440 * 60, 720 * 60]
   fake_readings.each { |row|
@@ -109,9 +116,9 @@ def run_dev_seeds(admin_id)
 
     AudioRecording.send(:attr_accessible, :uuid)
     ar = ids (AudioRecording.create({uuid:row[0],  media_type:'audio/mpeg3', status:'ready',
-                                recorded_date:time, duration_seconds: lengths.sample, sample_rate_hertz: 22050,
-                                channels: 2, bit_rate_bps:171000, data_length_bytes: (rand * 10000).to_i,
-                                file_hash: 'INVALID', notes:{:fake => true} }))
+                                     recorded_date:time, duration_seconds: lengths.sample, sample_rate_hertz: 22050,
+                                     channels: 2, bit_rate_bps:171000, data_length_bytes: (rand * 10000).to_i,
+                                     file_hash: 'INVALID', notes:{:fake => true} }))
     ar.uploader_id = admin_id
     ar.site = row[1]
     sv ar
@@ -121,10 +128,16 @@ def run_dev_seeds(admin_id)
   # tags
   dummy_tags =["Koala Bellow", "Eastern Koel", "Torresian Crow", "Sacred Kingfisher", "Lewin's Honeyeater", "Canetoad", "Crickets"]
   dummy_tags.each { |tagName|
-    t = ids  Tag.create({text: tagName, is_taxanomic: true})
+    t = ids Tag.create({text: tagName, is_taxanomic: true})
     t.type_of_tag = :common_name
     sv t
   }
+
+  # more types of tags
+  add Tag.create({text: "caw", is_taxanomic: false, type_of_tag: :sounds_like})
+  add Tag.create({text: "whistle", is_taxanomic: false, type_of_tag: :looks_like})
+  add Tag.create({text: "repeating", is_taxanomic: false, type_of_tag: :looks_like})
+  add Tag.create({text: "Corvus orru", is_taxanomic: true, type_of_tag: :species_name})
 
   # audo events
   tags = Tag.all
@@ -144,10 +157,16 @@ def run_dev_seeds(admin_id)
 
   # audio events <-> tags
 
-  aet1 = add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Torresian Crow"}.first))
-  aet2 = add(at2.audio_event_tags.build(:tag => tags.select{|i| i.text == "Koala Bellow"}.first))
-  aet3 = add(at3.audio_event_tags.build(:tag => tags.select{|i| i.text == "Lewin's Honeyeater"}.first))
-  aet4 = add(at4.audio_event_tags.build(:tag => tags.select{|i| i.text == "Sacred Kingfisher"}.first))
+  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Torresian Crow"}.first))
+  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "caw"}.first))
+  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Corvus orru"}.first))
+
+  add(at2.audio_event_tags.build(:tag => tags.select{|i| i.text == "Koala Bellow"}.first))
+
+  add(at3.audio_event_tags.build(:tag => tags.select{|i| i.text == "Lewin's Honeyeater"}.first))
+  add(at3.audio_event_tags.build(:tag => tags.select{|i| i.text == "repeating"}.first))
+
+  add(at4.audio_event_tags.build(:tag => tags.select{|i| i.text == "Sacred Kingfisher"}.first))
 
   # bookmarks
 
