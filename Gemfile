@@ -60,6 +60,8 @@ end
 group :development do
   gem 'ruby-debug-base19x', '0.11.30.pre10'
   gem 'ruby-debug-ide', '>= 0.4.17.beta14'
+
+  #gem 'thin'
 end
 
 group :development, :test do
