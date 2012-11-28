@@ -25,3 +25,6 @@ class Formatter
 end
 
 Rails.logger.formatter = Formatter.new
+
+require './lib/modules/logger'
+Logging.set_logger(Rails.logger)

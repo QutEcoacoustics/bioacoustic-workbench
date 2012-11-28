@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ModuleHarvesterTest < ActiveSupport::TestCase
-  include OriginalAudioHarvester
+  include AudioHarvester
 
   test "" do
 
