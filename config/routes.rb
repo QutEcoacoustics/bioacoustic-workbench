@@ -6,6 +6,7 @@ class AngularConstraint
   # if any html request comes through then match it
   # unless it is in the assets path
   def matches?(request)
+    return false unless request.format
     return false unless request.format.html?
 
     @exceptions.each {|p|
@@ -25,6 +26,11 @@ BawSite::Application.routes.draw do
   # documentation at rubydoc.info/github/plataformatec/devise/master/ActionDispatch/Routing/Mapper:devise_for
   devise_for :users, :path => 'security', :controllers => { :sessions => 'api/sessions',:omniauth_callbacks => 'api/callbacks',
                                                        :registrations => 'api/registrations', :confirmations => 'api/confirmations' }
+
+  # add a route for the ping action
+  devise_scope :user do
+    match '/security/ping' => 'api/sessions#ping', :via => [:get]
+  end
 
   resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions, :tags, :bookmarks,  :progresses, :saved_searches
 
@@ -72,20 +78,10 @@ BawSite::Application.routes.draw do
     }
   
   # for original audio
-  match 'media/(:id)_(:date)_(:time)' => 'media#item',
+  match 'media/(:id)' => 'media#item',
     :constraints => { 
-      :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
-      :date            => /\d{8}/,
-      :time            => /\d{6}/
+      :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
     }
-
-  # for original audio info
-  match 'media/(:id)_(:date)_(:time)' => 'media#item',
-        :constraints => {
-            :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
-            :date            => /\d{8}/,
-            :time            => /\d{6}/
-        }
   
   # routes for authentication with devise
   #namespace :api do
