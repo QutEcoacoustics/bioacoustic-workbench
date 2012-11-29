@@ -35,4 +35,8 @@ BawSite::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # from http://stackoverflow.com/a/6048451/31567
+  require 'openssl'
+  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 end

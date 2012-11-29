@@ -18,18 +18,19 @@ end
 def run_dev_seeds(admin_id)
 
   # clear database
-  puts 'Cleaning database...'
-  DatabaseCleaner.strategy = :truncation
-  DatabaseCleaner.clean
+  #puts 'Cleaning database...'
+  #DatabaseCleaner.strategy = :truncation
+  #DatabaseCleaner.clean
 
-  puts "Seeding database..."
   @admin_id = admin_id
 
   # other users
-  u1 = sv User.create({ display_name: 'A normal user', email: 'normal@example.com'})
-  u1 = sv User.create({ display_name: 'A complicated user', email: 'complicated@example.com'})
+  puts "Creating other users..."
+  u1 = add User.create({ display_name: 'A normal user', email: 'example+normal@example.com', password: Devise.friendly_token.first(8) })
+  u2 = add User.create({ display_name: 'A complicated user', email: 'example+complicated@example.com', password: Devise.friendly_token.first(8) })
 
   # projects
+  puts "Creating projects..."
   p1 = add (Project.create({ description: "SERF Acoustic study aimed at detecting the <__> species",
                              name:        "SERF AS Frogs", notes: { }, urn: "http://localhost:3000/projects/serf_as_frogs"
                            }))
@@ -44,6 +45,7 @@ def run_dev_seeds(admin_id)
 
 
   # sites
+  puts "Creating Sites..."
   s1 = ids Site.create({name: "South East", notes:{:environment => "wet"}, latitude:-27.472778, longitude: 153.027778})
   s1.projects.push p1, p3
   sv s1
@@ -58,6 +60,7 @@ def run_dev_seeds(admin_id)
 
   # photos
   # photos -> sites
+  puts "Creating Site Photos..."
   sv Photo.create({description:"Koala Climbing a tree", copyright:"Wikimedia CC 3.0",
                    uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
                    imageable_type: "Site", imageable_id:p1.id })
@@ -69,6 +72,7 @@ def run_dev_seeds(admin_id)
                    imageable_type: "Site", imageable_id:s3.id })
 
   # photos -> projects
+  puts "Creating Project Photos..."
   sv Photo.create({description:"Koala Climbing  a tree", copyright:"Wikimedia CC 3.0",
                    uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
                    imageable_type: "Project", imageable_id:p1.id })
@@ -81,7 +85,7 @@ def run_dev_seeds(admin_id)
 
 
   # audio recordings
-
+  puts "Creating Audiorecordings..."
   AudioRecording.send(:attr_accessible, :uuid)
 
   ar1_uuid = '1bd0d668-1471-4396-adc3-09ccd8fe949a'
@@ -126,6 +130,7 @@ def run_dev_seeds(admin_id)
   }
 
   # tags
+  puts "Creating Tags..."
   dummy_tags =["Koala Bellow", "Eastern Koel", "Torresian Crow", "Sacred Kingfisher", "Lewin's Honeyeater", "Canetoad", "Crickets"]
   dummy_tags.each { |tagName|
     t = ids Tag.create({text: tagName, is_taxanomic: true})
@@ -140,6 +145,7 @@ def run_dev_seeds(admin_id)
   add Tag.create({text: "Corvus orru", is_taxanomic: true, type_of_tag: :species_name})
 
   # audo events
+  puts "Creating Audio Events..."
   tags = Tag.all
 
   at1 = add( AudioEvent.create({start_time_seconds: 11.0, end_time_seconds: 13.5, low_frequency_hertz: 150,
@@ -156,7 +162,7 @@ def run_dev_seeds(admin_id)
                                 high_frequency_hertz: 2500, is_reference: false, audio_recording_id: 2}))
 
   # audio events <-> tags
-
+  puts "Linking audio events and tags..."
   add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Torresian Crow"}.first))
   add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "caw"}.first))
   add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Corvus orru"}.first))

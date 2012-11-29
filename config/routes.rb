@@ -21,7 +21,10 @@ BawSite::Application.routes.draw do
   # this is the catch-all route that allows rails to respond to any route, and essentially 'forward' it to angular
   match '*path' => 'home#index', :constraints => AngularConstraint.new, :as => :angular_routing
 
-  devise_for :users, :path => "accounts", :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
+  # devise route configuration
+  # documentation at rubydoc.info/github/plataformatec/devise/master/ActionDispatch/Routing/Mapper:devise_for
+  devise_for :users, :path => 'security', :controllers => { :sessions => 'api/sessions',:omniauth_callbacks => 'api/callbacks',
+                                                       :registrations => 'api/registrations', :confirmations => 'api/confirmations' }
 
   resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions, :tags, :bookmarks,  :progresses, :saved_searches
 
@@ -84,7 +87,10 @@ BawSite::Application.routes.draw do
             :time            => /\d{6}/
         }
   
-  
+  # routes for authentication with devise
+  #namespace :api do
+  #  resources :tokens, :only => [:create, :destroy]
+  #end
 
 
   # The priority is based upon order of creation:

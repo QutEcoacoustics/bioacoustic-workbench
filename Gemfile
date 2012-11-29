@@ -18,6 +18,10 @@ gem 'omniauth-browserid'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
+gem 'omniauth-openid'
+
+# Trollop - command line args
+gem 'trollop'
 
 # checks image formats using contents of the file.
 gem 'ruby-imagespec'
