@@ -38,6 +38,10 @@ BawSite::Application.routes.draw do
     collection do
       get 'new'
     end
+    member do
+      # for when harvester has moved a file to the corect location
+      post 'upload_complete'
+    end
   end
 
   resources :audio_events do
