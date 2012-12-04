@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BookmarksControllerTest < ActionController::TestCase
   setup do
-    @bookmark = bookmarks(:one)
+    @bookmark = Bookmark.first!
   end
 
   test "should get index" do

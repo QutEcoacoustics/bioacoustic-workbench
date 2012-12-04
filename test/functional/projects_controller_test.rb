@@ -2,9 +2,9 @@ require 'test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
   setup do
-    @project = projects(:project_one)
-	@site_1 = sites(:site_two)
-	@site_2 = sites(:site_three)
+    @project = Project.first!
+	@site_1 = Site.skip(1).first!
+	@site_2 = Site.skip(2).first!
 	@project.sites << @site_1
 	@project.sites << @site_2
   end

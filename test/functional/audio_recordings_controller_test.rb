@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AudioRecordingsControllerTest < ActionController::TestCase
   setup do
-    @audio_recording = audio_recordings(:one)
+    @audio_recording = AudioRecording.first!
   end
 
   test "should get index" do

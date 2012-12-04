@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PermissionsControllerTest < ActionController::TestCase
   setup do
-    @permission = permissions(:one)
+    @permission = Permission.first!
   end
 
   test "should get index" do

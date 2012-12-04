@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProgressesControllerTest < ActionController::TestCase
   setup do
-    @progress = progresses(:one)
+    @progress = Progress.first!
   end
 
   test "should get index" do
