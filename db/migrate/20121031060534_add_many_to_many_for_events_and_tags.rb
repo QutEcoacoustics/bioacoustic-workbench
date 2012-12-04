@@ -8,7 +8,7 @@ class AddManyToManyForEventsAndTags < ActiveRecord::Migration
       t.userstamps
     end
     add_index :audio_event_tags,
-              [:audio_event_id, :tag_id, :creator_id],
-              :unique => true, :name => 'hack_index_for_nested_attrs'
+              [:audio_event_id, :tag_id],
+              :unique => true
   end
 end
