@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(:version => 20121126232916) do
     t.integer  "updater_id"
   end
 
+  add_index "audio_event_tags", ["audio_event_id", "tag_id", "creator_id"], :name => "hack_index_for_nested_attrs", :unique => true
+
   create_table "audio_events", :force => true do |t|
     t.integer  "audio_recording_id",                      :null => false
     t.decimal  "start_time_seconds",                      :null => false
