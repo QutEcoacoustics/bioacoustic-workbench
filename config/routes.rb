@@ -1,11 +1,12 @@
 class AngularConstraint
   def initialize
-    @exceptions = %w(assets/)
+    @exceptions = %w(assets/ security/auth/)
   end
 
   # if any html request comes through then match it
   # unless it is in the assets path
   def matches?(request)
+    # this treats */* as html request
     return false unless request.format
     return false unless request.format.html?
 

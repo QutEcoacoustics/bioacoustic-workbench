@@ -227,7 +227,7 @@ Devise.setup do |config|
   # If you don't need a refresh token -- if you're only using Google for account creation/auth and don't need google services -- set the access_type to 'online'.
   # Also, set the approval prompt to an empty string, since otherwise it will be set to 'force', which makes users manually approve to the Oauth every time they log in.
   # See http://googleappsdeveloper.blogspot.com/2011/10/upcoming-changes-to-oauth-20-endpoint.html
-  config.omniauth :google_oauth2, 'APP_ID', 'APP_SECRET', {access_type: 'online', approval_prompt: ''}
+  config.omniauth :google_oauth2, '514559726327.apps.googleusercontent.com', '6uKHyf0x_q5GE8yk2dizTVaz', {access_type: 'online', approval_prompt: ''}
 
   # https://github.com/arunagw/omniauth-twitter
   config.omniauth :twitter, "consumer_key", "consumer_secret"
@@ -257,4 +257,24 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
+end
+
+# enable devise to get auth token in header
+# https://groups.google.com/forum/?fromgroups#!topic/plataformatec-devise/o3Gqgl0yUZo
+require 'devise/strategies/token_authenticatable'
+module Devise
+  module Strategies
+    class TokenAuthenticatable < Authenticatable
+      def params_auth_hash
+        return_params = if params[scope].kind_of?(Hash) && params[scope].has_key?(authentication_keys.first)
+                          params[scope]
+                        else
+                          params
+                        end
+        token = ActionController::HttpAuthentication::Token.token_and_options(request)
+        return_params.merge!(:auth_token => token[0]) if token
+        return_params
+      end
+    end
+  end
 end
