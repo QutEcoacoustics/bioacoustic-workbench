@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PhotosControllerTest < ActionController::TestCase
   setup do
-    @photo = photos(:photo_one)
+    @photo = Photo.first!
   end
 
   test "should get index" do

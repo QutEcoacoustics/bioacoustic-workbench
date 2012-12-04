@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AudioEventsControllerTest < ActionController::TestCase
   setup do
-    @audio_event = audio_events(:one)
+    @audio_event = AudioEvent.first
   end
 
   test "should get index" do
@@ -17,8 +17,11 @@ class AudioEventsControllerTest < ActionController::TestCase
   end
 
   test "should create audio_event" do
+
     assert_difference('AudioEvent.count') do
-      post :create, audio_event: { audio_recording_id: @audio_event.audio_recording_id, end_time_seconds: @audio_event.end_time_seconds, high_frequency_hertz: @audio_event.high_frequency_hertz, is_reference: @audio_event.is_reference, low_frequency_hertz: @audio_event.low_frequency_hertz, start_time_seconds: @audio_event.start_time_seconds }
+      post :create, audio_event: { audio_recording_id: @audio_event.audio_recording_id, end_time_seconds: @audio_event.end_time_seconds,
+                                   high_frequency_hertz: @audio_event.high_frequency_hertz, is_reference: @audio_event.is_reference,
+                                   low_frequency_hertz: @audio_event.low_frequency_hertz, start_time_seconds: @audio_event.start_time_seconds }
     end
 
     assert_redirected_to audio_event_path(assigns(:audio_event))

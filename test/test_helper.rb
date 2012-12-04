@@ -28,6 +28,9 @@ class ActiveSupport::TestCase
   setup    :setup_database
   teardown :clean_database
 
+  # user for tests - user name is from development_seeds.rb
+  @user = User.where(:display_name => 'A normal user').first!
+
   # Add more helper methods to be used by all tests here...
   def get_source_audio_file_path(file_name)
     input_path = './test/fixtures/audio'

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SavedSearchesControllerTest < ActionController::TestCase
   setup do
-    @saved_search = saved_searches(:one)
+    @saved_search = SavedSearch.first!
   end
 
   test "should get index" do
