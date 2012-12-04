@@ -3,32 +3,26 @@ require_relative "./development_seeds"
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+def create_user(name_to_check, details)
+  puts "Checking for #{name_to_check} user..."
+  admin_user = User.where(:display_name => name_to_check).first
+
+  if admin_user.blank?
+    admin_user = User.create(details)
+    admin_user.creator_id = admin_user.id
+    admin_user.updater_id = admin_user.id
+    admin_user.save!
+    puts "... #{name_to_check} user created."
+  else
+    puts "... #{name_to_check} user already exists."
+  end
+end
+
 # Super user setup - for any environment
-puts 'Checking for admin user...'
+create_user('admin', {display_name: 'admin', email: 'example+admin@example.com', password: 'admin_password' })
+create_user('harvester', {display_name: 'harvester', email: 'example+harvester@example.com', password: 'harvester_password' })
+
 admin_user = User.where(:display_name => 'admin').first
-
-if admin_user.blank?
-  admin_user = User.create({display_name: "admin", email: 'example+admin@example.com', password: 'admin_password' })
-  admin_user.creator_id = admin_user.id
-  admin_user.updater_id = admin_user.id
-  admin_user.save!
-  puts '... admin user created.'
-else
-  puts '... admin user already exists.'
-end
-
-puts 'Checking for harvester user...'
-harvester_user = User.where(:display_name => 'harvester').first
-
-if harvester_user.blank?
-  harvester_user = User.create({display_name: 'harvester', email: 'example+harvester@example.com', password: 'harvester_password' })
-  harvester_user.creator_id = admin_user.id
-  harvester_user.updater_id = admin_user.id
-  harvester_user.save!
-  puts '... harvester user created.'
-else
-  puts '... harvester user already exists.'
-end
 
 puts "BAW build :: Adding additional environment ('#{Rails.env}') specific data to database..."
 case Rails.env

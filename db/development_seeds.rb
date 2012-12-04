@@ -24,10 +24,16 @@ def run_dev_seeds(admin_id)
 
   @admin_id = admin_id
 
+  # if these two users exist, assume seeds have already been run, and do not run again
+  if !User.where(:display_name => 'A normal user').first.blank? && !User.where(:display_name => 'A complicated user').first.blank?
+    puts 'Extra users already exist, assuming seeds have already been run, exiting...'
+    return
+  end
+
   # other users
   puts "Creating other users..."
-  u1 = add User.create({ display_name: 'A normal user', email: 'example+normal@example.com', password: Devise.friendly_token.first(8) })
-  u2 = add User.create({ display_name: 'A complicated user', email: 'example+complicated@example.com', password: Devise.friendly_token.first(8) })
+  u1 = add User.create({ display_name: 'A normal user', email: 'example+normal@example.com', password: Devise.friendly_token[0,20] })
+  u2 = add User.create({ display_name: 'A complicated user', email: 'example+complicated@example.com', password: Devise.friendly_token[0,20] })
 
   # projects
   puts "Creating projects..."
