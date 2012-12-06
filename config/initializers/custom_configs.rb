@@ -9,7 +9,7 @@ module BawSite
   class Application
 
     # this is for Rails, will not work for harvester
-    base_dir = File.join Rails.root, 'media'
+    base_dir = File.join(Rails.root, 'media')
 
     config.media_file_config = OpenStruct.new
 
