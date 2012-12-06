@@ -43,6 +43,10 @@ gem 'uuidtools'
 # date validation
 gem 'validates_timeliness', '~> 3.0'
 
+# a replacement for hash based formatting
+# https://github.com/rails-api/active_model_serializers
+gem 'active_model_serializers', :git => "git://github.com/rails-api/active_model_serializers.git"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
