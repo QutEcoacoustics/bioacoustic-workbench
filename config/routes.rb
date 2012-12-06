@@ -27,7 +27,8 @@ BawSite::Application.routes.draw do
   # documentation at rubydoc.info/github/plataformatec/devise/master/ActionDispatch/Routing/Mapper:devise_for
   # skipping generating session controller because we want sessions off completely
   # skipping registrations because we use external providers (and required local auth'd users are seeded)
-  devise_for :users, :path => 'security',  :skip => [:sessions, :registrations], :skip_helpers => true,
+  # skip_helpers => true stops /security/signout from working!
+  devise_for :users, :path => 'security',  :skip => [ :registrations], :skip_helpers => [ :registrations],
              :controllers => { :sessions => 'api/sessions',:omniauth_callbacks => 'api/callbacks',
                                :registrations => 'api/registrations', :confirmations => 'api/confirmations' }
 
