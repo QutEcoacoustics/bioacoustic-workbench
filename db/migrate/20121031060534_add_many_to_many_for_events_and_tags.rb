@@ -7,5 +7,8 @@ class AddManyToManyForEventsAndTags < ActiveRecord::Migration
       t.timestamps
       t.userstamps
     end
+    add_index :audio_event_tags,
+              [:audio_event_id, :tag_id],
+              :unique => true
   end
 end
