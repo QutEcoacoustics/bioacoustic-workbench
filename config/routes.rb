@@ -11,7 +11,7 @@ class AngularConstraint
     return false unless request.format.html?
 
     @exceptions.each {|p|
-      return !request.path.include?(p)
+      return false if request.path.include?(p)
     }
 
      true
@@ -25,8 +25,11 @@ BawSite::Application.routes.draw do
 
   # devise route configuration
   # documentation at rubydoc.info/github/plataformatec/devise/master/ActionDispatch/Routing/Mapper:devise_for
-  devise_for :users, :path => 'security', :controllers => { :sessions => 'api/sessions',:omniauth_callbacks => 'api/callbacks',
-                                                       :registrations => 'api/registrations', :confirmations => 'api/confirmations' }
+  # skipping generating session controller because we want sessions off completely
+  # skipping registrations because we use external providers (and required local auth'd users are seeded)
+  devise_for :users, :path => 'security',  :skip => [:sessions, :registrations], :skip_helpers => true,
+             :controllers => { :sessions => 'api/sessions',:omniauth_callbacks => 'api/callbacks',
+                               :registrations => 'api/registrations', :confirmations => 'api/confirmations' }
 
   # add a route for the ping action
   devise_scope :user do
