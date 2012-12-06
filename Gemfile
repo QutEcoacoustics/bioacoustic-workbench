@@ -28,7 +28,7 @@ gem 'ruby-imagespec'
 
 # gems for user storage
 # https://github.com/delynn/userstamp
-gem 'userstamp', :git => 'https://github.com/theepan/userstamp.git'
+gem 'userstamp', :git => 'git://github.com/theepan/userstamp.git'
 
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
 gem 'rails3_acts_as_paranoid', '~>0.2.0'
@@ -66,8 +66,9 @@ group :test do
 end
 
 group :development do
-  gem 'ruby-debug-base19x', '0.11.30.pre10'
-  gem 'ruby-debug-ide', '~> 0.4.17.beta14'
+  #gem 'linecache19', '>= 0.5.13', :git => 'git://github.com/robmathews/linecache19-0.5.13.git'
+  gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
+  gem 'ruby-debug-ide', '>= 0.4.17.beta14'
 
   gem 'thin'
 end
@@ -81,7 +82,7 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 
-  gem 'jasmine', '>=1.0.2.1', :git => "https://github.com/pivotal/jasmine-gem.git"
+  gem 'jasmine', '>=1.0.2.1', :git => "git://github.com/pivotal/jasmine-gem.git"
   gem 'jasminerice'
   gem 'headless', '>=0.1.0'
 end
