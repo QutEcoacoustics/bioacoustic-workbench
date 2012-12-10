@@ -32,9 +32,12 @@ BawSite::Application.routes.draw do
              :controllers => { :sessions => 'api/sessions',:omniauth_callbacks => 'api/callbacks',
                                :registrations => 'api/registrations', :confirmations => 'api/confirmations' }
 
-  # add a route for the ping action
+
   devise_scope :user do
+    # add a route for the ping action
     match '/security/ping' => 'api/sessions#ping', :via => [:get]
+    # add a route for sending additional information from a prompt after authenticating with an external provider
+    #match '/security/auth/additional_info' => 'api/callbacks#additional_info', :via => [:get]
   end
 
   resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions, :tags, :bookmarks,  :progresses, :saved_searches

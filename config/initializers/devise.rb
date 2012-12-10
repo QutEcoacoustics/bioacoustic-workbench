@@ -129,7 +129,7 @@ Devise.setup do |config|
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
   config.timeout_in = 30.minutes
-  
+
   # If true, expires auth token on session timeout.
   config.expire_auth_token_on_timeout = true
 
@@ -241,8 +241,8 @@ Devise.setup do |config|
   # change the failure app, you can configure them inside the config.warden block.
   #
   config.warden do |manager|
-  #   manager.intercept_401 = false
-  #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
+    #   manager.intercept_401 = false
+    #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
 
     # http://stackoverflow.com/questions/6659730/does-anyone-know-the-options-for-devises-authenticate-user
     # not needed, just had to ensure :json is not a navigational format
@@ -279,6 +279,21 @@ module Devise
         token = ActionController::HttpAuthentication::Token.token_and_options(request)
         return_params.merge!(:auth_token => token[0]) if token
         return_params
+      end
+    end
+  end
+end
+
+# modifying devise-2.1.2\lib\devise\models\authenticatable.rb
+# adding check for same IP address as stored in current_sign_in_ip in database
+module Devise
+  module Models
+    module Authenticatable
+      def self.find_for_authentication(conditions={})
+        puts request.remote_ip
+        conditions[:current_sign_in_ip] = request.remote_ip
+
+        super
       end
     end
   end
