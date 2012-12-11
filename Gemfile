@@ -19,6 +19,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-openid'
+gem 'omniauth-github'
 
 # Trollop - command line args
 gem 'trollop'

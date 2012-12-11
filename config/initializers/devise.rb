@@ -286,6 +286,7 @@ end
 
 # modifying devise-2.1.2\lib\devise\models\authenticatable.rb
 # adding check for same IP address as stored in current_sign_in_ip in database
+# this does not seem to work :(
 module Devise
   module Models
     module Authenticatable

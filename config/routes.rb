@@ -20,6 +20,9 @@ end
 
 BawSite::Application.routes.draw do
 
+  resources :analysis_items
+
+
   # this is the catch-all route that allows rails to respond to any route, and essentially 'forward' it to angular
   match '*path' => 'home#index', :constraints => AngularConstraint.new, :as => :angular_routing
 
@@ -40,7 +43,8 @@ BawSite::Application.routes.draw do
     #match '/security/auth/additional_info' => 'api/callbacks#additional_info', :via => [:get]
   end
 
-  resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions, :tags, :bookmarks,  :progresses, :saved_searches
+  resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions,
+            :tags, :bookmarks,  :progresses, :saved_searches, :analysis_jobs, :analysis_scripts
 
   resources :audio_recordings do
     collection do
