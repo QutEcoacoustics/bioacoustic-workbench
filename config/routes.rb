@@ -1,6 +1,6 @@
 class AngularConstraint
   def initialize
-    @exceptions = %w(assets/ security/auth/)
+    @exceptions = [/^\/assets\/.*/, /^\/security\/.*/ ]
   end
 
   # if any html request comes through then match it
@@ -11,7 +11,7 @@ class AngularConstraint
     return false unless request.format.html?
 
     @exceptions.each {|p|
-      return false if request.path.include?(p)
+      return false if p.match request.path
     }
 
      true
