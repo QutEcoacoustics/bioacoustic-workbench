@@ -3,26 +3,27 @@ require_relative "./development_seeds"
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-def create_user(name_to_check, details)
-  puts "Checking for #{name_to_check} user..."
-  admin_user = User.where(:display_name => name_to_check).first
+def create_user(details)
+  puts "Checking for #{details[:user_name]} user..."
+  db_user = User.where(:user_name => details[:user_name]).first
 
-  if admin_user.blank?
-    admin_user = User.create(details)
-    admin_user.creator_id = admin_user.id
-    admin_user.updater_id = admin_user.id
-    admin_user.save!
-    puts "... #{name_to_check} user created."
+  if db_user.blank?
+    db_user = User.create(details)
+    db_user.creator_id = db_user.id
+    db_user.updater_id = db_user.id
+    db_user.save!
+    puts "... #{details[:user_name]} user created."
   else
-    puts "... #{name_to_check} user already exists."
+    puts "... #{details[:user_name]} user already exists."
   end
 end
 
 # Super user setup - for any environment
-create_user('admin', {display_name: 'admin', email: 'example+admin@example.com', password: 'admin_password' })
-create_user('harvester', {display_name: 'harvester', email: 'example+harvester@example.com', password: 'harvester_password' })
+create_user({user_name: 'admin', display_name: 'Administrator', email: 'example+admin@example.com', password: 'admin_password' })
+create_user({user_name: 'harvester', display_name: 'Harvester', email: 'example+harvester@example.com', password: 'harvester_password' })
+create_user({user_name: 'analysis_runner', display_name: 'Analysis Runner', email: 'example+analysis_runner@example.com', password: 'analysis_runner_password' })
 
-admin_user = User.where(:display_name => 'admin').first
+admin_user = User.where(:user_name => 'admin').first
 
 puts "BAW build :: Adding additional environment ('#{Rails.env}') specific data to database..."
 case Rails.env

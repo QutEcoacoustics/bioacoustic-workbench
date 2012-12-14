@@ -32,8 +32,8 @@ def run_dev_seeds(admin_id)
 
   # other users
   puts "Creating other users..."
-  u1 = add User.create({ display_name: 'A normal user', email: 'example+normal@example.com', password: Devise.friendly_token[0,20] })
-  u2 = add User.create({ display_name: 'A complicated user', email: 'example+complicated@example.com', password: Devise.friendly_token[0,20] })
+  u1 = add User.create({ user_name: 'normal_user', display_name: 'A normal user', email: 'example+normal@example.com', password: Devise.friendly_token[0,20] })
+  u2 = add User.create({ user_name: 'complicated_user', display_name: 'A complicated user', email: 'example+complicated@example.com', password: Devise.friendly_token[0,20] })
 
   # projects
   puts "Creating projects..."
@@ -96,7 +96,7 @@ def run_dev_seeds(admin_id)
 
   ar1_uuid = '1bd0d668-1471-4396-adc3-09ccd8fe949a'
   #recorded_date:'2012/11/06',
-  ar1 = ids (AudioRecording.create({uuid:ar1_uuid,  media_type:'audio/wavpack', status:'ready',
+  ar1 = ids (AudioRecording.create({uuid:ar1_uuid,  media_type:'audio/wavpack', status: :ready,
                                     recorded_date:'2012/11/06', duration_seconds: 120.0, sample_rate_hertz: 22050,
                                     channels: 1, bit_rate_bps:171000, data_length_bytes: 2560180,
                                     file_hash: 'MD5::EFB5B76BE5FD1F0D19CD5FE692AF1FC2' }))
@@ -125,7 +125,7 @@ def run_dev_seeds(admin_id)
     time = rand(10.years).ago
 
     AudioRecording.send(:attr_accessible, :uuid)
-    ar = ids (AudioRecording.create({uuid:row[0],  media_type:'audio/mpeg3', status:'ready',
+    ar = ids (AudioRecording.create({uuid:row[0],  media_type:'audio/mpeg3', status: :ready,
                                      recorded_date:time, duration_seconds: lengths.sample, sample_rate_hertz: 22050,
                                      channels: 2, bit_rate_bps:171000, data_length_bytes: (rand * 10000).to_i,
                                      file_hash: 'INVALID', notes:{:fake => true} }))

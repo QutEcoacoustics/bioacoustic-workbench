@@ -16,7 +16,7 @@ class CreateAudioRecordings < ActiveRecord::Migration
       # Allow up to a 512 byte hash, + 12 descriptor characters
       # e.g. SHA2 - 512::szn gkfavjkajkbgajkbavkbvadbva ds albfeaiuewr3p2u-0932u0-=5...
       t.string :hash, :limit => 512 + 12, :null => false
-      t.string :status
+      t.string :status, :default => :new
       t.text :notes
 
       t.timestamps

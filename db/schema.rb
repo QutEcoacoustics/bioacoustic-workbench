@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211020323) do
+ActiveRecord::Schema.define(:version => 20121214052533) do
 
   create_table "analysis_items", :force => true do |t|
     t.string   "worker_info"
@@ -98,21 +98,21 @@ ActiveRecord::Schema.define(:version => 20121211020323) do
   add_index "audio_events", ["audio_recording_id"], :name => "index_audio_events_on_audio_recording_id"
 
   create_table "audio_recordings", :force => true do |t|
-    t.string   "uuid",              :limit => 36,  :null => false
-    t.integer  "uploader_id",                      :null => false
-    t.datetime "recorded_date",                    :null => false
-    t.integer  "site_id",                          :null => false
-    t.decimal  "duration_seconds",                 :null => false
+    t.string   "uuid",              :limit => 36,                     :null => false
+    t.integer  "uploader_id",                                         :null => false
+    t.datetime "recorded_date",                                       :null => false
+    t.integer  "site_id",                                             :null => false
+    t.decimal  "duration_seconds",                                    :null => false
     t.integer  "sample_rate_hertz"
     t.integer  "channels"
     t.integer  "bit_rate_bps"
-    t.string   "media_type",                       :null => false
-    t.integer  "data_length_bytes",                :null => false
-    t.string   "file_hash",         :limit => 524, :null => false
-    t.string   "status"
+    t.string   "media_type",                                          :null => false
+    t.integer  "data_length_bytes",                                   :null => false
+    t.string   "file_hash",         :limit => 524,                    :null => false
+    t.string   "status",                           :default => "new"
     t.text     "notes"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "deleter_id"
@@ -272,6 +272,7 @@ ActiveRecord::Schema.define(:version => 20121211020323) do
     t.string   "last_sign_in_ip"
     t.string   "invitation_token"
     t.boolean  "admin",                  :default => false
+    t.string   "user_name"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

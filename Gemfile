@@ -32,7 +32,7 @@ gem 'ruby-imagespec'
 gem 'userstamp', :git => 'git://github.com/theepan/userstamp.git'
 
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
-gem 'rails3_acts_as_paranoid', '~>0.2.0'
+gem 'rails3_acts_as_paranoid', '~>0.2'
 
 # enumeration suport
 # https://github.com/brainspec/enumerize/issues/44
@@ -48,6 +48,8 @@ gem 'validates_timeliness', '~> 3.0'
 # https://github.com/rails-api/active_model_serializers
 gem 'active_model_serializers', :git => "git://github.com/rails-api/active_model_serializers.git"
 
+gem 'rubyzip'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -62,7 +64,7 @@ end
 
 # group for running tests
 group :test do
-  gem 'rake', '>=10.0.0'
+  gem 'rake', '>=10'
   gem 'simplecov', :require => false
 end
 
