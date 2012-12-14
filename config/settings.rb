@@ -11,12 +11,12 @@ class SharedSettings
         :analysis_script_paths      => %w(analysisscripts),
         :analysis_result_paths      => %w(analysisresults),
         :cached_audio_defaults      =>   [
-                                          {:channel => 0, :sample_rate => 22050, :format => '.webma'},
                                           {:channel => 0, :sample_rate => 22050, :format => '.mp3'},
+                                          {:channel => 0, :sample_rate => 22050, :format => '.webma'},
                                           {:channel => 0, :sample_rate => 22050, :format => '.ogg'}
                                          ],
         :cached_spectrogram_defaults =>  [
-                                          {:channel => 0, :sample_rate => 22050, :window => 512, :colour => 'a', :format => '.png'}
+                                          {:channel => 0, :sample_rate => 22050, :window => 512, :colour => :g, :format => '.png'}
                                          ]
         }
   end

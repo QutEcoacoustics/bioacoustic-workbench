@@ -286,15 +286,15 @@ end
 
 # modifying devise-2.1.2\lib\devise\models\authenticatable.rb
 # adding check for same IP address as stored in current_sign_in_ip in database
-module Devise
-  module Models
-    module Authenticatable
-      def self.find_for_authentication(conditions={})
-        puts request.remote_ip
-        conditions[:current_sign_in_ip] = request.remote_ip
-
-        super
-      end
-    end
-  end
-end
+#module Devise
+#  module Models
+#    module Authenticatable
+#      def self.find_for_authentication(conditions={})
+#        puts request.remote_ip
+#        conditions[:current_sign_in_ip] = request.remote_ip
+#
+#        super
+#      end
+#    end
+#  end
+#end

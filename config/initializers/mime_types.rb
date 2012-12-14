@@ -6,6 +6,7 @@
 
 Mime::Type.register "text/html", :htm
 Mime::Type.register "audio/mpeg", :mp3
+Mime::Type.register "audio/mp3", :mp3
 Mime::Type.register "audio/webm", :webm
 Mime::Type.register "audio/webma", :webma
 Mime::Type.register "audio/ogg", :ogg
