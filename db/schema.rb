@@ -11,7 +11,63 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121126232916) do
+ActiveRecord::Schema.define(:version => 20121211020323) do
+
+  create_table "analysis_items", :force => true do |t|
+    t.string   "worker_info"
+    t.datetime "worker_started_utc"
+    t.text     "worker_run_details"
+    t.string   "status",               :default => "ready"
+    t.decimal  "offset_start_seconds"
+    t.decimal  "offset_end_seconds"
+    t.integer  "audio_recording_id"
+    t.integer  "analysis_job_id"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "analysis_items", ["analysis_job_id"], :name => "index_analysis_items_on_analysis_job_id"
+  add_index "analysis_items", ["audio_recording_id"], :name => "index_analysis_items_on_audio_recording_id"
+
+  create_table "analysis_jobs", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.text     "notes"
+    t.boolean  "process_new"
+    t.string   "script_name"
+    t.string   "script_version"
+    t.string   "script_description"
+    t.string   "script_settings"
+    t.string   "script_display_name"
+    t.text     "script_extra_data"
+    t.string   "data_set_identifier"
+    t.integer  "saved_search_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  add_index "analysis_jobs", ["saved_search_id"], :name => "index_analysis_jobs_on_saved_search_id"
+
+  create_table "analysis_scripts", :force => true do |t|
+    t.string   "name"
+    t.string   "version"
+    t.string   "description"
+    t.string   "settings"
+    t.string   "display_name"
+    t.boolean  "verified",     :default => false
+    t.text     "extra_data"
+    t.text     "notes"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "deleter_id"
+    t.datetime "deleted_at"
+  end
+
+  add_index "analysis_scripts", ["name"], :name => "index_analysis_scripts_on_name", :unique => true
 
   create_table "audio_event_tags", :id => false, :force => true do |t|
     t.integer  "audio_event_id", :null => false

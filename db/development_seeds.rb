@@ -182,19 +182,47 @@ def run_dev_seeds(admin_id)
 
   # bookmarks
   puts "Creating Bookmarks..."
-  add(Bookmark.create({:audio_recording_id => ar1.id, :offset => 0, :name => 'start', :notes => {:a_note => 'at the start of the recording'}}))
+  add(Bookmark.create({:audio_recording_id => ar1.id, :offset => 0, :name => 'start',
+                       :notes => {:a_note => 'at the start of the recording'}}))
   add(Bookmark.create({:audio_recording_id => ar1.id, :offset => 50, :name => 'what\'s this?'}))
 
   # saved searches
   puts "Creating Saved Searches..."
   add(SavedSearch.create({:name => 'Goote', :search_object => Search.new( :body_params => { :project_ids => [2] } )}))
-  add(SavedSearch.create({:name => 'Testing', :search_object => Search.new( :body_params => { :project_ids => [1, 2], :site_ids => [1] } )}))
+  add(SavedSearch.create({:name => 'Testing', :search_object => Search.new( :body_params => { :project_ids => [1, 2],
+                                                                                              :site_ids => [1] } )}))
+
+  # analysis scripts
+  puts "Creating Analysis Scripts..."
+  script1 = AnalysisScript.create({name: 'a_test_script', display_name: 'A Test Script', version: 'script version',
+                                   description: 'script descr', settings: 'script settings', verified: false,
+                                   extra_data: 'hi folks!' ,notes: {more: 'data'} })
+
+  # analysis jobs
+  puts "Creating Analysis Jobs..."
+  job1 = ids(AnalysisJob.create({name: 'A Test Job', description: 'job descr',notes: {more: 'data'} ,process_new: false,
+                          script_name: script1.name, script_version: script1.version,
+                          script_description: script1.description, script_settings: script1.settings,
+                          script_display_name:script1.display_name, script_extra_data:script1.extra_data
+                          }))
+
+  job1.saved_search = SavedSearch.first
+  sv(job1)
+
+
+  # analysis items
+  puts "Creating Analysis Items..."
+  ai1 = AnalysisItem.create({offset_start_seconds:10,offset_end_seconds:50, status: :ready})
+  ai1.analysis_job = job1
+  ai1.audio_recording = ar1
+  sv(ai1)
 
   # permissions
 
   # progresses
 
   # authorizations
+
 
 
 end

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  description: MyString
+  notes: MyText
+  script_name: MyString
+  script_version: MyString
+  script_description: MyString
+  script_settings: MyString
+  script_display_name: MyString
+  script_extra_data: MyText
+  data_set_identifier: MyString
+  saved_search: 
+
+two:
+  name: MyString
+  description: MyString
+  notes: MyText
+  script_name: MyString
+  script_version: MyString
+  script_description: MyString
+  script_settings: MyString
+  script_display_name: MyString
+  script_extra_data: MyText
+  data_set_identifier: MyString
+  saved_search: 
