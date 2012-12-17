@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AnalysisJobsControllerTest < ActionController::TestCase
   setup do
-    @analysis_job = analysis_jobs(:one)
+    @analysis_job = AnalysisJob.first!
   end
 
   test "should get index" do

@@ -3,10 +3,11 @@ require 'test_helper'
 class ProjectsControllerTest < ActionController::TestCase
   setup do
     @project = Project.first!
-	@site_1 = Site.skip(1).first!
-	@site_2 = Site.skip(2).first!
-	@project.sites << @site_1
-	@project.sites << @site_2
+    @site_1 = Site.first!
+    @site_2 = Site.offset(1).first!
+    @site_3 = Site.offset(2).first!
+    @project.sites << @site_1
+    @project.sites << @site_2
   end
 
   test "should get index" do
@@ -48,24 +49,24 @@ class ProjectsControllerTest < ActionController::TestCase
   end
   
   test "should update project with site" do
-    put :update, id: @project, project: { description: @project.description, urn: @project.urn, name: @project.name, notes: @project.notes, site_ids: [ sites(:site_one), sites(:site_three) ]  }
+    put :update, id: @project, project: { description: @project.description, urn: @project.urn, name: @project.name, notes: @project.notes, site_ids: [ @site_1, @site_3 ]  }
     
 	@new_sites = assigns(:project).sites
 	assert_equal 2, @new_sites.count
-	assert(@new_sites.include? sites(:site_one))
-	assert(@new_sites.include? sites(:site_three))
+	assert(@new_sites.include? @site_1)
+	assert(@new_sites.include? @site_3)
 	
 	assert_redirected_to project_path(assigns(:project))
 	assert_equal 'Project was successfully updated.', flash[:notice]
   end
   
   test "should update project by removing association with sites" do
-    put :update, id: @project, project: { description: @project.description, urn: @project.urn, name: @project.name, notes: @project.notes, site_ids: [ sites(:site_one), sites(:site_three) ]  }
+    put :update, id: @project, project: { description: @project.description, urn: @project.urn, name: @project.name, notes: @project.notes, site_ids: [ @site_1, @site_3 ]  }
     
 	@new_sites = assigns(:project).sites
 	assert_equal 2, @new_sites.count
-	assert(@new_sites.include? sites(:site_one))
-	assert(@new_sites.include? sites(:site_three))
+	assert(@new_sites.include? @site_1)
+	assert(@new_sites.include? @site_3)
 	
 	assert_redirected_to project_path(assigns(:project))
 	assert_equal 'Project was successfully updated.', flash[:notice]
@@ -89,13 +90,13 @@ class ProjectsControllerTest < ActionController::TestCase
   
   test "should create project with sites" do
     assert_difference('Project.count') do
-      post :create, project: { name: @project.name, notes: @project.notes, description: @project.description, urn: @project.urn, site_ids: [ sites(:site_two), sites(:site_three) ] }
+      post :create, project: { name: @project.name, notes: @project.notes, description: @project.description, urn: @project.urn, site_ids: [ @site_2, @site_3 ] }
     end
 	
 	@new_sites = assigns(:project).sites
 	assert_equal 2, @new_sites.count
-	assert(@new_sites.include? sites(:site_two))
-	assert(@new_sites.include? sites(:site_three))
+	assert(@new_sites.include? @site_2)
+	assert(@new_sites.include? @site_3)
 	
     assert_redirected_to project_path(assigns(:project))
 	assert_equal 'Project was successfully created.', flash[:notice]

@@ -8,7 +8,9 @@ class ClassSearchTest < ActiveSupport::TestCase
      data_set = the_search.execute_query
 
      assert_equal 6, data_set.items.size
-     assert data_set.items.include?('1bd0d668-1471-4396-adc3-09ccd8fe949a')
+
+     audio_recording_id = AudioRecording.where(:uuid=>'1bd0d668-1471-4396-adc3-09ccd8fe949a').first!
+     assert data_set.items.collect{ |item| item.audio_recording_id }.include?(audio_recording_id.id)
 
    end
 
