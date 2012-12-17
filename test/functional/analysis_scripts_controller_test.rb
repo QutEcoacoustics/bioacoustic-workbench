@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AnalysisScriptsControllerTest < ActionController::TestCase
   setup do
-    @analysis_script = analysis_scripts(:one)
+    @analysis_script = AnalysisScript.first!
   end
 
   test "should get index" do
@@ -18,7 +18,8 @@ class AnalysisScriptsControllerTest < ActionController::TestCase
 
   test "should create analysis_script" do
     assert_difference('AnalysisScript.count') do
-      post :create, analysis_script: { description: @analysis_script.description, display_name: @analysis_script.display_name, extra_data: @analysis_script.extra_data, name: @analysis_script.name, settings: @analysis_script.settings, version: @analysis_script.version }
+      #current_user
+      post :create, { analysis_script: { description: @analysis_script.description, display_name: @analysis_script.display_name, extra_data: @analysis_script.extra_data, name: @analysis_script.name, settings: @analysis_script.settings, version: @analysis_script.version }, auth_token: '' }
     end
 
     assert_redirected_to analysis_script_path(assigns(:analysis_script))
