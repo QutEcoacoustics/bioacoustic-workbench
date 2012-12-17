@@ -71,12 +71,14 @@ BawSite::Application.routes.draw do
   # for updating audio recording info in development database only
   get 'media/update'
 
+  DECIMAL_REGEXP = /\d{1,9}(\.\d{1,6})?/
+
   # for cached spectrograms
   match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)_(:window)_(:colour)' => 'media#item',
     :constraints => { 
       :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
-      :start_offset    => /\d{1,9}/,
-      :end_offset      => /\d{1,9}/,
+      :start_offset    => DECIMAL_REGEXP,
+      :end_offset      => DECIMAL_REGEXP,
       :channel         => /\d{1,4}/,
       :sample_rate     => /\d{1,6}/,
       :window          => /\d{1,4}/,
@@ -87,8 +89,8 @@ BawSite::Application.routes.draw do
   match 'media/(:id)_(:start_offset)_(:end_offset)_(:channel)_(:sample_rate)' => 'media#item',
     :constraints => { 
       :id              => /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/,
-      :start_offset    => /\d{1,9}/,
-      :end_offset      => /\d{1,9}/,
+      :start_offset    => DECIMAL_REGEXP,
+      :end_offset      => DECIMAL_REGEXP,
       :channel         => /\d{1,4}/,
       :sample_rate     => /\d{1,6}/
     }
