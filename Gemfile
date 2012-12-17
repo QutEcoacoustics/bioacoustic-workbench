@@ -7,7 +7,11 @@ gem 'rails', '>=3.2.9'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails', :git => 'git://github.com/joliss/jquery-ui-rails.git'
+
+# disabled because the it breaks each component up into its own file - this is very slow when doing dev work
+# instead a manual version was placed in vendor
+#gem 'jquery-ui-rails', :git => 'git://github.com/joliss/jquery-ui-rails.git'
+
 gem 'sqlite3'
 
 gem 'devise'
@@ -33,6 +37,7 @@ gem 'userstamp', :git => 'git://github.com/theepan/userstamp.git'
 
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
 gem 'rails3_acts_as_paranoid', '~>0.2'
+gem 'acts_as_paranoid', '~> 0.4.0', :require => 'rails3_acts_as_paranoid'
 
 # enumeration suport
 # https://github.com/brainspec/enumerize/issues/44
@@ -73,7 +78,7 @@ group :development do
   gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
   gem 'ruby-debug-ide', '>= 0.4.17.beta14'
 
-  #gem 'thin'
+  gem 'thin'
 end
 
 group :development, :test do
