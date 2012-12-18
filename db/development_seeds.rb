@@ -99,7 +99,7 @@ def run_dev_seeds(admin_id)
   ar1 = ids (AudioRecording.create({uuid:ar1_uuid,  media_type:'audio/wavpack', status: :ready,
                                     recorded_date:'2012/11/06', duration_seconds: 120.0, sample_rate_hertz: 22050,
                                     channels: 1, bit_rate_bps:171000, data_length_bytes: 2560180,
-                                    file_hash: 'MD5::EFB5B76BE5FD1F0D19CD5FE692AF1FC2' }))
+                                    file_hash: 'MD5::EFB5B76BE5FD1F0D19CD5FE692AF1FC2', status: 'ready' }))
 
   ar1.uploader_id = admin_id
 
@@ -128,7 +128,7 @@ def run_dev_seeds(admin_id)
     ar = ids (AudioRecording.create({uuid:row[0],  media_type:'audio/mpeg3', status: :ready,
                                      recorded_date:time, duration_seconds: lengths.sample, sample_rate_hertz: 22050,
                                      channels: 2, bit_rate_bps:171000, data_length_bytes: (rand * 10000).to_i,
-                                     file_hash: 'INVALID', notes:{:fake => true} }))
+                                     file_hash: 'INVALID', notes:{:fake => true}, status: 'new' }))
     ar.uploader_id = admin_id
     ar.site = row[1]
     sv ar
@@ -212,7 +212,7 @@ def run_dev_seeds(admin_id)
 
   # analysis items
   puts "Creating Analysis Items..."
-  ai1 = AnalysisItem.create({offset_start_seconds:10,offset_end_seconds:50, status: :ready})
+  ai1 = AnalysisItem.create({offset_start_seconds:10,offset_end_seconds:50, status: 'ready'})
   ai1.analysis_job = job1
   ai1.audio_recording = ar1
   sv(ai1)

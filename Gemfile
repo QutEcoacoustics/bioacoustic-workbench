@@ -36,8 +36,8 @@ gem 'ruby-imagespec'
 gem 'userstamp', :git => 'git://github.com/theepan/userstamp.git'
 
 # https://github.com/goncalossilva/rails3_acts_as_paranoid
-gem 'rails3_acts_as_paranoid', '~>0.2'
-gem 'acts_as_paranoid', '~> 0.4.0', :require => 'rails3_acts_as_paranoid'
+#gem 'rails3_acts_as_paranoid', '~>0.2'
+gem 'acts_as_paranoid', '~> 0.4.0' #, :require => 'rails3_acts_as_paranoid'
 
 # enumeration suport
 # https://github.com/brainspec/enumerize/issues/44

@@ -5,13 +5,20 @@ require_relative "./development_seeds"
 
 def create_user(details)
   puts "Checking for #{details[:user_name]} user..."
+
   db_user = User.where(:user_name => details[:user_name]).first
 
   if db_user.blank?
     db_user = User.create(details)
     db_user.creator_id = db_user.id
     db_user.updater_id = db_user.id
+
+    db_user.skip_user_name_exclusion_list = true
+
     db_user.save!
+
+    db_user.skip_user_name_exclusion_list = false
+
     puts "... #{details[:user_name]} user created."
   else
     puts "... #{details[:user_name]} user already exists."
