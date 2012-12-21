@@ -16,6 +16,7 @@ gem 'sqlite3'
 
 gem 'devise'
 gem 'omniauth'
+gem 'cancan'
 
 # omniauth gems for strategies we want to use
 gem 'omniauth-browserid'

@@ -26,7 +26,7 @@ def create_user(details)
 end
 
 # Super user setup - for any environment
-create_user({user_name: 'admin', display_name: 'Administrator', email: 'example+admin@example.com', password: 'admin_password' })
+create_user({user_name: 'admin', display_name: 'Administrator', email: 'example+admin@example.com', password: 'admin_password', admin: true })
 create_user({user_name: 'harvester', display_name: 'Harvester', email: 'example+harvester@example.com', password: 'harvester_password' })
 create_user({user_name: 'analysis_runner', display_name: 'Analysis Runner', email: 'example+analysis_runner@example.com', password: 'analysis_runner_password' })
 
