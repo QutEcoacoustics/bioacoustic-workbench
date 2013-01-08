@@ -1,4 +1,5 @@
 require 'openid/store/filesystem'
+require 'RestFailureApp'
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
@@ -59,7 +60,7 @@ Devise.setup do |config|
   config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
-  config.http_authenticatable_on_xhr = true
+  config.http_authenticatable_on_xhr = false
 
   # The realm used in Http Basic Authentication. "Application" by default.
   config.http_authentication_realm = "BAW Site"
@@ -247,6 +248,7 @@ Devise.setup do |config|
     # http://stackoverflow.com/questions/6659730/does-anyone-know-the-options-for-devises-authenticate-user
     # not needed, just had to ensure :json is not a navigational format
     #manager.failure_app = CustomAuthenticationFailure
+    manager.failure_app = RestFailureApp
   end
 
   # ==> Mountable engine configurations
