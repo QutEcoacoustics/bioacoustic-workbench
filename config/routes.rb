@@ -20,9 +20,6 @@ end
 
 BawSite::Application.routes.draw do
 
-  resources :analysis_items
-
-
   # this is the catch-all route that allows rails to respond to any route, and essentially 'forward' it to angular
   match '*path' => 'home#index', :constraints => AngularConstraint.new, :as => :angular_routing
 
@@ -44,7 +41,7 @@ BawSite::Application.routes.draw do
   end
 
   resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions,
-            :tags, :bookmarks,  :progresses, :saved_searches, :analysis_jobs, :analysis_scripts
+            :tags, :bookmarks,  :progresses, :saved_searches, :analysis_jobs, :analysis_scripts, :analysis_items
 
   resources :audio_recordings do
     collection do

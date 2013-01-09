@@ -72,6 +72,8 @@ end
 group :test do
   gem 'rake', '>=10'
   gem 'simplecov', :require => false
+
+  gem 'capybara'
 end
 
 group :development do
@@ -85,6 +87,8 @@ end
 group :development, :test do
 
   gem 'test-unit'
+  gem 'rspec-rails'
+
   gem 'ruby-prof'
 
   gem 'cucumber', :require => false
