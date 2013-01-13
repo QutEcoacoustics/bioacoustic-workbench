@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 # core rails gem
-gem 'rails', '3.2.11'
+# temporary roleback to 3.2.8 because of this issue https://github.com/rails/rails/pull/8718
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -73,7 +74,10 @@ group :test do
   gem 'rake', '>=10'
   gem 'simplecov', :require => false
 
+  gem 'faker'
   gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
 end
 
 group :development do
@@ -88,6 +92,8 @@ group :development, :test do
 
   gem 'test-unit'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'shoulda'
 
   gem 'ruby-prof'
 
