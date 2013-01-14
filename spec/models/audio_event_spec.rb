@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'rspec'
 
 describe AudioEvent do
   it 'has a valid factory' do

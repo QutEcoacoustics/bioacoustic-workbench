@@ -18,7 +18,7 @@ describe AudioRecording do
   it { should belong_to(:site)}
   it { should have_many(:audio_events)}
   it { should validate_presence_of(:uploader_id) }
-  it "requires uploader_id to be set" do
+  it 'requires uploader_id to be set' do
     build(:audio_recording, :uploader_id => nil)
   end
   it { should validate_presence_of(:recorded_date) }
