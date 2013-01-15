@@ -1,17 +1,28 @@
 require 'faker'
+require_relative '../support/analysis_script_helper.rb'
+
+
 
 FactoryGirl.define do
   factory :analysis_script do |f|
 
-    f.des
+    s = Shared::shared_properties
+    f.display_name s[:display_name]
+    f.name nil # very important that that stays nils #s[:name]
+    f.extra_data s[:extra_data]
+    f.settings s[:settings]
+    f.description s[:description]
+    f.version s[:version]
 
-    f.worker_started_utc Random.rand(30).minutes.ago
-    f.offset_end_seconds Random.rand(360)
-    f.offset_start_seconds Random.rand(360)
-    f.status :ready
+    f.notes ({ notes: 'something' })
+
+    f.verified true
 
 
-    f.association :analysis_job
-    f.association :audio_recording
+    f.association :creator_id, :factory => :user
+
+    factory :analysis_script_unverified do
+      verified false
+    end
   end
 end
