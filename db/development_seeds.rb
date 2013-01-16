@@ -38,15 +38,15 @@ def run_dev_seeds(admin_id)
   # projects
   puts "Creating projects..."
   p1 = add (Project.create({ description: "SERF Acoustic study aimed at detecting the <__> species",
-                             name:        "SERF AS Frogs", notes: { }, urn: "http://localhost:3000/projects/serf_as_frogs"
+                             name:        "SERF AS Frogs", notes: { }, urn: "urn:http://localhost:3000/projects/serf_as_frogs"
                            }))
 
   p2 = add (Project.create({ description: "Groote Island project dedicated to preventing canetoad infestation",
-                             name:        "Groote Canetoad", notes: { }, urn: "http://localhost:3000/projects/groote_canetoad",
+                             name:        "Groote Canetoad", notes: { }, urn: "urn:http://localhost:3000/projects/groote_canetoad",
                            }))
 
   p3 =add (Project.create({ description: "Collaborative study reusing data from several projects to monitor Koala calls",
-                            name:        "Qubar Collaborative", notes: { }, urn: "http://localhost:3000/projects/qubar_collaborative",
+                            name:        "Qubar Collaborative", notes: { }, urn: "urn:http://localhost:3000/projects/qubar_collaborative",
                           }))
 
 

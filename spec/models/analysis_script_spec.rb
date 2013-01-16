@@ -20,7 +20,7 @@ describe AnalysisScript do
     create(:analysis_script, display_name: 'There ain\'t room enough in this town for two of us sonny!')
     as2 = build(:analysis_script, display_name: 'THERE AIN\'T ROOM ENOUGH IN THIS TOWN FOR TWO OF US SONNY!')
     as2.should_not be_valid
-    as2.should have(1).error_on(:name)
+    as2.should have(1).error_on(:display_name)
   end
 
   it { should validate_presence_of(:name) }
@@ -72,7 +72,7 @@ describe AnalysisScript do
   end
   it 'should convert display_name to name (and replace non-legal symbols with underscore)' do
     as = build(:analysis_script, { display_name: '"FRACK IT: I\'m over this!" Said Apollo to acting-Admiral Adama' })
-    as.name.should == 'frack_it_I_m_over_this_said_apollo_to_acting-admiral_adama'
+    as.name.should == 'frack_it_i_m_over_this_said_apollo_to_acting-admiral_adama'
     as.should be_valid
   end
 
@@ -91,11 +91,13 @@ describe AnalysisScript do
     as.should be_valid
   end
   it 'should compute a name if only display_name is entered' do
-    as = build(:analysis_script, { display_name: "RAWWWWW!!! said the dinosaur", name: nil })
+    as = build(:analysis_script, { display_name: nil, name: nil })
     as.name.should == nil
+    as.should_not be_valid
 
-    # I think it should try and transform somewhere before save
-    as.save!
+    as.display_name = 'RAWWWWW!!! said the dinosaur'
+
+    # It automatically sets name if display_name is set and name is nil
     as.should be_valid
     as.name.should == 'rawwwww_said_the_dinosaur'
   end
