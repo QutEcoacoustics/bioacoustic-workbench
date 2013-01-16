@@ -1,4 +1,5 @@
 require_relative '../settings.rb'
+require_relative '../../lib/modules/logger'
 
 module BawSite
 
@@ -10,6 +11,8 @@ module BawSite
 
     # this is for Rails, will not work for harvester
     base_dir = File.join(Rails.root, 'media')
+
+    Logging.set_logger(Rails.logger)
 
     config.media_file_config = OpenStruct.new
 

@@ -1,3 +1,12 @@
+require 'spec_helper'
+
+
+describe Audio do
+  it 'segments' do
+
+    end
+end
+
 require 'test_helper'
 
 class ModuleAudioTest < ActiveSupport::TestCase
