@@ -1,7 +1,7 @@
-require 'test_helper'
+require 'spec_helper'
 
-class ClassSearchTest < ActiveSupport::TestCase
-   test "an empty search query" do
+describe Search do
+   it "should be an empty search query" do
 
      the_search = Search.new( { } )
 
@@ -14,7 +14,7 @@ class ClassSearchTest < ActiveSupport::TestCase
 
    end
 
-   test "a single project" do
+   it "should be a single project" do
 
      the_search = Search.new( { :body_params => { :project_ids => [ 1 ] } } )
 
@@ -25,7 +25,7 @@ class ClassSearchTest < ActiveSupport::TestCase
 
    end
 
-   test "a single site" do
+   it "should be a single site" do
 
      the_search = Search.new( { :body_params => { :site_ids => [ 1 ] } } )
 
@@ -36,7 +36,7 @@ class ClassSearchTest < ActiveSupport::TestCase
 
    end
 
-   test "a single recording" do
+   it "should be a single recording" do
 
      the_search = Search.new( { :body_params => { :audio_recording_ids => [ 1 ] } } )
 
@@ -47,7 +47,7 @@ class ClassSearchTest < ActiveSupport::TestCase
 
    end
 
-   test "a complicated search" do
+   it "should be a complicated search" do
 
      the_search = Search.new( { :body_params => {
          :project_ids => [ 1 ],

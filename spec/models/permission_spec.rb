@@ -1,7 +1,5 @@
-require 'test_helper'
+require 'spec_helper'
 
-class PermissionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+describe Permission do
+  it 'should have tests'
 end

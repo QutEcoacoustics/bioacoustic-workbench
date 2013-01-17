@@ -1,7 +1,5 @@
-require 'test_helper'
+require 'spec_helper'
 
-class ProgressTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+describe Progress do
+  it 'should have tests'
 end

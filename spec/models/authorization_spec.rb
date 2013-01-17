@@ -1,7 +1,5 @@
-require 'test_helper'
+require 'spec_helper'
 
-class AuthorizationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+describe Authorization do
+  it 'should have tests'
 end

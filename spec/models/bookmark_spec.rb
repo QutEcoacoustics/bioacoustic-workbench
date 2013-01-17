@@ -1,7 +1,5 @@
-require 'test_helper'
+require 'spec_helper'
 
-class BookmarkTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+describe Bookmark do
+  it 'should have tests'
 end

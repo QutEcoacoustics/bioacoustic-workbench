@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AudioRecordingsController do
+describe SavedSearchesController do
   describe "GET #index" do
     it "populates a list"
     it "renders the list in json with the expected properties"
@@ -49,18 +49,19 @@ describe AudioRecordingsController do
   end
 end
 
+
 =begin
 require 'test_helper'
 
-class AudioRecordingsControllerTest < ActionController::TestCase
+class SavedSearchesControllerTest < ActionController::TestCase
   setup do
-    @audio_recording = AudioRecording.first!
+    @saved_search = SavedSearch.first!
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:audio_recordings)
+    assert_not_nil assigns(:saved_searches)
   end
 
   test "should get new" do
@@ -68,35 +69,35 @@ class AudioRecordingsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create audio_recording" do
-    assert_difference('AudioRecording.count') do
-      post :create, audio_recording: { bit_rate_bps: @audio_recording.bit_rate_bps, channels: @audio_recording.channels, data_length_bytes: @audio_recording.data_length_bytes, duration_seconds: @audio_recording.duration_seconds, file_hash: @audio_recording.file_hash, media_type: @audio_recording.media_type, notes: @audio_recording.notes, recorded_date: @audio_recording.recorded_date, sample_rate_hertz: @audio_recording.sample_rate_hertz, status: @audio_recording.status }
+  test "should create saved_search" do
+    assert_difference('SavedSearch.count') do
+      post :create, saved_search: { name: @saved_search.name, search_object: @saved_search.search_object }
     end
 
-    assert_redirected_to audio_recording_path(assigns(:audio_recording))
+    assert_redirected_to saved_search_path(assigns(:saved_search))
   end
 
-  test "should show audio_recording" do
-    get :show, id: @audio_recording
+  test "should show saved_search" do
+    get :show, id: @saved_search
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @audio_recording
+    get :edit, id: @saved_search
     assert_response :success
   end
 
-  test "should update audio_recording" do
-    put :update, id: @audio_recording, audio_recording: { bit_rate_bps: @audio_recording.bit_rate_bps, channels: @audio_recording.channels, data_length_bytes: @audio_recording.data_length_bytes, duration_seconds: @audio_recording.duration_seconds, file_hash: @audio_recording.file_hash, media_type: @audio_recording.media_type, notes: @audio_recording.notes, recorded_date: @audio_recording.recorded_date, sample_rate_hertz: @audio_recording.sample_rate_hertz, status: @audio_recording.status }
-    assert_redirected_to audio_recording_path(assigns(:audio_recording))
+  test "should update saved_search" do
+    put :update, id: @saved_search, saved_search: { name: @saved_search.name, search_object: @saved_search.search_object }
+    assert_redirected_to saved_search_path(assigns(:saved_search))
   end
 
-  test "should destroy audio_recording" do
-    assert_difference('AudioRecording.count', -1) do
-      delete :destroy, id: @audio_recording
+  test "should destroy saved_search" do
+    assert_difference('SavedSearch.count', -1) do
+      delete :destroy, id: @saved_search
     end
 
-    assert_redirected_to audio_recordings_path
+    assert_redirected_to saved_searches_path
   end
 end
 =end

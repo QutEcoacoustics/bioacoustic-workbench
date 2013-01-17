@@ -212,7 +212,7 @@ def run_dev_seeds(admin_id)
 
   # analysis items
   puts "Creating Analysis Items..."
-  ai1 = AnalysisItem.create({offset_start_seconds:10,offset_end_seconds:50, status: 'ready'})
+  ai1 = AnalysisItem.create({offset_start_seconds:10,offset_end_seconds:50, status: :ready})
   ai1.analysis_job = job1
   ai1.audio_recording = ar1
   sv(ai1)

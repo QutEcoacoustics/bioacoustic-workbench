@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AudioRecordingsController do
+describe SitesController do
   describe "GET #index" do
     it "populates a list"
     it "renders the list in json with the expected properties"
@@ -49,18 +49,19 @@ describe AudioRecordingsController do
   end
 end
 
+
 =begin
 require 'test_helper'
 
-class AudioRecordingsControllerTest < ActionController::TestCase
+class SitesControllerTest < ActionController::TestCase
   setup do
-    @audio_recording = AudioRecording.first!
+    @site = Site.first!
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:audio_recordings)
+    assert_not_nil assigns(:sites)
   end
 
   test "should get new" do
@@ -68,35 +69,35 @@ class AudioRecordingsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create audio_recording" do
-    assert_difference('AudioRecording.count') do
-      post :create, audio_recording: { bit_rate_bps: @audio_recording.bit_rate_bps, channels: @audio_recording.channels, data_length_bytes: @audio_recording.data_length_bytes, duration_seconds: @audio_recording.duration_seconds, file_hash: @audio_recording.file_hash, media_type: @audio_recording.media_type, notes: @audio_recording.notes, recorded_date: @audio_recording.recorded_date, sample_rate_hertz: @audio_recording.sample_rate_hertz, status: @audio_recording.status }
+  test "should create site" do
+    assert_difference('Site.count') do
+      post :create, site: { latitude: @site.latitude, longitude: @site.longitude, name: @site.name, notes: @site.notes }
     end
 
-    assert_redirected_to audio_recording_path(assigns(:audio_recording))
+    assert_redirected_to site_path(assigns(:site))
   end
 
-  test "should show audio_recording" do
-    get :show, id: @audio_recording
+  test "should show site" do
+    get :show, id: @site
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @audio_recording
+    get :edit, id: @site
     assert_response :success
   end
 
-  test "should update audio_recording" do
-    put :update, id: @audio_recording, audio_recording: { bit_rate_bps: @audio_recording.bit_rate_bps, channels: @audio_recording.channels, data_length_bytes: @audio_recording.data_length_bytes, duration_seconds: @audio_recording.duration_seconds, file_hash: @audio_recording.file_hash, media_type: @audio_recording.media_type, notes: @audio_recording.notes, recorded_date: @audio_recording.recorded_date, sample_rate_hertz: @audio_recording.sample_rate_hertz, status: @audio_recording.status }
-    assert_redirected_to audio_recording_path(assigns(:audio_recording))
+  test "should update site" do
+    put :update, id: @site, site: { latitude: @site.latitude, longitude: @site.longitude, name: @site.name, notes: @site.notes }
+    assert_redirected_to site_path(assigns(:site))
   end
 
-  test "should destroy audio_recording" do
-    assert_difference('AudioRecording.count', -1) do
-      delete :destroy, id: @audio_recording
+  test "should destroy site" do
+    assert_difference('Site.count', -1) do
+      delete :destroy, id: @site
     end
 
-    assert_redirected_to audio_recordings_path
+    assert_redirected_to sites_path
   end
 end
 =end

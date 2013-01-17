@@ -1,8 +1,7 @@
-require 'test_helper'
+require 'spec_helper'
 
-class SpectrogramModuleTest < ActiveSupport::TestCase
-  include Spectrogram
-  test "source and destination files exist" do
+describe Spectrogram do
+  it "should ensure source and destination files exist" do
 
     audio = 'TorresianCrow.wav'
     image = 'TorresianCrow.png'
@@ -30,8 +29,8 @@ class SpectrogramModuleTest < ActiveSupport::TestCase
     #tidy up
     delete_if_exists output_image
   end
-  
-  test "using an invalid source file" do
+
+  it "should test using an invalid source file" do
     audio = 'not-an-audio-file.wav'
     image = 'TorresianCrow.png'
 
@@ -50,7 +49,7 @@ class SpectrogramModuleTest < ActiveSupport::TestCase
     delete_if_exists output_image
   end
 
-  test "target file already exists" do
+  it "should ensure target file already exists" do
     audio = 'TorresianCrow.wav'
     image = 'TorresianCrow.png'
 

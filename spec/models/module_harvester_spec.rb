@@ -1,10 +1,5 @@
-require 'test_helper'
+require 'spec_helper'
 
-class ModuleHarvesterTest < ActiveSupport::TestCase
-  include AudioHarvester
-
-  test "" do
-
-  end
-
-end
+#describe AudioHarvester do
+#  it 'should have tests'
+#end
