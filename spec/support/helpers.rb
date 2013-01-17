@@ -18,6 +18,35 @@ module JsonHelpers
       else o
     end
   end
+
 end
 
 RSpec.configure { |config| config.include JsonHelpers, :type => :request }
+
+module AudioHelpers
+  # Add more helper methods to be used by all tests here...
+  def self.get_source_audio_file_path(file_name)
+    input_path = './test/fixtures/audio'
+    File.join input_path, file_name
+  end
+
+  def self.get_temp_file_path(file_name)
+    output_path = './tmp/testassests'
+    FileUtils.makedirs(output_path)
+    File.join output_path, file_name
+  end
+
+  def self.delete_if_exists(file_path)
+
+    file_name = file_path.chomp(File.extname(file_path))
+    possible_paths = [file_path, file_name+'.webm', file_name+'.ogg']
+
+    possible_paths.each{|file|
+      if File.exists? file
+        File.delete file
+      end
+    }
+  end
+end
+
+RSpec.configure { |config| config.include AudioHelpers, :type => :model }
