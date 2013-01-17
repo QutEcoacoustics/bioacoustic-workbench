@@ -41,4 +41,6 @@ case Rails.env
   when "test"
     # these seeds should be put in the fixtures folder
     run_dev_seeds admin_user.id
+  else
+    throw "Unknown environment: #{Rails.env}"
 end
