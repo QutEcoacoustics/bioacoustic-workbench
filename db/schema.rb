@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214052533) do
+ActiveRecord::Schema.define(:version => 20130118013653) do
 
   create_table "analysis_items", :force => true do |t|
     t.string   "worker_info"
@@ -215,9 +215,11 @@ ActiveRecord::Schema.define(:version => 20121214052533) do
     t.datetime "updated_at",    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "owner_id"
   end
 
   add_index "saved_searches", ["creator_id", "name", "search_object"], :name => "index_saved_searches_on_creator_id_and_name_and_search_object", :unique => true
+  add_index "saved_searches", ["owner_id"], :name => "index_saved_searches_on_owner_id"
 
   create_table "sites", :force => true do |t|
     t.string   "name"

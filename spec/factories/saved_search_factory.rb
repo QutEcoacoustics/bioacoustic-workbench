@@ -1,13 +1,19 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :saved_search do |f|
-
-    f.name { 'My custom saved search (' + Faker::Lorem.sentence() + ')'}
-    f.search_object { '{}'} # an empty search
-
-    f.association :creator_id, :factory => :user
-  end
+  factory :saved_search_base do
 
 
+    name { 'My custom saved search (' + Faker::Lorem.sentence() + ')'}
+    search_object { '{}'} # an empty search
+
+    association :creator_id, factory: :user
+
+
+    factory :saved_search do
+      association :owner_id, factory: :user
+    end
+
+
+    end
 end
