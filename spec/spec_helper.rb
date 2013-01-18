@@ -54,6 +54,9 @@ RSpec.configure do |config|
     # I found the SQLite exception solution was to remove the clean_with(:truncation) and change the strategy entirely to DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+
+# support for running seed data with tests
+    load "#{Rails.root}/db/seeds.rb"
   end
 
   config.before(:each) do
@@ -66,7 +69,23 @@ RSpec.configure do |config|
 
   # mixin core methods
   config.include FactoryGirl::Syntax::Methods
+
+  # https://github.com/plataformatec/devise
+  # for signing in
+  config.include Devise::TestHelpers, :type => :controller
+
+  config.before(:all, :type => :controller) do
+    Rack::MockRequest::DEFAULT_ENV['devise.mapping']= Devise.mappings[:user]
+  end
+
+  config.before(:each, :type => :controller) do
+    sign_in :user, User.first
+  end
+
+  config.after(:all, :type => :controller) do
+    Rack::MockRequest::DEFAULT_ENV['devise.mapping']= Devise.mappings[:user]
+  end
+
 end
 
-# support for running seed data with tests
-#load "#{Rails.root}/db/seeds.rb"
+
