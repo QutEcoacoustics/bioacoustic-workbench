@@ -54,6 +54,9 @@ RSpec.configure do |config|
     # I found the SQLite exception solution was to remove the clean_with(:truncation) and change the strategy entirely to DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+
+# support for running seed data with tests
+    load "#{Rails.root}/db/seeds.rb"
   end
 
   config.before(:each) do
@@ -68,5 +71,4 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 end
 
-# support for running seed data with tests
-#load "#{Rails.root}/db/seeds.rb"
+

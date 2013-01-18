@@ -6,11 +6,11 @@ describe Spectrogram do
     audio = 'TorresianCrow.wav'
     image = 'TorresianCrow.png'
     
-    input_audio = get_source_audio_file_path audio
-    output_image = get_target_file_path image
+    input_audio = AudioHelpers::get_source_audio_file_path audio
+    output_image = AudioHelpers::get_temp_file_path image
 
     # delete any existing generated spectrogram
-    delete_if_exists output_image
+    AudioHelpers::delete_if_exists output_image
 
     assert File.exists?(input_audio), "Source audio file does not exist: #{input_audio}"
 
@@ -27,18 +27,18 @@ describe Spectrogram do
     assert_operator file_size_out, :>, 100000
     
     #tidy up
-    delete_if_exists output_image
+    AudioHelpers::delete_if_exists output_image
   end
 
   it "should test using an invalid source file" do
     audio = 'not-an-audio-file.wav'
     image = 'TorresianCrow.png'
 
-    input_audio = get_source_audio_file_path audio
-    output_image = get_target_file_path image
+    input_audio = AudioHelpers::get_source_audio_file_path audio
+    output_image = AudioHelpers::get_temp_file_path image
 
     # delete any existing generated spectrogram
-    delete_if_exists output_image
+    AudioHelpers::delete_if_exists output_image
 
     assert File.exists?(input_audio), "Source audio file does not exist: #{input_audio}"
 
@@ -46,18 +46,18 @@ describe Spectrogram do
     assert_equal( "Source file was not a valid audio file: #{input_audio}.", exception.message )
 
     #tidy up
-    delete_if_exists output_image
+    AudioHelpers::delete_if_exists output_image
   end
 
   it "should ensure target file already exists" do
     audio = 'TorresianCrow.wav'
     image = 'TorresianCrow.png'
 
-    input_audio = get_source_audio_file_path audio
-    output_image = get_target_file_path image
+    input_audio = AudioHelpers::get_source_audio_file_path audio
+    output_image = AudioHelpers::get_temp_file_path image
 
     # delete any existing generated spectrogram
-    delete_if_exists output_image
+    AudioHelpers::delete_if_exists output_image
 
     # ensure source file exists
     assert File.exists?(input_audio), "Source audio file does not exist: #{input_audio}"
@@ -73,6 +73,6 @@ describe Spectrogram do
     assert_equal( "Target path for spectrogram generation already exists: #{output_image}.", exception.message )
 
     #tidy up
-    delete_if_exists output_image
+    AudioHelpers::delete_if_exists output_image
   end
 end
