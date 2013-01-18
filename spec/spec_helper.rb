@@ -69,6 +69,23 @@ RSpec.configure do |config|
 
   # mixin core methods
   config.include FactoryGirl::Syntax::Methods
+
+  # https://github.com/plataformatec/devise
+  # for signing in
+  config.include Devise::TestHelpers, :type => :controller
+
+  config.before(:all, :type => :controller) do
+    Rack::MockRequest::DEFAULT_ENV['devise.mapping']= Devise.mappings[:user]
+  end
+
+  config.before(:each, :type => :controller) do
+    sign_in :user, User.first
+  end
+
+  config.after(:all, :type => :controller) do
+    Rack::MockRequest::DEFAULT_ENV['devise.mapping']= Devise.mappings[:user]
+  end
+
 end
 
 

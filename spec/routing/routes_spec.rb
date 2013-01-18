@@ -26,7 +26,7 @@ describe "routes for html requests" do
   routes_to_test.each { |path, options|
     it "routes #{path} to the home\#index action" do
 
-      # note, these are html requests, they soulkd not route to their controllers
+      # note, these are html requests, they should not route to their controllers
       # so ignore options[1] and options[2]
 
       { options[0] => path }.

@@ -9,7 +9,7 @@ module JsonHelpers
     symbolize_keys(JSON.parse(response.body))
   end
 
-  private
+
 
   def symbolize_keys(o)
     case o
@@ -21,7 +21,7 @@ module JsonHelpers
 
 end
 
-RSpec.configure { |config| config.include JsonHelpers, :type => :request }
+RSpec.configure { |config| config.include JsonHelpers, :type => :controller }
 
 module AudioHelpers
   # Add more helper methods to be used by all tests here...
