@@ -2,8 +2,11 @@ require 'spec_helper'
 
 describe AnalysisItemsController do
   describe "GET #index" do
-    it "populates a list"
-    it "renders the list in json with the expected properties"
+    before(:each) do
+      @response_body = json get: :index
+    end
+
+    it_should_behave_like  :a_standard_api_call, AnalysisItem
   end
 
   describe "GET #show" do

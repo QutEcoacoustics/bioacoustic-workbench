@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118013653) do
+ActiveRecord::Schema.define(:version => 20130119095800) do
 
   create_table "analysis_items", :force => true do |t|
     t.string   "worker_info"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20130118013653) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "audio_recording_id", :null => false
-    t.decimal  "offset",             :null => false
+    t.decimal  "offset_seconds",     :null => false
     t.string   "name"
     t.text     "notes"
     t.datetime "created_at",         :null => false

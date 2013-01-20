@@ -1,7 +1,7 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :saved_search_base do
+  factory :saved_search_base, class: SavedSearch do
 
 
     name { 'My custom saved search (' + Faker::Lorem.sentence() + ')'}

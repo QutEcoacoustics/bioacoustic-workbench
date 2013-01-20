@@ -1,31 +1,15 @@
 require 'spec_helper'
 
+
+
 describe PhotosController do
   describe 'GET #index' do
 
     before(:each) do
-      get :index, { :format => :json }
-      @response_body = JSON.parse(response.body)
+      @response_body = json get: :index
     end
 
-    it {should respond_with(:success) }
-
-    it 'should be a list' do
-      @response_body.should have(Photo.count).photos
-    end
-
-    it 'should be an array' do
-      @response_body.kind_of?(Array).should be_true
-    end
-
-    it 'should not be a single item' do
-      @response_body.kind_of?(Hash).should_not be_true
-    end
-
-    it 'should not be empty' do
-      @response_body.blank?.should_not be_true
-    end
-
+    it_should_behave_like  :a_standard_api_call, Photo
   end
 
   describe 'GET #show' do

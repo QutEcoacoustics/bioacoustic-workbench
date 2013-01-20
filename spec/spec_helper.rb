@@ -55,8 +55,8 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
-# support for running seed data with tests
-    load "#{Rails.root}/db/seeds.rb"
+    # MOVED SEED RUNNING BELOW
+    # SEEDS ONLY AVAILABLE FOR CONTROLLER TESTS
   end
 
   config.before(:each) do
@@ -76,6 +76,9 @@ RSpec.configure do |config|
 
   config.before(:all, :type => :controller) do
     Rack::MockRequest::DEFAULT_ENV['devise.mapping']= Devise.mappings[:user]
+
+    # support for running seed data with tests
+    load "#{Rails.root}/db/seeds.rb"
   end
 
   config.before(:each, :type => :controller) do

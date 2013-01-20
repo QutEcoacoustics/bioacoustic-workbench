@@ -1,10 +1,12 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :project do |f|
-    f.description {Faker::Lorem.sentences(2)}
-    f.name {Faker::Name.title}
-    f.urn {'urn:organisation:project'}
-    f.notes { {Faker::Lorem.word => Faker::Lorem.paragraph} }
+  factory :project do
+   description { Faker::Lorem.sentences(2) }
+   name { Faker::Name.title }
+
+   sequence(:urn) {|n| "urn:project:ecosounds.org/project/#{n}" }
+
+   notes { { Faker::Lorem.word => Faker::Lorem.paragraph } }
   end
 end

@@ -365,6 +365,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.8)
   rake (>= 10)
+  rspec
   rspec-rails
   ruby-debug-base19x (>= 0.11.30.pre10)
   ruby-debug-ide (>= 0.4.17.beta14)
