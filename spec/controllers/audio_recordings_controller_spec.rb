@@ -11,8 +11,12 @@ describe AudioRecordingsController do
   end
 
   describe "GET #show" do
-    it "assigns the requested item to the local variable"
-    it "renders the item in json with the expected properties"
+    before(:each) do
+      item = random_item
+      @response_body = json({ get: :show, id: item.id })
+    end
+
+    it_should_behave_like  :an_idempotent_api_call, AudioRecording, false
   end
 
   describe "GET #new" do

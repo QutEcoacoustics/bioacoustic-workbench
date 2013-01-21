@@ -2,6 +2,11 @@ require 'spec_helper'
 
 shared_examples :an_idempotent_api_call do |klass, many = true|
 
+  let(:random_item) do
+    offset = rand(klass.count)
+    klass.first(:offset => offset) unless many
+  end
+
   it { should respond_with(:success) }
 
   it { should respond_with_content_type(:json) }
@@ -11,7 +16,7 @@ shared_examples :an_idempotent_api_call do |klass, many = true|
     if many
       @response_body.should have(klass.count).items
     else
-      @response_body.should have(1).items
+      @response_body.should include(:id)
     end
   end
 
@@ -33,6 +38,13 @@ shared_examples :an_idempotent_api_call do |klass, many = true|
       @response_body.should_not be_blank
     end
 
+  end
+
+  unless many
+    it 'should ensure json response matches initial object' do
+      current_item = random_item
+      @response_body[:id].should == current_item.id
+    end
   end
 
 

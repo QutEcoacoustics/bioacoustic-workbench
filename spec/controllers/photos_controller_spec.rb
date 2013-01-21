@@ -12,9 +12,13 @@ describe PhotosController do
     it_should_behave_like  :an_idempotent_api_call, Photo
   end
 
-  describe 'GET #show' do
-    it 'assigns the requested item to the local variable'
-    it 'renders the item in json with the expected properties'
+  describe "GET #show" do
+    before(:each) do
+      item = random_item
+      @response_body = json({ get: :show, id: item.id })
+    end
+
+    it_should_behave_like  :an_idempotent_api_call, Photo, false
   end
 
   describe 'GET #new' do

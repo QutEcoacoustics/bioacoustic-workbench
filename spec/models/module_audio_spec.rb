@@ -39,7 +39,7 @@ describe Audio do
         output_info = Audio::info output_audio
 
         # assertions
-        comparison = check_format format.to_sym, input_info, output_info, modify_params[:start_offset],modify_params[:end_offset], modify_params[:sample_rate]
+        comparison = check_format input_audio, output_audio, format.to_sym, input_info, output_info, modify_params[:start_offset],modify_params[:end_offset], modify_params[:sample_rate]
 
         #tidy up
         AudioHelpers::delete_if_exists output_audio
@@ -301,15 +301,15 @@ class ModuleAudioTest < ActiveSupport::TestCase
 
 #private
 
-def check_format(output_type, input_info, output_info, start_offset, end_offset, sample_rate)
+def check_format(input_audio, output_audio, output_type, input_info, output_info, start_offset, end_offset, sample_rate)
   # format
-  assert_equal AudioFfmpeg::CODECS[output_type][:codec_name], output_info[:info][:ffmpeg]['STREAM codec_name']
-  assert_equal AudioFfmpeg::CODECS[output_type][:codec_long_name], output_info[:info][:ffmpeg]['STREAM codec_long_name']
-  assert_equal AudioFfmpeg::CODECS[output_type][:codec_type], output_info[:info][:ffmpeg]['STREAM codec_type']
-  assert_equal AudioFfmpeg::CODECS[output_type][:format_long_name], output_info[:info][:ffmpeg]['FORMAT format_long_name']
+  assert_equal AudioFfmpeg::CODECS[output_type][:codec_name], output_info[:info][:ffmpeg]['STREAM codec_name'], "input: #{input_audio}, output: #{output_audio}"
+  assert_equal AudioFfmpeg::CODECS[output_type][:codec_long_name], output_info[:info][:ffmpeg]['STREAM codec_long_name'], "input: #{input_audio}, output: #{output_audio}"
+  assert_equal AudioFfmpeg::CODECS[output_type][:codec_type], output_info[:info][:ffmpeg]['STREAM codec_type'], "input: #{input_audio}, output: #{output_audio}"
+  assert_equal AudioFfmpeg::CODECS[output_type][:format_long_name], output_info[:info][:ffmpeg]['FORMAT format_long_name'], "input: #{input_audio}, output: #{output_audio}"
 
   # sample rate
-  assert_equal sample_rate, output_info[:info][:ffmpeg]['STREAM sample_rate'].to_i
+  assert_equal sample_rate, output_info[:info][:ffmpeg]['STREAM sample_rate'].to_i, "input: #{input_audio}, output: #{output_audio}"
 
   # duration
   # duration can be in STREAM and FORMAT
@@ -318,7 +318,7 @@ def check_format(output_type, input_info, output_info, start_offset, end_offset,
   format_duration = output_info[:info][:ffmpeg]['FORMAT duration']
 
   delta = 0.75
-  assert_msg = "from #{start_offset} to #{end_offset}"
+  assert_msg = "from #{start_offset} to #{end_offset} input: #{input_audio}, output: #{output_audio}"
   expected_duration = end_offset - start_offset
   actual_duration = 0
 

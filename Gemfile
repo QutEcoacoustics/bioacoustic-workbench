@@ -82,8 +82,8 @@ end
 
 group :development do
   #gem 'linecache19', '>= 0.5.13', :git => 'git://github.com/robmathews/linecache19-0.5.13.git'
-  gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
-  gem 'ruby-debug-ide', '>= 0.4.17.beta14'
+  #gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
+  #gem 'ruby-debug-ide', '>= 0.4.17.beta14'
 
   gem 'thin'
 end
