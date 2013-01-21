@@ -7,7 +7,7 @@ describe AudioRecordingsController do
       @response_body = json get: :index
     end
 
-    it_should_behave_like  :a_standard_api_call, AudioRecording
+    it_should_behave_like  :an_idempotent_api_call, AudioRecording
   end
 
   describe "GET #show" do

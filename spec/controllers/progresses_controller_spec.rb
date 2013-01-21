@@ -6,7 +6,7 @@ describe ProgressesController do
       @response_body = json get: :index
     end
 
-    it_should_behave_like  :a_standard_api_call, Progress
+    it_should_behave_like  :an_idempotent_api_call, Progress
   end
 
   describe "GET #show" do

@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-shared_examples :a_standard_api_call do |klass, many = true|
+shared_examples :an_idempotent_api_call do |klass, many = true|
 
   it { should respond_with(:success) }
 
+  it { should respond_with_content_type(:json) }
 
   it "should #{'not' unless many} be a list" do
     #@response_body.send(many ? 'should' : 'should_not', have(klass.count).items)
@@ -13,7 +14,6 @@ shared_examples :a_standard_api_call do |klass, many = true|
       @response_body.should have(1).items
     end
   end
-
 
   it "should #{'not' unless many} be an array" do
 

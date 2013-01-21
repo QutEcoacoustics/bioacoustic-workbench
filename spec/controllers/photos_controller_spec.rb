@@ -9,7 +9,7 @@ describe PhotosController do
       @response_body = json get: :index
     end
 
-    it_should_behave_like  :a_standard_api_call, Photo
+    it_should_behave_like  :an_idempotent_api_call, Photo
   end
 
   describe 'GET #show' do
