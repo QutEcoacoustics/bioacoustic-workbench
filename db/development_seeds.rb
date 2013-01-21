@@ -195,8 +195,9 @@ def run_dev_seeds(admin_id)
   # analysis scripts
   puts "Creating Analysis Scripts..."
   script1 = AnalysisScript.create({name: 'a_test_script', display_name: 'A Test Script', version: 'script version',
-                                   description: 'script descr', settings: 'script settings', verified: false,
+                                   description: 'script descr', settings: '\tmp', verified: false,
                                    extra_data: 'hi folks!' ,notes: {more: 'data'} })
+  add(script1)
 
   # analysis jobs
   puts "Creating Analysis Jobs..."
@@ -207,7 +208,7 @@ def run_dev_seeds(admin_id)
                           }))
 
   job1.saved_search = SavedSearch.first
-  sv(job1)
+  add(job1)
 
 
   # analysis items
@@ -218,11 +219,27 @@ def run_dev_seeds(admin_id)
   sv(ai1)
 
   # permissions
+  puts "Creating Permissions..."
+  per1 = Permission.create({user_id: admin_id, level: :owner, permissionable_id: p1.id, permissionable_type: 'Project'})
+  add(per1)
 
   # progresses
+  puts "Creating Progresses..."
+  offset_list =
+    ([
+        [0.0, 33.26],
+        [60, 360],
+        [720, 792.3654],
+        [1600, 1632],
+        [1750, 1894],
+        [2400, 2520],
+    ]).to_json
+
+  prog1 = Progress.create({activity: ['annotating', 'listening', 'checklisting' ].sample, start_offset_seconds: Random.rand(20), end_offset_seconds:  (Random.rand(1000) + 2500), offset_list: offset_list })
+  prog1.saved_search = SavedSearch.first
+  prog1.audio_recording = AudioRecording.first
+  add(prog1)
 
   # authorizations
-
-
 
 end

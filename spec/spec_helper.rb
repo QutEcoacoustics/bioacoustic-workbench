@@ -51,7 +51,8 @@ RSpec.configure do |config|
     # https://github.com/bmabey/database_cleaner
     # http://stackoverflow.com/a/5964483
     # http://stackoverflow.com/a/9248602
-    # I found the SQLite exception solution was to remove the clean_with(:truncation) and change the strategy entirely to DatabaseCleaner.strategy = :truncation
+    # I found the SQLite exception solution was to remove the clean_with(:truncation) and
+    # change the strategy entirely to DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
