@@ -113,11 +113,11 @@ def run_dev_seeds(admin_id)
 
   fake_readings =
       [
-          ["4e01751b-b567-406c-af0a-c44f39f29f2c", s1],
-          ["8a26c5cd-3f09-4b2f-b48c-142aff498483", s2],
-          ["d49ba8d4-9dde-46c2-a04d-94aba66366c9", s3],
-          ["f9f2b885-6f25-4fdb-8c53-e03dca3f7e8a", s1],
-          ["13990e57-42a8-4b35-8eb0-1613bbb83bf6", s2]
+          ['4e01751b-b567-406c-af0a-c44f39f29f2c', s1],
+          ['8a26c5cd-3f09-4b2f-b48c-142aff498483', s2],
+          ['d49ba8d4-9dde-46c2-a04d-94aba66366c9', s3],
+          ['f9f2b885-6f25-4fdb-8c53-e03dca3f7e8a', s1],
+          ['13990e57-42a8-4b35-8eb0-1613bbb83bf6', s2]
       ]
 
   lengths = [120.0, 1440 * 60, 720 * 60]
@@ -125,7 +125,7 @@ def run_dev_seeds(admin_id)
     time = rand(10.years).ago
 
     AudioRecording.send(:attr_accessible, :uuid)
-    ar = ids (AudioRecording.create({uuid:row[0],  media_type:'audio/mpeg3', status: :ready,
+    ar = ids (AudioRecording.create({uuid:row[0],  media_type:'audio/mp3', status: :ready,
                                      recorded_date:time, duration_seconds: lengths.sample, sample_rate_hertz: 22050,
                                      channels: 2, bit_rate_bps:171000, data_length_bytes: (rand * 10000).to_i,
                                      file_hash: 'INVALID', notes:{:fake => true}, status: 'new' }))

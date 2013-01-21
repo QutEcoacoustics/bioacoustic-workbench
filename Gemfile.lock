@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/brainspec/enumerize.git
-  revision: 647497d5a71dd32ae37f2e327a3a1da25ad5f6b7
+  revision: 60539506a1a24da8a920e75628a75b7284d0707c
   branch: master
   specs:
     enumerize (0.5.1)
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/pivotal/jasmine-gem.git
-  revision: 63e8d46556a421cbb3b511b52cd8c2188d72b9db
+  revision: be9851192e78ffe635087e5583b15ebe683dc0d9
   specs:
     jasmine (1.3.2)
       jasmine-core (~> 1.3.1)
@@ -64,7 +64,6 @@ GEM
     acts_as_paranoid (0.4.1)
       activerecord (~> 3.2)
     addressable (2.3.2)
-    archive-tar-minitar (0.5.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1-x86-mingw32)
     bourne (1.1.2)
@@ -94,7 +93,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    columnize (0.3.6)
     cucumber (1.2.1)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.3)
@@ -133,7 +131,7 @@ GEM
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-rspec (2.3.3)
+    guard-rspec (2.4.0)
       guard (>= 1.1)
       rspec (~> 2.11)
     haml (3.1.7)
@@ -148,7 +146,7 @@ GEM
       coffee-rails
       haml
     journey (1.0.4)
-    jquery-rails (2.1.4)
+    jquery-rails (2.2.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.6)
@@ -159,8 +157,6 @@ GEM
     libwebsocket (0.1.7.1)
       addressable
       websocket
-    linecache19 (0.5.12)
-      ruby_core_source (>= 0.1.4)
     listen (0.7.2)
     lumberjack (1.0.2)
     mail (2.4.4)
@@ -219,7 +215,7 @@ GEM
     orm_adapter (0.4.0)
     pg (0.14.1-x86-mingw32)
     polyglot (0.3.3)
-    pry (0.9.11.2)
+    pry (0.9.11.4)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -266,18 +262,9 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    ruby-debug-base19x (0.11.30.pre10)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      rake (>= 0.8.1)
-      ruby_core_source (>= 0.1.4)
-    ruby-debug-ide (0.4.17.beta14)
-      rake (>= 0.8.1)
     ruby-imagespec (0.3.1)
     ruby-openid (2.2.2)
-    ruby-prof (0.12.0-x86-mingw32)
-    ruby_core_source (0.1.5)
-      archive-tar-minitar (>= 0.5.2)
+    ruby-prof (0.12.1-x86-mingw32)
     rubyzip (0.9.9)
     sass (3.2.5)
     sass-rails (3.2.6)
@@ -367,8 +354,6 @@ DEPENDENCIES
   rake (>= 10)
   rspec
   rspec-rails
-  ruby-debug-base19x (>= 0.11.30.pre10)
-  ruby-debug-ide (>= 0.4.17.beta14)
   ruby-imagespec
   ruby-prof
   rubyzip
