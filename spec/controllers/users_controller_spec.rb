@@ -19,19 +19,42 @@ describe UsersController do
   end
 
   describe "GET #new" do
-    it "assigns a new item to the local variable"
-    it "renders the item in json with the expected properties"
+    before(:each) do
+      @response_body = json get: :new
+      @expected_hash = {
+          :admin => false,
+          :created_at => nil,
+          :creator_id => nil,
+          :display_name => nil,
+          :email => '',
+          :id => nil,
+          :invitation_token => nil,
+          :updated_at => nil,
+          :updater_id => nil,
+          :user_name => nil
+      }
+    end
+
+    it_should_behave_like :a_new_api_call, User
   end
 
   describe "POST #create" do
     context "with valid attributes" do
-      it "saves the new item in the database"
-      it "renders the new item in json with the expect properties, with status 201, with location header"
+      before(:each) do
+        @initial_count = User.count
+        @response_body = json({ post: :create, user: build(:user).attributes })
+      end
+
+      it_should_behave_like :a_valid_create_api_call, User
     end
 
     context "with invalid attributes" do
-      it "does not save the new item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial_count = User.count
+        @response_body = json({ post: :create, user: {} })
+      end
+
+      it_should_behave_like :an_invalid_create_api_call, User, {:email=>["can't be blank", "Basic email validation failed. It should have at least 1 `@` and 1 `.`"], :password=>["can't be blank"], :user_name=>["can't be blank"], :display_name=>["Please provide a display name, email, or both."]}
     end
   end
 

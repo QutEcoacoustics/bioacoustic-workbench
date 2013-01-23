@@ -43,6 +43,10 @@ describe Tag do
     build(:tag, type_of_tag: nil).should_not be_valid
   end
 
+  it 'should be not valid with an invalid type_of_tag field specified' do
+    build(:tag, type_of_tag: :this_is_not_valid).should_not be_valid
+  end
+
   [:common_name, :species_name, :looks_like, :sounds_like].each { |tag_type|
     it "ensures type_of_tag can be set to #{tag_type}" do
       t = build(:tag)

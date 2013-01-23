@@ -20,19 +20,50 @@ describe AudioRecordingsController do
   end
 
   describe "GET #new" do
-    it "assigns a new item to the local variable"
-    it "renders the item in json with the expected properties"
+    before(:each) do
+      @response_body = json get: :new
+      @expected_hash = {
+          :id => nil,
+          :notes => {},
+          :bit_rate_bps => nil,
+          :channels => nil,
+          :data_length_bytes => nil,
+          :duration_seconds => nil,
+          :file_hash => nil,
+          :media_type => nil,
+          :recorded_date => nil,
+          :sample_rate_hertz => nil,
+          :site_id => nil,
+          :status => 'new',
+          :uploader_id => nil,
+          :uuid => nil,
+          :updated_at => nil,
+          :created_at => nil,
+          :updater_id => nil,
+          :creator_id => nil
+      }
+    end
+
+    it_should_behave_like :a_new_api_call, AudioRecording
   end
 
   describe "POST #create" do
     context "with valid attributes" do
-      it "saves the new item in the database"
-      it "renders the new item in json with the expect properties, with status 201, with location header"
+      before(:each) do
+        @initial_count = AudioRecording.count
+        @response_body = json({ post: :create, audio_recording: build(:audio_recording).attributes })
+      end
+
+      it_should_behave_like :a_valid_create_api_call, AudioRecording
     end
 
     context "with invalid attributes" do
-      it "does not save the new item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial_count = AudioRecording.count
+        @response_body = json({ post: :create, audio_recording: {} })
+      end
+
+      it_should_behave_like :an_invalid_create_api_call, AudioRecording, {:uploader_id=>["can't be blank"], :recorded_date=>["can't be blank", "is not a valid date"], :site=>["can't be blank"], :duration_seconds=>["can't be blank", "is not a number"], :sample_rate_hertz=>["is not a number"], :channels=>["can't be blank", "is not a number"], :bit_rate_bps=>["is not a number"], :media_type=>["can't be blank"], :data_length_bytes=>["can't be blank", "is not a number"], :file_hash=>["can't be blank"]}
     end
   end
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Cache do
   it "should create correct cached spectrogram file name" do
 
-    url_file_name = '21EC2020-3AEA-1069-A2DD-08002B30309D_012345678_87654321_1024_100000_1024_g.png'
+    url_file_name = '21EC2020-3AEA-1069-A2DD-08002B30309D_12345678.0_87654321.0_1024_100000_1024_g.png'
 
     params = {controller: 'media', action: 'item', id: '21EC2020-3AEA-1069-A2DD-08002B30309D', start_offset: '012345678', end_offset: '87654321', channel: '1024', sample_rate: '100000', window: '1024', colour: 'g', format: '.png'}
 
@@ -13,7 +13,7 @@ describe Cache do
   end
 
   it "should create correct cached audio file name" do
-    url_file_name = '21EC2020-3AEA-1069-A2DD-08002B30309D_012345678_87654321_1024_100000.mp3'
+    url_file_name = '21EC2020-3AEA-1069-A2DD-08002B30309D_12345678.0_87654321.0_1024_100000.mp3'
 
     params = {controller: 'media', action: 'item', id: '21EC2020-3AEA-1069-A2DD-08002B30309D', start_offset: '012345678', end_offset: '87654321', channel: '1024', sample_rate: '100000',  format: '.mp3'}
 

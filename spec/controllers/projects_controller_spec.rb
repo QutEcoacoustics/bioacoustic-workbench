@@ -19,19 +19,43 @@ describe ProjectsController do
   end
 
   describe "GET #new" do
-    it "assigns a new item to the local variable"
-    it "renders the item in json with the expected properties"
+    before(:each) do
+      @response_body = json get: :new
+      @expected_hash = {
+          :id => nil,
+          :description => nil,
+          :name => nil,
+          :notes => {},
+          :photos => [],
+          :sites => [],
+          :urn => nil,
+          :updated_at => nil,
+          :created_at => nil,
+          :updater_id => nil,
+          :creator_id => nil
+      }
+    end
+
+    it_should_behave_like :a_new_api_call, Project
   end
 
   describe "POST #create" do
     context "with valid attributes" do
-      it "saves the new item in the database"
-      it "renders the new item in json with the expect properties, with status 201, with location header"
+      before(:each) do
+        @initial_count = Project.count
+        @response_body = json({ post: :create, project: build(:project).attributes })
+      end
+
+      it_should_behave_like :a_valid_create_api_call, Project
     end
 
     context "with invalid attributes" do
-      it "does not save the new item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial_count = Project.count
+        @response_body = json({ post: :create, project: {} })
+      end
+
+      it_should_behave_like :an_invalid_create_api_call, Project, {:name=>["can't be blank"], :urn=>["can't be blank", "is invalid"]}
     end
   end
 

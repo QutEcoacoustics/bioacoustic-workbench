@@ -27,6 +27,14 @@ describe Permission do
     build(:permission, user: nil).should be_valid
   end
 
+  it 'should be not valid without a type_of_tag field specified' do
+    build(:permission, level: nil).should_not be_valid
+  end
+
+  it 'should be not valid with an invalid level field specified' do
+    build(:tag, type_of_tag: :this_is_not_valid).should_not be_valid
+  end
+
   it 'is when a user is not specified, it should be anonymous' do
     build(:permission, user: nil).anonymous?.should be_true
   end

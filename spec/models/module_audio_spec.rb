@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe Audio do
   it 'segmenting and converting audio files' do
+    # remove testing dir
+    AudioHelpers::remove_temp_file_path
+
     files_to_test.each do |file|
       target_formats.each do |format|
 
@@ -48,6 +51,9 @@ describe Audio do
         puts "Converted #{input_audio} to #{output_audio}, using #{modify_params.to_json}. Comparison: #{comparison.to_json}."
       end
     end
+
+    # remove testing dir
+    AudioHelpers::remove_temp_file_path
   end
 end
 

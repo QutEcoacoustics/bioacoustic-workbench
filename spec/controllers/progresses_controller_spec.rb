@@ -19,19 +19,43 @@ describe ProgressesController do
   end
 
   describe "GET #new" do
-    it "assigns a new item to the local variable"
-    it "renders the item in json with the expected properties"
+    before(:each) do
+      @response_body = json get: :new
+      @expected_hash = {
+          :id => nil,
+          :activity => nil,
+          :audio_recording_id => nil,
+          :end_offset_seconds => nil,
+          :offset_list => nil,
+          :saved_search_id => nil,
+          :start_offset_seconds => nil,
+          :updated_at => nil,
+          :created_at => nil,
+          :updater_id => nil,
+          :creator_id => nil
+      }
+    end
+
+    it_should_behave_like :a_new_api_call, Progress
   end
 
   describe "POST #create" do
     context "with valid attributes" do
-      it "saves the new item in the database"
-      it "renders the new item in json with the expect properties, with status 201, with location header"
+      before(:each) do
+        @initial_count = Progress.count
+        @response_body = json({ post: :create, progress: build(:progress).attributes })
+      end
+
+      it_should_behave_like :a_valid_create_api_call, Progress
     end
 
     context "with invalid attributes" do
-      it "does not save the new item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial_count = Progress.count
+        @response_body = json({ post: :create, progress: {} })
+      end
+
+      it_should_behave_like :an_invalid_create_api_call, Progress, {:offset_list=>["can't be blank"], :activity=>["can't be blank"], :saved_search_id=>["can't be blank"], :audio_recording_id=>["can't be blank"], :start_offset_seconds=>["can't be blank", "is not a number"], :end_offset_seconds=>["can't be blank", "is not a number"], :creator_id=>["can't be blank"]}
     end
   end
 

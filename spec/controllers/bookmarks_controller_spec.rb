@@ -19,33 +19,79 @@ describe BookmarksController do
   end
 
   describe "GET #new" do
-    it "assigns a new item to the local variable"
-    it "renders the item in json with the expected properties"
+    before(:each) do
+      @response_body = json get: :new
+      @expected_hash = {
+          :id => nil,
+          :name => nil,
+          :notes => {},
+          :audio_recording_id => nil,
+          :offset_seconds => nil,
+          :updated_at => nil,
+          :created_at => nil,
+          :updater_id => nil,
+          :creator_id => nil
+      }
+    end
+
+    it_should_behave_like :a_new_api_call, Bookmark
   end
 
   describe "POST #create" do
     context "with valid attributes" do
-      it "saves the new item in the database"
-      it "renders the new item in json with the expect properties, with status 201, with location header"
+      before(:each) do
+        @initial_count = Bookmark.count
+        hash = {}
+        hash[:bookmark] = remove_timestamp_fields(build(:bookmark).attributes)
+        hash[:put] = :create
+        @response_body = json(hash)
+      end
+
+      it_should_behave_like :a_valid_create_api_call, Bookmark
     end
 
     context "with invalid attributes" do
-      it "does not save the new item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial_count = Bookmark.count
+        hash = {}
+        hash[:bookmark] = {}
+        hash[:put] = :create
+        @response_body = json(hash)
+      end
+
+      it_should_behave_like :an_invalid_create_api_call, Bookmark, {:offset_seconds=>["can't be blank", "is not a number"], :audio_recording_id=>["can't be blank"]}
     end
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:bookmark) # this saves it to the db
+        @new_value = 500
+        @changed.offset_seconds = @new_value # change it
+        hash = {}
+        hash[:bookmark] = remove_timestamp_fields(@changed.attributes.clone)
+        hash[:id] = @changed.id
+        hash[:put] = :update
+        @response_body = json_empty_body(hash)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, Bookmark, :offset_seconds
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:bookmark) # this saves it to the db
+        @old_value = @initial.offset_seconds
+        @initial.offset_seconds = -10.0 # change it
+        hash = {}
+        hash[:bookmark] = remove_timestamp_fields(@initial.attributes.clone)
+        hash[:id] = @initial.id
+        hash[:put] = :update
+        @response_body = json(hash)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, Bookmark, :offset_seconds, {:offset_seconds=>["must be greater than or equal to 0"]}
     end
   end
 

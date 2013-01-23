@@ -78,6 +78,7 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'rspec-deep-matchers'
 end
 
 group :development do
