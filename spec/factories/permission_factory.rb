@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :permission do
-    level :none
+    level {[:owner, :writer, :reader, :none].sample}#:none
 
 
 

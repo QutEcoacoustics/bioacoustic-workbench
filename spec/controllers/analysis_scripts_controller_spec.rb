@@ -11,8 +11,8 @@ describe AnalysisScriptsController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:analysis_script)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, AnalysisScript, false
@@ -43,7 +43,8 @@ describe AnalysisScriptsController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = AnalysisScript.count
-        @response_body = json({ post: :create, analysis_script: build(:analysis_script).attributes })
+        test = convert_model(:create, :analysis_script, build(:analysis_script))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, AnalysisScript
@@ -52,7 +53,8 @@ describe AnalysisScriptsController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = AnalysisScript.count
-        @response_body = json({ post: :create, analysis_script: {} })
+        test = convert_model(:create, :analysis_script, nil)
+        @response_body = json(test)
       end
 
       it_should_behave_like :an_invalid_create_api_call, AnalysisScript, {:name=>["can't be blank", "is too short (minimum is 2 characters)", "is invalid"], :display_name=>["can't be blank", "is too short (minimum is 2 characters)"], :version=>["can't be blank"]}
@@ -60,16 +62,27 @@ describe AnalysisScriptsController do
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:analysis_script)
+        @changed.display_name = 'a new name for me'
+        test = convert_model(:update, :analysis_script, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, AnalysisScript, :display_name
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:analysis_script)
+        @old_value = @initial.display_name
+        @initial.display_name = ''
+        test = convert_model(:update, :analysis_script, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, AnalysisScript, :display_name, {:name=>["can't be blank", "is too short (minimum is 2 characters)", "is invalid"], :display_name=>["can't be blank", "is too short (minimum is 2 characters)"]}
     end
   end
 

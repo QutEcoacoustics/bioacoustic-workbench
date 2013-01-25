@@ -11,8 +11,8 @@ describe AudioEventsController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:audio_event)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, AudioEvent, false
@@ -43,7 +43,8 @@ describe AudioEventsController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = AudioEvent.count
-        @response_body = json({ post: :create, audio_event: build(:audio_event).attributes })
+        test = convert_model(:create, :audio_event, build(:audio_event))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, AudioEvent
@@ -52,7 +53,8 @@ describe AudioEventsController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = AudioEvent.count
-        @response_body = json({ post: :create, audio_event: {} })
+        test = convert_model(:create, :audio_event, nil)
+        @response_body = json(test)
       end
 
       it_should_behave_like :an_invalid_create_api_call, AudioEvent, {:audio_recording=>["can't be blank"], :start_time_seconds=>["can't be blank", "is not a number"], :low_frequency_hertz=>["can't be blank", "is not a number"]}
@@ -60,16 +62,27 @@ describe AudioEventsController do
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:audio_event)
+        @changed.start_time_seconds = 500
+        test = convert_model(:update, :audio_event, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, AudioEvent, :start_time_seconds
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:audio_event)
+        @old_value = @initial.start_time_seconds
+        @initial.start_time_seconds = -10.0
+        test = convert_model(:update, :audio_event, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, AudioEvent, :start_time_seconds, {:offset_seconds => ["must be greater than or equal to 0"]}
     end
   end
 

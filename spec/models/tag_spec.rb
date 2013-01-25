@@ -47,12 +47,19 @@ describe Tag do
     build(:tag, type_of_tag: :this_is_not_valid).should_not be_valid
   end
 
-  [:common_name, :species_name, :looks_like, :sounds_like].each { |tag_type|
+  type_of_tags = [:common_name, :species_name, :looks_like, :sounds_like]
+
+  type_of_tags.each { |tag_type|
     it "ensures type_of_tag can be set to #{tag_type}" do
       t = build(:tag)
       t.should be_valid
       t.type_of_tag = tag_type
       t.should be_valid
+
+      type_of_tags.each { |type_of_tag|
+        t.send(type_of_tag.to_s + '?').should == (type_of_tag.to_s == t.type_of_tag)
+      }
+
     end
   }
 

@@ -11,8 +11,8 @@ describe PermissionsController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:permission)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, Permission, false
@@ -41,7 +41,8 @@ describe PermissionsController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = Permission.count
-        @response_body = json({ post: :create, permission: build(:permission).attributes })
+        test = convert_model(:create, :permission, build(:permission))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, Permission
@@ -50,24 +51,36 @@ describe PermissionsController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = Permission.count
-        @response_body = json({ post: :create, permission: {} })
+        test = convert_model(:create, :permission, nil)
+        @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_create_api_call, Permission, {}
+      it_should_behave_like :an_invalid_create_api_call, Permission, {:offset_seconds => ["can't be blank", "is not a number"], :audio_recording_id => ["can't be blank"]}
     end
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:permission)
+        @changed.level = :owner
+        test = convert_model(:update, :permission, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, Permission, :level
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:permission)
+        @old_value = @initial.level
+        @initial.level = :does_not_exist
+        test = convert_model(:update, :permission, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, Permission, :level, {:offset_seconds => ["must be greater than or equal to 0"]}
     end
   end
 

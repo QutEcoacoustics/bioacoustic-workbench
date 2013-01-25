@@ -15,7 +15,7 @@ require 'rspec/autorun'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
   # ## Mock Framework
@@ -79,10 +79,26 @@ RSpec.configure do |config|
     Rack::MockRequest::DEFAULT_ENV['devise.mapping']= Devise.mappings[:user]
 
     # support for running seed data with tests
-    load "#{Rails.root}/db/seeds.rb"
+    #load "#{Rails.root}/db/seeds.rb"
+
+    # create admin user, so there is a user available
+    user_details = {user_name: 'admin', display_name: 'Administrator', email: 'example+admin@example.com', password: 'admin_password', admin: true}
+    db_user = User.where(:user_name => user_details[:user_name]).first
+    if db_user.blank?
+      db_user = User.create(user_details)
+      db_user.creator_id = db_user.id
+      db_user.updater_id = db_user.id
+
+      db_user.skip_user_name_exclusion_list = true
+      db_user.save!
+      db_user.skip_user_name_exclusion_list = false
+    end
+    # finished creating admin user
   end
 
   config.before(:each, :type => :controller) do
+    #controller.use_rails_error_handling!
+    #controller.rescue_action_in_public!
     sign_in :user, User.first
   end
 

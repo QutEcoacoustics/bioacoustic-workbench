@@ -11,8 +11,8 @@ describe UsersController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:user)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, User, false
@@ -42,7 +42,8 @@ describe UsersController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = User.count
-        @response_body = json({ post: :create, user: build(:user).attributes })
+        test = convert_model(:create, :user, build(:user), %w(confirmation_token confirmed_at confirmation_sent_at unconfirmed_email encrypted_password password_salt failed_attempts unlock_token locked_at reset_password_token reset_password_sent_at remember_created_at authentication_token sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last_sign_in_ip invitation_token))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, User
@@ -51,7 +52,8 @@ describe UsersController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = User.count
-        @response_body = json({ post: :create, user: {} })
+        test = convert_model(:create, :user, nil)
+        @response_body = json(test)
       end
 
       it_should_behave_like :an_invalid_create_api_call, User, {:email=>["can't be blank", "Basic email validation failed. It should have at least 1 `@` and 1 `.`"], :password=>["can't be blank"], :user_name=>["can't be blank"], :display_name=>["Please provide a display name, email, or both."]}
@@ -59,16 +61,28 @@ describe UsersController do
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:user)
+        @changed.user_name = ''
+        test = convert_model(:update, :user, @changed, %w(confirmation_token confirmed_at confirmation_sent_at unconfirmed_email encrypted_password password_salt failed_attempts unlock_token locked_at reset_password_token reset_password_sent_at remember_created_at authentication_token sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last_sign_in_ip invitation_token))
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, User, :user_name
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:user)
+        @old_value = @initial.user_name
+        @initial.user_name = -10.0
+        #hash = { put: :update, id: @initial.id, bookmark: remove_timestamp_fields(@initial.attributes.clone)}
+        test = convert_model(:update, :user, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, User, :user_name, {:offset_seconds => ["must be greater than or equal to 0"]}
     end
   end
 

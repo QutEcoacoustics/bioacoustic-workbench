@@ -72,14 +72,34 @@ module CommonHelpers
   def remove_timestamp_fields(record)
     result = record.with_indifferent_access.except(:id, :created_at, :updated_at, :deleted_at, :creator_id, :updater_id, :deleter_id)
     result
-    #record[:id] = nil
-    #record[:created_at] = nil
-    #record[:updated_at] = nil
-    #record[:creator_id] = nil
-    #record[:updater_id] = nil
-    #record[:deleter_id] = nil
-    #record[:deleted_at] = nil
-    #record
+  end
+
+  def convert_model(action, model_symbol, model, attributes_to_filter = [])
+
+    attribute_filter = [:id, :created_at, :updated_at, :deleted_at, :creator_id, :updater_id, :deleter_id]
+    attribute_filter.concat(attributes_to_filter.map{|item| item.to_sym})
+
+    hash = { }
+
+    if action == :create
+      hash[:post] = :create
+    elsif action == :update
+      hash[:put] = :update
+    end
+
+    if model.blank?
+      hash[model_symbol] = {}
+    else
+      hash[model_symbol] = model.attributes.clone.with_indifferent_access.except(*attribute_filter)
+      hash[:id] = model.id if action == :update
+    end
+
+    hash
+  end
+
+  def convert_model_for_delete(model)
+    hash = { delete: :destroy, id: model[:id] }
+    hash
   end
 end
 

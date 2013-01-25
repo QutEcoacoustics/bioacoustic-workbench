@@ -10,11 +10,14 @@ shared_examples :a_valid_update_api_call do |klass, changed_attribute_name|
     item_from_db = klass.find_by_id(@changed[:id])
 
     # see this for more info: https://github.com/delynn/userstamp/blob/master/test/stamping_test.rb
-    item_from_db.updater_id.should_not be_blank
-    item_from_db.updated_at.should_not be_blank
-    item_from_db.updated_at.should_not == @changed[:updated_at]
+    if item_from_db.respond_to?('updater_id')
+      item_from_db.updater_id.should_not be_blank
+    end
 
-    item_from_db[changed_attribute_name].should == @new_value
+    item_from_db.updated_at.should_not be_blank
+    item_from_db.updated_at.should > @changed[:updated_at]
+
+    item_from_db[changed_attribute_name].should == @changed[changed_attribute_name]
     #@initial.attributes.should deep_eql item_from_db.attributes
   end
 
@@ -25,7 +28,11 @@ shared_examples :a_valid_update_api_call do |klass, changed_attribute_name|
   end
 
   it 'should ensure updater_id is blank in submitted model object' do
-    @changed.updater_id.should be_blank
+    # @changed is the newly-created model object,
+    # it has never been modified, so it won't have an updater_id yet
+    if @changed.respond_to?('updater_id')
+      @changed.updater_id.should be_blank
+    end
   end
 
 end
@@ -49,7 +56,9 @@ shared_examples :an_invalid_update_api_call do |klass, changed_attribute_name, e
 
     item_from_db[changed_attribute_name].should == @old_value
 
-    item_from_db.updater_id.should be_blank
+    if item_from_db.respond_to?('updater_id')
+      item_from_db.updater_id.should be_blank
+    end
     item_from_db.updated_at.should_not be_blank
     item_from_db.updated_at.should == @initial[:updated_at]
 

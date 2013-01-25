@@ -14,8 +14,8 @@ describe PhotosController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:photo)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, Photo, false
@@ -43,7 +43,9 @@ describe PhotosController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = Photo.count
-        @response_body = json({ post: :create, photo: build(:photo).attributes })
+        #hash = { put: :create, bookmark: remove_timestamp_fields(build(:bookmark).attributes)}
+        test = convert_model(:create, :photo, build(:photo))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, Photo
@@ -52,24 +54,36 @@ describe PhotosController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = Photo.count
-        @response_body = json({ post: :create, photo: {} })
+        test = convert_model(:create, :photo, nil)
+        @response_body = json(test)
       end
 
       it_should_behave_like :an_invalid_create_api_call, Photo, {:uri=>["can't be blank", "is invalid"], :copyright=>["can't be blank"]}
     end
   end
 
-  describe 'PUT #update' do
-    it 'exists in the database'
+  describe "PUT #update" do
+    context "with valid attributes" do
+      before(:each) do
+        @changed = create(:photo)
+        @changed.uri = 500
+        test = convert_model(:update, :photo, @changed)
+        @response_body = json_empty_body(test)
+      end
 
-    context 'with valid attributes' do
-      it 'updates the existing item in the database'
-      it 'returns with empty body and with status 200'
+      it_should_behave_like :a_valid_update_api_call, Photo, :uri
     end
 
-    context 'with invalid attributes' do
-      it 'does not update the existing item in the database'
-      it 'renders the error in json with expected properties, with status 422'
+    context "with invalid attributes" do
+      before(:each) do
+        @initial = create(:photo)
+        @old_value = @initial.uri
+        @initial.uri = -10.0
+        test = convert_model(:update, :photo, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, Photo, :uri, {:uri=>["is invalid"]}
     end
   end
 

@@ -2,10 +2,12 @@ require 'spec_helper'
 
 shared_examples :an_idempotent_api_call do |klass, many = true|
 
-  let(:random_item) do
-    offset = rand(klass.count)
-    klass.first(:offset => offset) unless many
-  end
+  # should test getting an non-existing record
+
+  #let(:random_item) do
+  #  offset = rand(klass.count)
+  #  klass.first(:offset => offset) unless many
+  #end
 
   it { should respond_with(:success) }
 
@@ -42,8 +44,7 @@ shared_examples :an_idempotent_api_call do |klass, many = true|
 
   unless many
     it 'should ensure json response matches initial object' do
-      current_item = random_item
-      @response_body[:id].should == current_item.id
+      @response_body[:id].should == @item.id
     end
   end
 

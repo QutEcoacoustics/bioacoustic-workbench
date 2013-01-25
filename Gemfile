@@ -78,7 +78,6 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
-  gem 'rspec-deep-matchers'
 end
 
 group :development do
@@ -106,6 +105,8 @@ group :development, :test do
   gem 'jasmine', '>=1.0.2.1', :git => "git://github.com/pivotal/jasmine-gem.git"
   gem 'jasminerice'
   gem 'headless', '>=0.1.0'
+
+  gem 'rspec-deep-matchers'
 end
 
 # production gems

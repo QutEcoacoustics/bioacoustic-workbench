@@ -11,8 +11,8 @@ describe ProgressesController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:progress)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, Progress, false
@@ -43,7 +43,8 @@ describe ProgressesController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = Progress.count
-        @response_body = json({ post: :create, progress: build(:progress).attributes })
+        test = convert_model(:create, :progress, build(:progress))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, Progress
@@ -52,24 +53,36 @@ describe ProgressesController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = Progress.count
-        @response_body = json({ post: :create, progress: {} })
+        test = convert_model(:create, :progress, nil)
+        @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_create_api_call, Progress, {:offset_list=>["can't be blank"], :activity=>["can't be blank"], :saved_search_id=>["can't be blank"], :audio_recording_id=>["can't be blank"], :start_offset_seconds=>["can't be blank", "is not a number"], :end_offset_seconds=>["can't be blank", "is not a number"], :creator_id=>["can't be blank"]}
+      it_should_behave_like :an_invalid_create_api_call, Progress, {:offset_list=>["can't be blank"], :activity=>["can't be blank"], :saved_search_id=>["can't be blank"], :audio_recording_id=>["can't be blank"], :creator_id=>["can't be blank"], :start_offset_seconds=>["can't be blank", "is not a number"], :end_offset_seconds=>["can't be blank", "is not a number"]}
     end
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:progress)
+        @changed.start_offset_seconds = 500.0
+        test = convert_model(:update, :progress, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, Progress, :start_offset_seconds
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:progress)
+        @old_value = @initial.start_offset_seconds
+        @initial.start_offset_seconds = -10.0
+        test = convert_model(:update, :progress, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, Progress, :start_offset_seconds, {:start_offset_seconds=>["must be greater than or equal to 0"]}
     end
   end
 

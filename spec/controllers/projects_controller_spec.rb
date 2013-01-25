@@ -11,8 +11,8 @@ describe ProjectsController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:project)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, Project, false
@@ -43,7 +43,8 @@ describe ProjectsController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = Project.count
-        @response_body = json({ post: :create, project: build(:project).attributes })
+        test = convert_model(:create, :project, build(:project))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, Project
@@ -52,7 +53,8 @@ describe ProjectsController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = Project.count
-        @response_body = json({ post: :create, project: {} })
+        test = convert_model(:create, :project, nil)
+        @response_body = json(test)
       end
 
       it_should_behave_like :an_invalid_create_api_call, Project, {:name=>["can't be blank"], :urn=>["can't be blank", "is invalid"]}
@@ -60,16 +62,27 @@ describe ProjectsController do
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:project)
+        @changed.name = 'my new name'
+        test = convert_model(:update, :project, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, Project, :name
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:project)
+        @old_value = @initial.urn
+        @initial.urn = 'invalid'
+        test = convert_model(:update, :project, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, Project, :urn, {:urn=>["is invalid"]}
     end
   end
 

@@ -11,8 +11,8 @@ describe SavedSearchesController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:saved_search)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, SavedSearch, false
@@ -40,7 +40,9 @@ describe SavedSearchesController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = SavedSearch.count
-        @response_body = json({ post: :create, saved_search: build(:saved_search).attributes})
+        #hash = { put: :create, bookmark: remove_timestamp_fields(build(:bookmark).attributes)}
+        test = convert_model(:create, :saved_search, build(:saved_search))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, SavedSearch
@@ -49,7 +51,9 @@ describe SavedSearchesController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = SavedSearch.count
-        @response_body = json({ post: :create, saved_search: {} })
+        #hash = { put: :create, bookmark: {} }
+        test = convert_model(:create, :saved_search, nil)
+        @response_body = json(test)
       end
 
       it_should_behave_like :an_invalid_create_api_call, SavedSearch, {:search_object=>["can't be blank", "search_object not in json format"]}
@@ -57,16 +61,29 @@ describe SavedSearchesController do
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:saved_search) # this saves it to the db
+        @changed.name = 'my new name, this is new, it must be' # change it
+        #hash = { put: :update, id: @changed.id, bookmark: remove_timestamp_fields(@changed.attributes.clone) }
+        test = convert_model(:update, :saved_search, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, SavedSearch, :search_object
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:saved_search)
+        @old_value = @initial.search_object
+        @initial.search_object = 'this is not right' # change it to an invalid value
+        #hash = { put: :update, id: @initial.id, bookmark: remove_timestamp_fields(@initial.attributes.clone)}
+        test = convert_model(:update, :saved_search, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, SavedSearch, :search_object, {:search_object=>["search_object not in json format"]}
     end
   end
 

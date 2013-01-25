@@ -11,6 +11,7 @@ FactoryGirl.define do
     f.media_type 'audio/mpeg'
     f.data_length_bytes 8400000
     f.file_hash "SHA 256::asdfdsa6fa3fa56fdsa"
+    f.status {[:new, :to_check, :ready, :corrupt, :ignore].sample}
 
     f.association :site
     f.association :uploader_id, :factory => :user

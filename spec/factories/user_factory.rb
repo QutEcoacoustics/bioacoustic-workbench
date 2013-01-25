@@ -7,6 +7,6 @@ FactoryGirl.define do
     display_name { Faker::Name.name}
     email { Faker::Internet.email}
     admin false
-    password {Faker::Lorem.words(6)}
+    password {Faker::Lorem.words(6).join(' ')}
   end
 end

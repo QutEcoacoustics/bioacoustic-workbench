@@ -11,8 +11,8 @@ describe TagsController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:tag)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, Tag, false
@@ -42,7 +42,8 @@ describe TagsController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = Tag.count
-        @response_body = json({ post: :create, tag: build(:tag).attributes })
+        test = convert_model(:create, :tag, build(:tag))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, Tag
@@ -51,24 +52,36 @@ describe TagsController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = Tag.count
-        @response_body = json({ post: :create, tag: {} })
+        test = convert_model(:create, :tag, nil)
+        @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_create_api_call, Tag, {:type_of_tag=>["can't be blank"], :text=>["text must not be nil"]}
+      it_should_behave_like :an_invalid_create_api_call, Tag, {:type_of_tag=>["is not included in the list", "can't be blank"], :text=>["text must not be nil"]}
     end
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:tag)
+        @changed.type_of_tag = :common_name
+        test = convert_model(:update, :tag, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, Tag, :type_of_tag
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:tag)
+        @old_value = @initial.type_of_tag
+        @initial.type_of_tag = :this_does_not_exist
+        test = convert_model(:update, :tag, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, Tag, :type_of_tag, {:type_of_tag=>["is not included in the list", "can't be blank"]}
     end
   end
 

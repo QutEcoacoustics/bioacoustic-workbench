@@ -11,8 +11,8 @@ describe SitesController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:site)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, Site, false
@@ -44,7 +44,9 @@ describe SitesController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = Site.count
-        @response_body = json({ post: :create, site: build(:site).attributes })
+        #hash = { put: :create, bookmark: remove_timestamp_fields(build(:bookmark).attributes)}
+        test = convert_model(:create, :site, build(:site))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, Site
@@ -53,7 +55,9 @@ describe SitesController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = Site.count
-        @response_body = json({ post: :create, site: {} })
+        #hash = { put: :create, bookmark: {} }
+        test = convert_model(:create, :site, nil)
+        @response_body = json(test)
       end
 
       it_should_behave_like :an_invalid_create_api_call, Site, {:name=>["can't be blank", "is too short (minimum is 2 characters)"], :latitude=>["is not a number"], :longitude=>["is not a number"]}
@@ -61,16 +65,29 @@ describe SitesController do
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:site) # this saves it to the db
+        @changed.name = 'my new name, this is new, it must be' # change it
+        #hash = { put: :update, id: @changed.id, bookmark: remove_timestamp_fields(@changed.attributes.clone) }
+        test = convert_model(:update, :site, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, Site, :name
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:site)
+        @old_value = @initial.name
+        @initial.name = 'a' # change it to an invalid value
+        #hash = { put: :update, id: @initial.id, bookmark: remove_timestamp_fields(@initial.attributes.clone)}
+        test = convert_model(:update, :site, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, Site, :name, {:name=>["is too short (minimum is 2 characters)"]}
     end
   end
 

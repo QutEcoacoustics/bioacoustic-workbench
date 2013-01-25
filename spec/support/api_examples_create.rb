@@ -17,12 +17,16 @@ shared_examples :a_valid_create_api_call do |klass|
   end
 
   it 'should ensure creator_id and created_at are set' do
-    @response_body[:creator_id].should_not be_blank
+    if @response_body.include?(:creator_id)
+      @response_body[:creator_id].should_not be_blank
+    end
     @response_body[:created_at].should_not be_blank
   end
 
   it 'should ensure updater_id and updated_at are set' do
-    @response_body[:updater_id].should_not be_blank
+    if @response_body.include?(:updater_id)
+      @response_body[:updater_id].should_not be_blank
+    end
     @response_body[:updated_at].should_not be_blank
   end
 

@@ -11,8 +11,8 @@ describe AnalysisItemsController do
 
   describe "GET #show" do
     before(:each) do
-      item = random_item
-      @response_body = json({ get: :show, id: item.id })
+      @item = create(:analysis_item)
+      @response_body = json({ get: :show, id: @item.id })
     end
 
     it_should_behave_like  :an_idempotent_api_call, AnalysisItem, false
@@ -42,7 +42,8 @@ describe AnalysisItemsController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = AnalysisItem.count
-        @response_body = json({ post: :create, analysis_item: build(:analysis_item).attributes })
+        test = convert_model(:create, :analysis_item, build(:analysis_item))
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_create_api_call, AnalysisItem
@@ -51,82 +52,59 @@ describe AnalysisItemsController do
     context "with invalid attributes" do
       before(:each) do
         @initial_count = AnalysisItem.count
-        @response_body = json({ post: :create, analysis_item: {} })
+        test = convert_model(:create, :analysis_item, nil)
+        @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_create_api_call, AnalysisItem, {:offset_start_seconds=>["can't be blank", "is not a number"], :offset_end_seconds=>["can't be blank", "is not a number"], :audio_recording_id=>["can't be blank"], :status=>["is not included in the list"]}
+      it_should_behave_like :an_invalid_create_api_call, AnalysisItem,  {:offset_start_seconds=>["can't be blank", "is not a number"], :offset_end_seconds=>["can't be blank", "is not a number"], :audio_recording_id=>["can't be blank"]}
     end
   end
 
   describe "PUT #update" do
-    it 'exists in the database'
-
     context "with valid attributes" do
-      it "updates the existing item in the database"
-      it "returns with empty body and with status 200"
+      before(:each) do
+        @changed = create(:analysis_item)
+        @changed.status = :complete
+        test = convert_model(:update, :bookmark, @changed)
+        @response_body = json_empty_body(test)
+      end
+
+      it_should_behave_like :a_valid_update_api_call, AnalysisItem, :status
     end
 
     context "with invalid attributes" do
-      it "does not update the existing item in the database"
-      it "renders the error in json with expected properties, with status 422"
+      before(:each) do
+        @initial = create(:analysis_item)
+        @old_value = @initial.status
+        @initial.status = :does_not_exist
+        test = convert_model(:update, :analysis_item, @initial)
+        @response_body = json(test)
+      end
+
+      it_should_behave_like :an_invalid_update_api_call, AnalysisItem, :status,{:status=>["is not included in the list", "can't be blank"]}
     end
   end
 
   describe "DELETE #destory" do
-    it "finds the correct item fromthe database and assigns it to the local variable"
-    it 'destories the correct item, and the database is updated'
-    it "returns with empty body and with status 200"
-  end
-end
+    context "should be successful for a valid delete call" do
+      before(:each) do
+        @item = create(:analysis_item)
+        @response_body = json_empty_body(convert_model_for_delete(@item))
+      end
 
-=begin
-require 'test_helper'
-
-class AnalysisItemsControllerTest < ActionController::TestCase
-  setup do
-    @analysis_item = AnalysisItem.first
-  end
-
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:analysis_items)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create analysis_item" do
-    assert_difference('AnalysisItem.count') do
-      post :create, { auth_token: get_admin.authentication_token, analysis_item: { audio_recording_id: @analysis_item.audio_recording_id, offset_end_seconds: @analysis_item.offset_end_seconds, offset_start_seconds: @analysis_item.offset_start_seconds, status: @analysis_item.status, worker_info: @analysis_item.worker_info, worker_run_details: @analysis_item.worker_run_details, worker_started_utc: @analysis_item.worker_started_utc } }
+      it_should_behave_like :a_valid_delete_or_archive_api_call, AnalysisItem, :delete
+    end
+    context "should not be successful for an invalid delete call" do
+      it_should_behave_like :an_invalid_delete_or_archive_api_call, AnalysisItem, :analysis_item, :delete, :invalid_index
     end
 
-    assert_redirected_to analysis_item_path(assigns(:analysis_item))
-  end
-
-  test "should show analysis_item" do
-    get :show, id: @analysis_item
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @analysis_item
-    assert_response :success
-  end
-
-  test "should update analysis_item" do
-    put :update, id: @analysis_item, analysis_item: { offset_end_seconds: @analysis_item.offset_end_seconds, offset_start_seconds: @analysis_item.offset_start_seconds, status: @analysis_item.status, worker_info: @analysis_item.worker_info, worker_run_details: @analysis_item.worker_run_details, worker_started_utc: @analysis_item.worker_started_utc }
-    assert_redirected_to analysis_item_path(assigns(:analysis_item))
-  end
-
-  test "should destroy analysis_item" do
-    assert_difference('AnalysisItem.count', -1) do
-      delete :destroy, id: @analysis_item
+    context "should not allow archiving" do
+      before(:each) do
+        @item = create(:analysis_item)
+        @response_body = json_empty_body(convert_model_for_delete(@item))
+      end
+      it_should_behave_like :an_archive_api_call_when_archive_is_not_allowed, AnalysisItem
+      #it_should_behave_like :an_invalid_delete_or_archive_api_call, Bookmark, :bookmark, :archive, :valid_index
     end
-
-    assert_redirected_to analysis_items_path
   end
 end
-=end

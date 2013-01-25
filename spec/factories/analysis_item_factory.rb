@@ -6,7 +6,7 @@ FactoryGirl.define do
     f.worker_started_utc { Random.rand(30).minutes.ago }
     f.offset_end_seconds { Random.rand(360)  + 360 }
     f.offset_start_seconds { Random.rand(360) }
-    f.status :ready
+    f.status {[:ready, :running, :complete, :error].sample}
 
 
     f.association :analysis_job

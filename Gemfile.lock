@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/pivotal/jasmine-gem.git
-  revision: d9067e15eca53a4c61ea53d21119b1fc063f5d07
+  revision: ff6fa02f3083b8f9423ddf0cdee5b41ff6d18de1
   specs:
     jasmine (1.3.2)
       jasmine-core (~> 1.3.1)
@@ -83,7 +83,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
-    childprocess (0.3.6)
+    childprocess (0.3.7)
       ffi (~> 1.0, >= 1.0.6)
     coderay (1.0.8)
     coffee-rails (3.2.2)
