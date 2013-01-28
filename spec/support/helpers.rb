@@ -1,6 +1,6 @@
 # https://gist.github.com/3317023
 module JsonHelpers
-  def json(params)0
+  def json(params)
     params = {format: 'json'}.merge(params)
     [:get, :put, :post, :delete].find do |method|
       path = params.delete(method) and send(method, path, params)
