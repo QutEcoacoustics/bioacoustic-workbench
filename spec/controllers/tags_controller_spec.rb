@@ -23,8 +23,8 @@ describe TagsController do
       @response_body = json get: :new
       @expected_hash = {
           :id => nil,
-          :deleted_at => nil,
-          :deleter_id => nil,
+          #:deleted_at => nil,
+          #:deleter_id => nil,
           :is_taxanomic => false,
           :text => nil,
           :type_of_tag => nil,
@@ -66,7 +66,7 @@ describe TagsController do
         @changed = create(:tag)
         @changed.type_of_tag = :common_name
         test = convert_model(:update, :tag, @changed)
-        @response_body = json_empty_body(test)
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_update_api_call, Tag, :type_of_tag
@@ -86,61 +86,7 @@ describe TagsController do
   end
 
   describe "DELETE #destory" do
-    it "finds the correct item fromthe database and assigns it to the local variable"
-    it 'destories the correct item, and the database is updated'
-    it "returns with empty body and with status 200"
+    it_should_behave_like :a_delete_api_call, Tag, :allow_delete #, :allow_archive
+
   end
 end
-
-
-=begin
-require 'test_helper'
-
-class TagsControllerTest < ActionController::TestCase
-  setup do
-    @tag = Tag.first!
-  end
-
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:tags)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create tag" do
-    assert_difference('Tag.count') do
-      post :create, tag: { is_taxanomic: @tag.is_taxanomic, text: @tag.text, type_of_tag: @tag.type_of_tag }
-    end
-
-    assert_redirected_to tag_path(assigns(:tag))
-  end
-
-  test "should show tag" do
-    get :show, id: @tag
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @tag
-    assert_response :success
-  end
-
-  test "should update tag" do
-    put :update, id: @tag, tag: { is_taxanomic: @tag.is_taxanomic, text: @tag.text, type_of_tag: @tag.type_of_tag }
-    assert_redirected_to tag_path(assigns(:tag))
-  end
-
-  test "should destroy tag" do
-    assert_difference('Tag.count', -1) do
-      delete :destroy, id: @tag
-    end
-
-    assert_redirected_to tags_path
-  end
-end
-=end

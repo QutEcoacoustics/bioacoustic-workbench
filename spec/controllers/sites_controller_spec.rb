@@ -71,7 +71,7 @@ describe SitesController do
         @changed.name = 'my new name, this is new, it must be' # change it
         #hash = { put: :update, id: @changed.id, bookmark: remove_timestamp_fields(@changed.attributes.clone) }
         test = convert_model(:update, :site, @changed)
-        @response_body = json_empty_body(test)
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_update_api_call, Site, :name
@@ -92,61 +92,7 @@ describe SitesController do
   end
 
   describe "DELETE #destory" do
-    it "finds the correct item fromthe database and assigns it to the local variable"
-    it 'destories the correct item, and the database is updated'
-    it "returns with empty body and with status 200"
+    it_should_behave_like :a_delete_api_call, Site, :allow_archive #, :allow_delete
+
   end
 end
-
-
-=begin
-require 'test_helper'
-
-class SitesControllerTest < ActionController::TestCase
-  setup do
-    @site = Site.first!
-  end
-
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:sites)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create site" do
-    assert_difference('Site.count') do
-      post :create, site: { latitude: @site.latitude, longitude: @site.longitude, name: @site.name, notes: @site.notes }
-    end
-
-    assert_redirected_to site_path(assigns(:site))
-  end
-
-  test "should show site" do
-    get :show, id: @site
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @site
-    assert_response :success
-  end
-
-  test "should update site" do
-    put :update, id: @site, site: { latitude: @site.latitude, longitude: @site.longitude, name: @site.name, notes: @site.notes }
-    assert_redirected_to site_path(assigns(:site))
-  end
-
-  test "should destroy site" do
-    assert_difference('Site.count', -1) do
-      delete :destroy, id: @site
-    end
-
-    assert_redirected_to sites_path
-  end
-end
-=end

@@ -1,19 +1,15 @@
 # https://gist.github.com/3317023
 module JsonHelpers
-  def json(params)
+  def json(params)0
     params = {format: 'json'}.merge(params)
     [:get, :put, :post, :delete].find do |method|
       path = params.delete(method) and send(method, path, params)
     end
-    symbolize_keys(JSON.parse(response.body))
-  end
-
-  def json_empty_body(params)
-    params = {format: 'json'}.merge(params)
-    [:get, :put, :post, :delete].find do |method|
-      path = params.delete(method) and send(method, path, params)
+    if response.body.blank?
+      nil
+    else
+      symbolize_keys(JSON.parse(response.body))
     end
-    response.body
   end
 
   def get_json(response)
@@ -69,10 +65,6 @@ end
 RSpec.configure { |config| config.include AudioHelpers, :type => :model }
 
 module CommonHelpers
-  def remove_timestamp_fields(record)
-    result = record.with_indifferent_access.except(:id, :created_at, :updated_at, :deleted_at, :creator_id, :updater_id, :deleter_id)
-    result
-  end
 
   def convert_model(action, model_symbol, model, attributes_to_filter = [])
 
@@ -98,7 +90,12 @@ module CommonHelpers
   end
 
   def convert_model_for_delete(model)
-    hash = { delete: :destroy, id: model[:id] }
+    hash = { delete: :destroy }
+
+    unless model.empty?
+      hash[:id] = model[:id]
+    end
+
     hash
   end
 end

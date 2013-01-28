@@ -65,7 +65,7 @@ describe BookmarksController do
         @changed = create(:bookmark)
         @changed.offset_seconds = 500
         test = convert_model(:update, :bookmark, @changed)
-        @response_body = json_empty_body(test)
+        @response_body = json(test)
       end
 
       it_should_behave_like :a_valid_update_api_call, Bookmark, :offset_seconds
@@ -85,25 +85,6 @@ describe BookmarksController do
   end
 
   describe "DELETE #destory" do
-    context "should be successful for a valid delete call" do
-      before(:each) do
-        @item = create(:bookmark)
-        @response_body = json_empty_body(convert_model_for_delete(@item))
-      end
-
-      it_should_behave_like :a_valid_delete_or_archive_api_call, Bookmark, :delete
-    end
-    context "should not be successful for an invalid delete call" do
-      it_should_behave_like :an_invalid_delete_or_archive_api_call, Bookmark, :bookmark, :delete, :invalid_index
-    end
-
-    context "should not allow archiving" do
-      before(:each) do
-        @item = create(:bookmark)
-        @response_body = json_empty_body(convert_model_for_delete(@item))
-      end
-      it_should_behave_like :an_archive_api_call_when_archive_is_not_allowed, Bookmark
-      #it_should_behave_like :an_invalid_delete_or_archive_api_call, Bookmark, :bookmark, :archive, :valid_index
-    end
+    it_should_behave_like :a_delete_api_call, Bookmark, :allow_delete #, :allow_archive
   end
 end

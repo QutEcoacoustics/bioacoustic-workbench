@@ -1,137 +1,212 @@
 require 'spec_helper'
-# invalid: well-formed vs can-we-do-this. We might pass a well-formed klass, but the action is not allowed.
-shared_examples :a_valid_delete_or_archive_api_call do |klass, archive_or_delete = 'delete'.to_sym|
 
-  it { should respond_with(:no_content) }
-  it { should respond_with_content_type(:json) }
-  it "should #{archive_or_delete == :archive ? '' : 'NOT'} return the archived_at date as a header" do
-    has_header = @response.headers.include?('X-Archived-At')
+ARCHIVED_HEADER = 'X-Archived-At'
 
-    if archive_or_delete == :archive
-      has_header.should be_true
-    else
-      has_header.should be_false
-    end
+# things to test for:
+#   1 - invalid delete call due to missing id
+#   2 - invalid delete call because method is not allowed (either archive or destroy)
+#
+# Truth table (^ means should have archived header)
+# | allow_archive | allow_delete  | 1st call  | 2nd call  | 3rd Call  |
+# ---------------------------------------------------------------------
+# |     true      |     false     |   204^    |   404     |   404     |
+# |     false     |     true      |   204     |   404     |   404     |
+# |     true      |     true      |   204^    |   204     |   404     |
+# |     false     |     false     |   405     |   405     |   405     |
+
+
+cases = {
+    { allow_archive: true, allow_delete: false }  => [:r204a, :r404, :r404],
+    { allow_archive: false, allow_delete: true }  => [:r204, :r404, :r404],
+    { allow_archive: true, allow_delete: true }   => [:r204a, :r204, :r404],
+    { allow_archive: false, allow_delete: false } => [:r405, :r405, :r405]
+}
+
+# valid and invalid tests, completely self contained
+shared_examples :a_delete_api_call do |klass, *options|
+
+  allow_archive = options.include?(:allow_archive)
+  allow_delete  = options.include?(:allow_delete)
+
+  let(:model_symbol) do
+    klass.name.underscore.to_sym
   end
 
-  if archive_or_delete == :archive
-    it 'should archive the correct record by updating the deleted_at' do
-      item_from_db = klass.find_by_id(@item[:id])
-      item_from_db.deleted_at.should_not be_blank
+  context 'invalid id test' do
+    before(:each) do
+      @item       = create(model_symbol)
+      @item_count_before = klass.unscoped.count
     end
-    it 'should archive the correct record by updating the deleter_id' do
-      item_from_db = klass.find_by_id(@item[:id])
-      item_from_db.deleter_id.should_not be_blank
-    end
-    it 'should not be returned by default when a query (model) would include it' do
-      klass.where(:id => @item[:id]).all.should be_empty
-    end
-    it 'should not be returned by default when a request (controller) is made for it\'s id' do
-      @response_body2 = json_empty_body(convert_model_for_delete(@item))
-      @response
-    end
-  else
-    it 'should delete the correct record in the database' do
-      klass.find_by_id(@item[:id]).should == nil
-    end
-  end
-end
-
-# invalid: well-formed vs can-we-do-this. We might pass a well-formed request, but the action is not allowed.
-shared_examples :an_invalid_delete_or_archive_api_call do |klass, model_symbol, archive_or_delete = 'delete'.to_sym, use_a_real_item = 'valid_index'.to_sym|
-
-  before(:each) do
-    exists = use_a_real_item == :valid_index
-
-    if exists
-      @item = create(model_symbol)
-    end
-    @item_count = klass.count
-    @id_to_test = exists ? @item.id : -30
-
-    #@exists = !klass.where(:id => @id_to_test).first.blank?
-
-    if exists
-      @response_body = json_empty_body(convert_model_for_delete({id: @id_to_test}))
-    end
-  end
-
-  it "should #{use_a_real_item == :valid_index ? 'NOT' : ''} raise the expected error if the id does #{use_a_real_item == :valid_index ? '' : 'NOT'} exist" do
-    if use_a_real_item == :valid_index
-      true.should be_true, 'the id exists. The universe is safe. yay!'
-    else
+    # tests 1st point
+    it 'should raise the expected error if the id does NOT exist' do
       expect {
-        json_empty_body(convert_model_for_delete({id: @id_to_test}))
+        json(convert_model_for_delete({ id: -30 }))
       }.to raise_error(ActiveRecord::RecordNotFound)
-    end
-  end
 
-  if use_a_real_item == :valid_index
-    it { should respond_with(:no_content) }
-    it { should respond_with_content_type(:json) }
-
-    it 'should be empty' do
-      @response.body.should be_blank
+      klass.unscoped.count.should == @item_count_before
+      response.body.should be_blank
     end
 
-    it 'should return the expected response if the id does exist' do
-      if archive_or_delete == :delete
-          #@response.status.should == :method_not_allowed
-        # todo test for allow
-      elsif archive_or_delete == :archive
-        # this will only happen if deletes and archives are not allowed
-        #@response.status.should == :method_not_allowed
-        #@response.headers.include?
-        fail 'implement invalid delete verb (that\'s me)'
-      end
-    end
-
-    if archive_or_delete == :archive
-
-      it 'should not archive the record by updating the deleted_at' do
-        klass.where(:id => @id_to_test).should be_empty
-      end
-
-      it 'should not archive the record by updating the deleter_id' do
-        klass.where(:id => @id_to_test).should be_empty
-      end
-
-    end
-
-  else
-
-    it 'should not return any response if the id does not exist' do
+    it 'should not do anything if no id is specified' do
       expect {
-         json_empty_body(convert_model_for_delete({id: @id_to_test}))
-      }.to raise_error(ActiveRecord::RecordNotFound)
-      @response.body.should be_blank
+        # also tests for sending empty parameters
+        json(convert_model_for_delete({ }))
+      }.to raise_error(ActionController::RoutingError)
+
+      response.body.should be_blank
+      klass.unscoped.count.should == @item_count_before
     end
   end
 
-  it 'should NOT delete the record' do
-    klass.count.should == @item_count
+  context 'valid controllers and their models' do
+    before(:each) do
+      @item = build(model_symbol)
+    end
+    it "should #{'not' unless allow_archive } have deleted_id attribute" do
+      @item.respond_to?('deleter_id').should == allow_archive
+    end
+    it "should #{'not' unless allow_archive } have deleted_at attribute" do
+      @item.respond_to?('deleted_at').should == allow_archive
+    end
   end
+
+
+  # simulate multiple delete api calls, checking the state after each
+  [1, 2, 3].each { |call|
+
+    expected_response = (cases[{ allow_archive: allow_archive, allow_delete: allow_delete }])[call-1]
+
+    # call delete, once, twice, three times
+    context "#{ActiveSupport::Inflector.ordinalize(call)} delete api call (expected response: #{expected_response})" do
+
+      before(:each) do
+        # seed to ensure at least one other item, makes the count tests more understandable
+        create(model_symbol)
+
+        @item       = create(model_symbol)
+        @item_count_before = klass.count
+
+        # if exception thrown it is not always assigned
+        @response_body = nil
+
+        index = 0
+        while index < call do
+          index = index + 1
+          begin
+            @response_body = json(convert_model_for_delete({ id: @item.id }))
+          rescue ActiveRecord::RecordNotFound => e404
+            @exception = e404
+          end
+        end
+
+        @item_count_after = klass.count
+        # the rest of the tests then test the result (either response or exception)
+      end
+
+      ##
+      #
+      # tests for expected_response
+      #
+      ##
+
+      ##
+      #   Destroyed
+      ##
+      if expected_response == :r204
+        it { should respond_with(:no_content) }
+        it 'should destroy the correct record in the database' do
+          klass.find_by_id(@item[:id]).should == nil
+        end
+        it 'should (really really) destroy the correct record in the database' do
+          klass.unscoped.find_by_id(@item[:id]).should == nil
+        end
+      end
+
+      ##
+      #   Archived
+      ##
+      if expected_response == :r204a
+        it { should respond_with(:no_content) }
+        it 'should return the archived_at date as a header' do
+          has_header = @response.headers.include?(ARCHIVED_HEADER)
+          has_header.should_not be_blank
+        end
+        it 'should archive the correct record by updating the deleted_at' do
+          item_from_db = klass.with_deleted.find_by_id(@item[:id])
+          item_from_db.deleted_at.should_not be_blank
+        end
+        it 'should archive the correct record by updating the deleter_id' do
+          item_from_db = klass.with_deleted.find_by_id(@item[:id])
+          item_from_db.deleter_id.should_not be_blank
+        end
+        it 'should not be returned by default when a query (model) would include it' do
+          klass.where(:id => @item[:id]).all.should be_empty
+        end
+        it 'should not be returned by default when a request (controller) is made for it\'s id' do
+          expect {
+            @response_body2 = json({ get: :show, id: @item.id })
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      ##
+      #   Not found
+      ##
+      if expected_response == :r404
+        it 'should have populated the exception object that represents a 404' do
+          @exception.should be_an_instance_of(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      ##
+      #   Not allowed
+      ##
+      if expected_response == :r405
+        it { should respond_with(:method_not_allowed) }
+        it 'should NOT destroy the record (existence check)' do
+          klass.where(:id => @item[:id]).first.should_not be_nil
+        end
+      end
+
+      ##
+      #   ALL Invalid responses
+      ##
+      if expected_response == :r405 || expected_response == :r404
+        it 'should NOT destroy the record (count check)' do
+          klass.unscoped.count.should == @item_count_after
+        end
+      end
+
+      ##
+      #   ANY response other than  r204a (archived)
+      ##
+      if expected_response != :r204a
+        it 'should NOT return the archived_at date as a header' do
+          has_header = @response.headers.include?(ARCHIVED_HEADER)
+          has_header.should be_blank
+        end
+      end
+
+      ##
+      #   ANY response other than  404 (i.e. not an exception)
+      ##
+      if expected_response != :r404
+        it { should respond_with_content_type(:json) }
+      end
+
+      ##
+      #   Should happen no matter what
+      ##
+      if true
+        it 'should be empty' do
+          @response.body.should be_blank
+        end
+      end
+
+    end
+  }
 end
 
-shared_examples :getting_a_valid_archive_api_call do |klass|
-#permisisons?
 
-  it 'should be returned when a query includes it and specifies to include archived items'
-  it 'should have deleted_at and deleter_id set'
 
-  # use the idempotent api call examples
-  it_should_behave_like :an_idempotent_api_call, klass, false
 
-end
-
-shared_examples :an_archive_api_call_when_archive_is_not_allowed do |klass|
-  it 'should not have deleted_id attribute' do
-    @item.respond_to?('deleted_id').should be_false
-  end
-  it 'should not have deleted_at attribute' do
-    @item.respond_to?('deleted_at').should be_false
-  end
-  it 'should be deleted' do
-    klass.where(:id => @item[:id]).first.should == nil
-  end
-end

@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
     t.datetime "updated_at",  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "deleter_id"
     t.datetime "deleted_at"
   end
 
@@ -230,6 +231,7 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
     t.datetime "updated_at", :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "deleter_id"
     t.datetime "deleted_at"
   end
 
@@ -241,7 +243,6 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
     t.datetime "updated_at",                      :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "deleter_id"
     t.datetime "deleted_at"
   end
 

@@ -1,11 +1,13 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :user do |f|
 
-    user_name { Faker::Internet.user_name}
-    display_name { Faker::Name.name}
-    email { Faker::Internet.email}
+  sequence(:counter)
+
+  factory :user do
+    user_name { Faker::Internet.user_name + generate(:counter).to_s }
+    display_name { Faker::Name.name + generate(:counter).to_s}
+    email { Faker::Internet.email + generate(:counter).to_s}
     admin false
     password {Faker::Lorem.words(6).join(' ')}
   end

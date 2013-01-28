@@ -7,7 +7,10 @@ class CreateTags < ActiveRecord::Migration
       t.string :type_of_tag
 
       t.timestamps
-      t.userstamps include_deleted_by = true
+      t.userstamps
+
+      # disabled due to updated specs 28/01/13, By Anthony
+      # include_deleted_by = true
     end
     add_index :tags, :text, :unique => true
   end
