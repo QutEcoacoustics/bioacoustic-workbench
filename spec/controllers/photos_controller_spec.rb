@@ -43,7 +43,6 @@ describe PhotosController do
     context "with valid attributes" do
       before(:each) do
         @initial_count = Photo.count
-        #hash = { put: :create, bookmark: remove_timestamp_fields(build(:bookmark).attributes)}
         test = convert_model(:create, :photo, build(:photo))
         @response_body = json(test)
       end
@@ -66,7 +65,6 @@ describe PhotosController do
     context "with valid attributes" do
       before(:each) do
         @changed = create(:photo)
-        @changed.uri = 500
         test = convert_model(:update, :photo, @changed)
         @response_body = json(test)
       end

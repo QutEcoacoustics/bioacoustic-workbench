@@ -55,7 +55,7 @@ describe PermissionsController do
         @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_create_api_call, Permission, {:offset_seconds => ["can't be blank", "is not a number"], :audio_recording_id => ["can't be blank"]}
+      it_should_behave_like :an_invalid_create_api_call, Permission, {}
     end
   end
 
@@ -80,7 +80,7 @@ describe PermissionsController do
         @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_update_api_call, Permission, :level, {:offset_seconds => ["must be greater than or equal to 0"]}
+      it_should_behave_like :an_invalid_update_api_call, Permission, :level, {}
     end
   end
 

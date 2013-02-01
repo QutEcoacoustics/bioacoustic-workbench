@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :display_name
 
       t.timestamps
-      t.userstamps
+      t.userstamps include_deleted_by = true
     end
   end
 end

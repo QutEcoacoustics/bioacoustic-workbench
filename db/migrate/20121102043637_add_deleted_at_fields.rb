@@ -12,7 +12,7 @@ class AddDeletedAtFields < ActiveRecord::Migration
     change_table :audio_events do |t|
       t.datetime :deleted_at
     end
-    change_table :tags do |t|
+    change_table :users do |t|
       t.datetime :deleted_at
     end
   end

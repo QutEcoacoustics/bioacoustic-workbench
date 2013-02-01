@@ -18,7 +18,8 @@ class CreateAnalysisJobs < ActiveRecord::Migration
       t.references :saved_search
 
       t.timestamps
-      t.userstamps
+      t.userstamps include_deleted_by = true
+      t.datetime :deleted_at
     end
     add_index :analysis_jobs, :saved_search_id
   end

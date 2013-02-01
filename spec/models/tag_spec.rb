@@ -9,7 +9,7 @@ describe Tag do
   end
 
   it {should belong_to(:user)}
-  it {should have_many(:audio_event_tags)}
+  #it {should have_many(:tags)}
   it {should have_many(:audio_events).through(:audio_event_tags)}
 
 

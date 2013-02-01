@@ -23,12 +23,14 @@ describe AudioEventsController do
       @response_body = json get: :new
       @expected_hash = {
           :id => nil,
-          :description => nil,
-          :name => nil,
-          :notes => {},
-          :photos => [],
-          :sites => [],
-          :urn => nil,
+          :audio_recording => nil,
+          :audio_recording_id => nil,
+          :end_time_seconds => nil,
+          :high_frequency_hertz => nil,
+          :is_reference => false,
+          :low_frequency_hertz => nil,
+          :start_time_seconds => nil,
+          :tags => [],
           :updated_at => nil,
           :created_at => nil,
           :updater_id => nil,
@@ -66,6 +68,7 @@ describe AudioEventsController do
       before(:each) do
         @changed = create(:audio_event)
         @changed.start_time_seconds = 500
+        @changed.end_time_seconds = 600
         test = convert_model(:update, :audio_event, @changed)
         @response_body = json(test)
       end

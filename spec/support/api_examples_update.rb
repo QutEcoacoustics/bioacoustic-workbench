@@ -23,7 +23,7 @@ shared_examples :a_valid_update_api_call do |klass, changed_attribute_name|
 
   it 'should not have any errors in response' do
     if @response.status != 204 # no content
-      fail 'Wrong http status code.'
+      fail "Wrong http status code. Expected 204, got #{@response.status}. Body: #{@response.body}"
     end
   end
 

@@ -60,8 +60,16 @@ RSpec.configure do |config|
     # SEEDS ONLY AVAILABLE FOR CONTROLLER TESTS
   end
 
-  config.before(:each) do
+  config.before(:all) do |test|
+    full_example_description = test.class.metadata[:example_group][:full_description]
+    ::Rails.logger.info("\n\n#{full_example_description}\n#{'-' * (full_example_description.length)}\n")
+  end
+
+  config.before(:each) do |test|
     DatabaseCleaner.start
+
+    full_example_description = test.class.metadata[:example_group][:full_description]
+    ::Rails.logger.info("\n\r\n#{full_example_description}\n#{'-' * (full_example_description.length)}\n")
   end
 
   config.after(:each) do

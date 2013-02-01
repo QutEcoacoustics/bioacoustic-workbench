@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
     t.datetime "updated_at",          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "deleter_id"
+    t.datetime "deleted_at"
   end
 
   add_index "analysis_jobs", ["saved_search_id"], :name => "index_analysis_jobs_on_saved_search_id"
@@ -243,7 +245,6 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
     t.datetime "updated_at",                      :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.datetime "deleted_at"
   end
 
   add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true
@@ -254,6 +255,7 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
     t.datetime "updated_at",                                :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "deleter_id"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -274,6 +276,7 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "invitation_token"
+    t.datetime "deleted_at"
     t.boolean  "admin",                  :default => false
     t.string   "user_name"
   end

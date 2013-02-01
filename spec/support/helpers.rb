@@ -20,9 +20,12 @@ module JsonHelpers
 
   def symbolize_keys(o)
     case o
-      when Hash then Hash[o.map { |k, v| [k.to_sym, symbolize_keys(v)] }]
-      when Array then o.map { |e| symbolize_keys(e) }
-      else o
+      when Hash then
+        Hash[o.map { |k, v| [k.to_sym, symbolize_keys(v)] }]
+      when Array then
+        o.map { |e| symbolize_keys(e) }
+      else
+        o
     end
   end
 end
@@ -54,7 +57,7 @@ module AudioHelpers
     file_name = file_path.chomp(File.extname(file_path))
     possible_paths = [file_path, file_name+'.webm', file_name+'.ogg']
 
-    possible_paths.each{|file|
+    possible_paths.each { |file|
       if File.exists? file
         File.delete file
       end
@@ -69,9 +72,9 @@ module CommonHelpers
   def convert_model(action, model_symbol, model, attributes_to_filter = [])
 
     attribute_filter = [:id, :created_at, :updated_at, :deleted_at, :creator_id, :updater_id, :deleter_id]
-    attribute_filter.concat(attributes_to_filter.map{|item| item.to_sym})
+    attribute_filter.concat(attributes_to_filter.map { |item| item.to_s.to_sym })
 
-    hash = { }
+    hash = {}
 
     if action == :create
       hash[:post] = :create
@@ -90,7 +93,7 @@ module CommonHelpers
   end
 
   def convert_model_for_delete(model)
-    hash = { delete: :destroy }
+    hash = {delete: :destroy}
 
     unless model.empty?
       hash[:id] = model[:id]

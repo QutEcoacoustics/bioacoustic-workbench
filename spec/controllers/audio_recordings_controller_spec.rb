@@ -34,7 +34,7 @@ describe AudioRecordingsController do
           :sample_rate_hertz => nil,
           #:site_id => nil,
           :site => nil,
-          :status => 'new',
+          :status => nil,
           :uploader_id => nil,
           :uuid => nil,
           :updated_at => nil,
@@ -89,7 +89,7 @@ describe AudioRecordingsController do
 
     it 'should not allow mass assignment of the uuid attribute' do
       expect {
-        json convert_model(:update, :audio_recording, build(:audio_recording))
+        json convert_model(:update, :audio_recording, create(:audio_recording))
       }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
 
@@ -98,11 +98,11 @@ describe AudioRecordingsController do
         @initial = create(:audio_recording)
         @old_value = @initial.status
         @initial.status = :does_not_exist
-        test = convert_model(:update, :audio_recording, @initial)
+        test = convert_model(:update, :audio_recording, @initial, [:uuid])
         @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_update_api_call, AudioRecording, :status, {:offset_seconds => ["must be greater than or equal to 0"]}
+      it_should_behave_like :an_invalid_update_api_call, AudioRecording, :status, {:status=>["is not included in the list", "can't be blank"]}
     end
   end
 
