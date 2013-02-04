@@ -14,6 +14,5 @@ FactoryGirl.define do
       association :owner_id, factory: :user
     end
 
-
     end
 end

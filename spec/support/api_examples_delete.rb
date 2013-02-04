@@ -114,6 +114,7 @@ shared_examples :a_delete_api_call do |klass, *options|
       ##
       if expected_response == :r204
         it { should respond_with(:no_content) }
+        it { should respond_with_content_type(:json) }
         it 'should destroy the correct record in the database' do
           klass.find_by_id(@item[:id]).should == nil
         end
@@ -127,6 +128,7 @@ shared_examples :a_delete_api_call do |klass, *options|
       ##
       if expected_response == :r204a
         it { should respond_with(:no_content) }
+        it { should respond_with_content_type(:json) }
         it 'should return the archived_at date as a header' do
           has_header = @response.headers.include?(ARCHIVED_HEADER)
           has_header.should be_true
@@ -175,6 +177,7 @@ shared_examples :a_delete_api_call do |klass, *options|
       ##
       if expected_response == :r405
         it { should respond_with(:method_not_allowed) }
+        it { should respond_with_content_type(:json) }
         it 'should NOT destroy the record (existence check)' do
           klass.where(:id => @item[:id]).first.should_not be_nil
         end
@@ -201,10 +204,11 @@ shared_examples :a_delete_api_call do |klass, *options|
 
       ##
       #   ANY response other than  404 (i.e. not an exception)
+      #   There is no content type given
       ##
-      if expected_response != :r404
-        it { should respond_with_content_type(:json) }
-      end
+      #if expected_response != :r404
+        #it { should respond_with_content_type(:json) }
+      #end
 
       ##
       #   Should happen no matter what

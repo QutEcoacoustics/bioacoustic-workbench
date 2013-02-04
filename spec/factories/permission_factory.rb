@@ -6,7 +6,7 @@ FactoryGirl.define do
 
 
 
-    association :creator_id, :factory => :user
+    association :creator_id, factory: :user
     association :user
 
     factory :project_permission do

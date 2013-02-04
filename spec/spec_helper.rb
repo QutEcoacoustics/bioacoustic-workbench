@@ -61,15 +61,17 @@ RSpec.configure do |config|
   end
 
   config.before(:all) do |test|
-    full_example_description = test.class.metadata[:example_group][:full_description]
-    ::Rails.logger.info("\n\n#{full_example_description}\n#{'-' * (full_example_description.length)}\n")
+
   end
 
   config.before(:each) do |test|
     DatabaseCleaner.start
 
-    full_example_description = test.class.metadata[:example_group][:full_description]
-    ::Rails.logger.info("\n\r\n#{full_example_description}\n#{'-' * (full_example_description.length)}\n")
+    full_example_description = test.example.full_description
+    full_example_description = full_example_description+' ('+test.example.description+').' if !full_example_description.include?(test.example.description)
+
+    ::Rails.logger.info("\r\n#{'-' * (full_example_description.length)}\r\n#{full_example_description}\r\n#{'-' * (full_example_description.length)}\r\n")
+    #puts full_example_description
   end
 
   config.after(:each) do
