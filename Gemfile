@@ -57,6 +57,8 @@ gem 'active_model_serializers', :git => "git://github.com/rails-api/active_model
 
 gem 'rubyzip'
 
+gem 'momentjs-rails'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
