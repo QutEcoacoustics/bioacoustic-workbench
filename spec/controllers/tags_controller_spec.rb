@@ -63,7 +63,7 @@ describe TagsController do
   describe "PUT #update" do
     context "with valid attributes" do
       before(:each) do
-        @changed = create(:tag)
+        @changed = create(:tag, type_of_tag: :species_name)
         @changed.type_of_tag = :common_name
         test = convert_model(:update, :tag, @changed)
         @response_body = json(test)

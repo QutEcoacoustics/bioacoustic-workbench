@@ -15,5 +15,6 @@ FactoryGirl.define do
 
     f.association :site
     f.association :uploader_id, factory: :user
+    f.association :creator, factory: :user
   end
 end

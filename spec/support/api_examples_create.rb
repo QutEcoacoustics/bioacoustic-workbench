@@ -2,6 +2,8 @@ require 'spec_helper'
 
 shared_examples :a_valid_create_api_call do |klass|
 
+
+
   it { should respond_with(:created) }
 
   it { should respond_with_content_type(:json) }
