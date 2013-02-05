@@ -6,6 +6,6 @@ FactoryGirl.define do
     f.low_frequency_hertz 1023
     f.end_time_seconds 12.75
     f.high_frequency_hertz 7500
-    f.audio_recording { |ar| ar.association(:audio_recording)}
+    f.audio_recording { |ar| ar.association(:audio_recording) }
   end
 end
