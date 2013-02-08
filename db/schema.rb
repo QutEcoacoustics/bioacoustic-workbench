@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119095800) do
+ActiveRecord::Schema.define(:version => 20130205030911) do
 
   create_table "analysis_items", :force => true do |t|
     t.string   "worker_info"
@@ -153,13 +153,14 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
 
   create_table "permissions", :force => true do |t|
     t.integer  "user_id"
-    t.string   "level",               :null => false
+    t.string   "level",                                 :null => false
     t.integer  "permissionable_id"
     t.string   "permissionable_type"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.boolean  "logged_in",           :default => true, :null => false
   end
 
   add_index "permissions", ["user_id"], :name => "index_permissions_on_user_id"
@@ -277,7 +278,7 @@ ActiveRecord::Schema.define(:version => 20130119095800) do
     t.string   "last_sign_in_ip"
     t.string   "invitation_token"
     t.datetime "deleted_at"
-    t.boolean  "admin",                  :default => false
+    t.boolean  "admin",                  :default => false, :null => false
     t.string   "user_name"
   end
 

@@ -23,18 +23,6 @@ describe Permission do
     end
   end
 
-  it 'is valid without a user specified' do
-    build(:permission, user: nil).should be_valid
-  end
-
-  it 'should be not valid without a type_of_tag field specified' do
-    build(:permission, level: nil).should_not be_valid
-  end
-
-  it 'should be not valid with an invalid level field specified' do
-    build(:tag, type_of_tag: :this_is_not_valid).should_not be_valid
-  end
-
   it 'is when a user is not specified, it should be anonymous' do
     build(:permission, user: nil).anonymous?.should be_true
   end
@@ -64,24 +52,35 @@ describe Permission do
 
   # this is a subset of the relevant combinations
   # see https://github.com/QutBioacousticsResearchGroup/bioacoustic-workbench/wiki/Permission
-  # for the full set (missing whether user is logged in or not)
+  # for the full set (missing whether user is logged in or not (auth token))
   context "permission combinations" do
     cases = [
-        { level: :owner,  id: true , valid: true },
-        { level: :writer, id: true , valid: true },
-        { level: :reader, id: true , valid: true },
-        { level: :none,   id: true , valid: true },
-        { level: :owner,  id: false, valid: false },
-        { level: :writer, id: false, valid: false },
-        { level: :reader, id: false, valid: true },
-        { level: :none,   id: false, valid: true }
+        { level: :owner,  id: true , logged_in: true, valid: true },
+        { level: :writer, id: true , logged_in: true, valid: true },
+        { level: :reader, id: true , logged_in: true, valid: true },
+        { level: :none,   id: true , logged_in: true, valid: true },
+
+        { level: :owner,  id: true , logged_in: false, valid: false },
+        { level: :writer, id: true , logged_in: false, valid: false },
+        { level: :reader, id: true , logged_in: false, valid: false },
+        { level: :none,   id: true , logged_in: false, valid: false },
+
+        { level: :owner,  id: false, logged_in: true, valid: false },
+        { level: :writer, id: false, logged_in: true, valid: true },
+        { level: :reader, id: false, logged_in: true, valid: true },
+        { level: :none,   id: false, logged_in: true, valid: true },
+
+        { level: :owner,  id: false, logged_in: false, valid: false },
+        { level: :writer, id: false, logged_in: false, valid: false },
+        { level: :reader, id: false, logged_in: false, valid: true },
+        { level: :none,   id: false, logged_in: false, valid: true }
     ]
 
     cases.each{ |test_case|
-      it "should be #{'not' unless test_case[:valid]} valid when user is #{'not' unless test_case[:id]} present and permission level is '#{test_case[:level]}'" do
+      it "should be #{'not' unless test_case[:valid]} valid when user is #{'not' unless test_case[:id]} present and user is #{'not' unless test_case[:logged_in]} logged in and permission level is '#{test_case[:level]}'" do
         u = nil
         u = create(:user) if test_case[:id]
-        p = build(:permission, {level: test_case[:level], user: u})
+        p = build(:permission, {level: test_case[:level], user: u, logged_in:test_case[:logged_in]})
         if test_case[:valid]
           p.should be_valid
         else

@@ -18,7 +18,7 @@ FactoryGirl.define do
 
     activity { ['annotating', 'listening', 'checklisting' ].sample }
 
-    association :creator_id, :factory => :user
+    association :creator, factory: :user
 
     association :saved_search
     association :audio_recording

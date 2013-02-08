@@ -24,6 +24,7 @@ describe PermissionsController do
       @expected_hash = {
           :id => nil,
           :level => 'none',
+          :logged_in => true,
           :permissionable_id => nil,
           :permissionable_type => nil,
           :user_id => nil,
@@ -52,10 +53,13 @@ describe PermissionsController do
       before(:each) do
         @initial_count = Permission.count
         test = convert_model(:create, :permission, nil)
+        test[:permission][:logged_in] = false
+        test[:permission][:user_id] = nil
+        test[:permission][:level] = :owner
         @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_create_api_call, Permission, {}
+      it_should_behave_like :an_invalid_create_api_call, Permission, {:level=>["Anonymous users cannot have owners permission."]}
     end
   end
 
@@ -76,11 +80,12 @@ describe PermissionsController do
         @initial = create(:permission)
         @old_value = @initial.level
         @initial.level = :does_not_exist
+        @initial.logged_in = 'surprise!'
         test = convert_model(:update, :permission, @initial)
         @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_update_api_call, Permission, :level, {}
+      it_should_behave_like :an_invalid_update_api_call, Permission, :level, {:level=>["is not included in the list", "can't be blank"], :user_id=>["Permissions cannot have a user id and not be logged in."]}
     end
   end
 
