@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 # core rails gem
 # temporary roleback to 3.2.8 because of this issue https://github.com/rails/rails/pull/8718
-gem 'rails', '3.2.8'
+gem 'rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

@@ -8,5 +8,7 @@ FactoryGirl.define do
    sequence(:urn) {|n| "urn:project:ecosounds.org/project/#{n}" }
 
    notes { { Faker::Lorem.word => Faker::Lorem.paragraph } }
+
+   association :creator, factory: :user
   end
 end

@@ -12,7 +12,7 @@ FactoryGirl.define do
     association :creator, factory: :user
 
     factory :saved_search do
-      association :owner_id, factory: :user
+      association :owner, factory: :user
     end
 
     end

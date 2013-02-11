@@ -23,7 +23,7 @@ FactoryGirl.define do
     f.verified true
 
 
-    f.association :creator_id, factory: :user
+    f.association :creator, factory: :user
 
     factory :analysis_script_unverified do
       verified false

@@ -14,7 +14,7 @@ FactoryGirl.define do
     f.status {[:new, :to_check, :ready, :corrupt, :ignore].sample}
 
     f.association :site
-    f.association :uploader_id, factory: :user
+    f.association :uploader, factory: :user
     f.association :creator, factory: :user
   end
 end

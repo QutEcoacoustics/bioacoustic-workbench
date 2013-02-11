@@ -6,7 +6,7 @@ FactoryGirl.define do
     logged_in true
 
 
-    association :creator_id, factory: :user
+    association :creator, factory: :user
     association :user
 
     factory :project_permission do

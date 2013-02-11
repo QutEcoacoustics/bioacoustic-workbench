@@ -8,7 +8,7 @@ FactoryGirl.define do
     f.type_of_tag {[:common_name, :species_name, :looks_like, :sounds_like].sample}
 
 
-    f.association :creator_id, factory: :user
+    f.association :creator, factory: :user
 
   end
 end

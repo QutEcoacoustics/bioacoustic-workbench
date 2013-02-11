@@ -33,7 +33,7 @@ FactoryGirl.define do
 
 
     f.association :saved_search
-    f.association :creator_id, factory: :user
+    f.association :creator, factory: :user
     #f.association :creator, factory: :user
 
 
