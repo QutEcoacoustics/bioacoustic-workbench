@@ -167,6 +167,8 @@ def run_dev_seeds(admin_id)
   at4 = add( AudioEvent.create({start_time_seconds: 5.2, end_time_seconds: 12.5, low_frequency_hertz: 200,
                                 high_frequency_hertz: 2500, is_reference: false, audio_recording_id: 2}))
 
+
+
   # audio events <-> tags
   puts "Linking audio events and tags..."
   add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Torresian Crow"}.first))
@@ -179,6 +181,16 @@ def run_dev_seeds(admin_id)
   add(at3.audio_event_tags.build(:tag => tags.select{|i| i.text == "repeating"}.first))
 
   add(at4.audio_event_tags.build(:tag => tags.select{|i| i.text == "Sacred Kingfisher"}.first))
+
+  puts "Adding more dummy tags..."
+  [s1, s2, s3].each { |site|
+    arx = AudioRecording.where(site_id: site.id).all.sample
+
+    at = add(AudioEvent.create({start_time_seconds: rand(30), end_time_seconds: rand(30) + 30, low_frequency_hertz: rand(1000),
+                                high_frequency_hertz: rand(2000) +5000, is_reference: false, audio_recording_id: arx.id}))
+
+    add(at.audio_event_tags.build(:tag => tags.select{|i| i.text == "Torresian Crow"}.first))
+  }
 
   # bookmarks
   puts "Creating Bookmarks..."
@@ -242,4 +254,5 @@ def run_dev_seeds(admin_id)
 
   # authorizations
 
+  puts "\n ------------- DONE SEEDING -------------- \n"
 end
