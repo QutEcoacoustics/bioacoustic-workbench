@@ -6,7 +6,6 @@ gem 'rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'jquery-rails'
 
 # disabled because the it breaks each component up into its own file - this is very slow when doing dev work
@@ -26,6 +25,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-openid'
 gem 'omniauth-github'
+gem 'omniauth-windowslive'
 
 # Trollop - command line args
 gem 'trollop'

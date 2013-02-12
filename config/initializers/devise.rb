@@ -8,7 +8,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
+  config.mailer_sender = BawSite::Application.config.custom_info.mailer_sender[:email]
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -87,7 +87,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = "ed8ad9813c253038704a3f7ede9897a6f5be3fe2c6712e340001c2985ac772d5b6908ea5f62652ded12307589f007974d0a1965d091af19fb0f6bb469d0ad966"
+  config.pepper = BawSite::Application.config.custom_info.pepper
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -217,25 +217,40 @@ Devise.setup do |config|
   # available strategies
   # https://github.com/intridea/omniauth/wiki/List-of-Strategies
 
+  # openid
+  config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'open_id', :require => 'omniauth-openid'
+
   # https://github.com/intridea/omniauth-browserid
   # https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
   # https://developer.mozilla.org/en-US/docs/Persona/Quick_Setup
-  config.omniauth :browser_id, :audience_url => 'http://localhost:3000'
-
-  # https://github.com/mkdynamic/omniauth-facebook
-  config.omniauth :facebook, 'APP_ID', 'APP_SECRET', :scope => 'email'
+  config.omniauth :browser_id, BawSite::Application.config.custom_info.browser_id[:settings]
 
   # https://github.com/zquestz/omniauth-google-oauth2
   # If you don't need a refresh token -- if you're only using Google for account creation/auth and don't need google services -- set the access_type to 'online'.
   # Also, set the approval prompt to an empty string, since otherwise it will be set to 'force', which makes users manually approve to the Oauth every time they log in.
   # See http://googleappsdeveloper.blogspot.com/2011/10/upcoming-changes-to-oauth-20-endpoint.html
-  config.omniauth :google_oauth2, '514559726327.apps.googleusercontent.com', '6uKHyf0x_q5GE8yk2dizTVaz', {access_type: 'online', approval_prompt: ''}
+  config.omniauth :google_oauth2, BawSite::Application.config.custom_info.google_oauth2[:id],
+                  BawSite::Application.config.custom_info.google_oauth2[:secret],
+                  BawSite::Application.config.custom_info.google_oauth2[:settings]
+
+  # https://github.com/mkdynamic/omniauth-facebook
+  config.omniauth :facebook, BawSite::Application.config.custom_info.facebook[:id],
+                  BawSite::Application.config.custom_info.facebook[:secret],
+                  BawSite::Application.config.custom_info.facebook[:settings]
 
   # https://github.com/arunagw/omniauth-twitter
-  config.omniauth :twitter, "consumer_key", "consumer_secret"
+  config.omniauth :twitter, BawSite::Application.config.custom_info.twitter[:id],
+                  BawSite::Application.config.custom_info.twitter[:secret]
 
-  # openid
-  config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'open_id', :require => 'omniauth-openid'
+  # https://github.com/joel/omniauth-windowslive
+  config.omniauth :windowslive, BawSite::Application.config.custom_info.windowslive[:id],
+                  BawSite::Application.config.custom_info.windowslive[:secret],
+                  BawSite::Application.config.custom_info.windowslive[:settings]
+
+  # https://github.com/intridea/omniauth-github
+  config.omniauth :github, BawSite::Application.config.custom_info.github[:id],
+                  BawSite::Application.config.custom_info.github[:secret],
+                  BawSite::Application.config.custom_info.github[:settings]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
