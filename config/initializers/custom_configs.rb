@@ -9,6 +9,7 @@ module BawSite
 
   class Application
 
+
     # this is for Rails, will not work for harvester
     base_dir = File.join(Rails.root, 'media')
 
@@ -26,46 +27,57 @@ module BawSite
 
     config.custom_info = OpenStruct.new
 
+    # set the host domain for this website
+    def default_url_options
+      if Rails.env.production?
+        {:host => 'http://your.domain'}
+      else
+        {}
+      end
+    end
 
-    ##################
-    # File devise.rb #
-    ##################
+    config.before_initialize do
 
-    # config.pepper (128 chars)
-    config.custom_info.pepper = '128 char random pepper 128 char random pepper'
+      ##################
+      # File devise.rb #
+      ##################
 
-    # config.omniauth :browser_id, :audience_url => 'http://localhost:3000'
-    config.custom_info.browser_id = {name: :browser_id, settings: {audience_url: 'http://localhost:3000'}}
+      # config.pepper (128 chars)
+      config.custom_info.pepper = '128 char random pepper 128 char random pepper'
 
-    # config.omniauth :google_oauth2, 'google id', 'google secret', {access_type: 'online', approval_prompt: ''}
-    # change this at https://code.google.com/apis/console/
-    config.custom_info.google_oauth2 = {name: :google_oauth2, id: 'google id', secret: 'google secret', settings: {access_type: 'online', approval_prompt: ''}}
+      # config.omniauth :browser_id, :audience_url => 'http://localhost:3000'
+      config.custom_info.browser_id = {name: :browser_id, settings: {audience_url: 'http://localhost:3000'}}
 
-    # config.omniauth :facebook, 'APP_ID', 'APP_SECRET', :scope => 'email'
-    # change this at https://developers.facebook.com/apps/
-    config.custom_info.facebook = {name: :facebook, id: 'fb id', secret: 'fb secret', settings: {scope: 'email'}}
+      # config.omniauth :google_oauth2, 'google id', 'google secret', {access_type: 'online', approval_prompt: ''}
+      # change this at https://code.google.com/apis/console/
+      config.custom_info.google_oauth2 = {name: :google_oauth2, id: 'google id', secret: 'google secret', settings: {access_type: 'online', approval_prompt: ''}}
 
-    # config.omniauth :twitter, "consumer_key", "consumer_secret"
-    # change this at https://dev.twitter.com/apps
-    config.custom_info.twitter = {name: :twitter, id: 'twitter key', secret: 'twitter secret'}
+      # config.omniauth :facebook, 'APP_ID', 'APP_SECRET', :scope => 'email'
+      # change this at https://developers.facebook.com/apps/
+      config.custom_info.facebook = {name: :facebook, id: 'fb id', secret: 'fb secret', settings: {scope: 'email'}}
 
-    # live id
-    # documentation http://msdn.microsoft.com/en-us/library/live/hh826543.aspx#rest
-    # change this at https://manage.dev.live.com/Applications
-    config.custom_info.windowslive = {name: :windowslive, id: 'live client id', secret: 'live id secret', settings: {scope: 'wl.basic'}}
+      # config.omniauth :twitter, "consumer_key", "consumer_secret"
+      # change this at https://dev.twitter.com/apps
+      config.custom_info.twitter = {name: :twitter, id: 'twitter key', secret: 'twitter secret'}
 
-    # github API http://developer.github.com/v3/oauth/
-    config.custom_info.github = {name: :github, id: 'live client id', secret: 'live id secret', settings: {scope: 'user'}}
+      # live id
+      # documentation http://msdn.microsoft.com/en-us/library/live/hh826543.aspx#rest
+      # change this at https://manage.dev.live.com/Applications
+      config.custom_info.windowslive = {name: :windowslive, id: 'live client id', secret: 'live id secret', settings: {scope: 'wl.basic'}}
 
-    # config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
-    config.custom_info.mailer_sender = {email: "please-change-me-at-config-initializers-devise@example.com"}
+      # github API http://developer.github.com/v3/oauth/
+      config.custom_info.github = {name: :github, id: 'live client id', secret: 'live id secret', settings: {scope: 'user'}}
 
-    ########################
-    # File secret_token.rb #
-    ########################
+      # config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
+      config.custom_info.mailer_sender = {email: "please-change-me-at-config-initializers-devise@example.com"}
 
-    # BawSite::Application.config.secret_token
-    config.custom_info.secret_token = 'some long secret token - at least 30 chars, all random'
+      ########################
+      # File secret_token.rb #
+      ########################
 
+      # BawSite::Application.config.secret_token
+      config.custom_info.secret_token = 'some long secret token - at least 30 chars, all random'
+
+    end # end init hook
   end
 end
