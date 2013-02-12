@@ -25,7 +25,7 @@ module BawSite
     config.media_file_config.cached_spectrogram_defaults = SharedSettings.settings[:cached_spectrogram_defaults]
 
 
-    config.custom_info = OpenStruct.new
+
 
     # set the host domain for this website
     def default_url_options
@@ -37,6 +37,8 @@ module BawSite
     end
 
     config.before_initialize do
+
+      config.custom_info = OpenStruct.new
 
       ##################
       # File devise.rb #
