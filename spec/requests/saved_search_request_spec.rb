@@ -1,25 +1,7 @@
 require 'spec_helper'
 
-describe SavedSearch do
+describe SavedSearchStore do
   include Shared
-
-  it "should be a complicated search" do
-
-    the_search = Search.new( { :body_params => {
-        :project_ids => [ 1 ],
-        :site_ids => [ 2 ],
-        :audio_recording_ids => [ 3 ],
-        :date_start => Time.zone.parse('2012-11-21'), :date_end => Time.zone.parse('2012-11-21'),
-        :time_ranges => [[0,10],[40,85]],
-        # tags is just a simple array for now
-        :tags => %w(koala crow)
-    } } )
-
-    data_set = the_search.execute_query
-
-    #assert_equal 1, data_set.items[0].audio_recording_id
-
-  end
 
   describe "empty search" do
     it 'should return all available recordings' do
@@ -28,7 +10,7 @@ describe SavedSearch do
       r2 = create(:audio_recording)
       r3 = create(:audio_recording)
 
-      the_search = Search.new({})
+      the_search = SavedSearchStore.new({})
 
       # run
       data_set = the_search.execute_query
@@ -45,7 +27,7 @@ describe SavedSearch do
       # prepare
       # no recordings
 
-      the_search = Search.new({})
+      the_search = SavedSearchStore.new({})
 
       # run
       data_set = the_search.execute_query
@@ -62,7 +44,7 @@ describe SavedSearch do
       r2 = create(:audio_recording)
       r3 = create(:audio_recording)
 
-      the_search = Search.new({body_params: {audio_recording_ids: [r1.id]}})
+      the_search = SavedSearchStore.new(body_params: {audio_recording_id: r1.id})
 
       # run
       data_set = the_search.execute_query
@@ -71,7 +53,7 @@ describe SavedSearch do
       data_set.items.size.should == 1
 
       data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r1.id], uuid:[r1.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
+        check_search_data_set_item(item, {id: [r1.id], uuid: [r1.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
       end
     end
 
@@ -81,7 +63,7 @@ describe SavedSearch do
       r2 = create(:audio_recording)
       r3 = create(:audio_recording)
 
-      the_search = Search.new({body_params: {audio_recording_uuids: [r1.uuid]}})
+      the_search = SavedSearchStore.new(body_params: {audio_recording_uuid: r1.uuid})
 
       # run
       data_set = the_search.execute_query
@@ -90,7 +72,7 @@ describe SavedSearch do
       data_set.items.size.should == 1
 
       data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r1.id], uuid:[r1.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
+        check_search_data_set_item(item, {id: [r1.id], uuid: [r1.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
       end
     end
   end
@@ -101,8 +83,9 @@ describe SavedSearch do
 
       # run
       expect {
-        the_search = Search.new({body_params: {project_ids: [1, -10]}})
-      }.to raise_error(ArgumentError, 'Invalid ids given: [-10]')
+        the_search = SavedSearchStore.new(body_params: {project_id:  -10})
+        data_set = the_search.execute_query
+      }.to raise_error(ArgumentError, 'SavedSearchStoreBody has errors: {"project_id":["must be greater than or equal to 1"]}.')
 
       # check
 
@@ -114,8 +97,9 @@ describe SavedSearch do
 
       # run
       expect {
-        the_search = Search.new({body_params: {project_ids: [1, 0]}})
-      }.to raise_error(ArgumentError, 'Invalid ids given: [0]')
+        the_search = SavedSearchStore.new(body_params: {project_id: 0})
+        data_set = the_search.execute_query
+      }.to raise_error(ArgumentError, 'SavedSearchStoreBody has errors: {"project_id":["must be greater than or equal to 1"]}.')
 
       # check
 
@@ -126,7 +110,7 @@ describe SavedSearch do
       r1 = create(:audio_recording)
       r2 = create(:audio_recording)
 
-      the_search = Search.new({body_params: {project_ids: r2.site.projects.collect{|p| p.id} }})
+      the_search = SavedSearchStore.new(body_params: {project_id: r2.site.projects.collect { |p| p.id }.first})
 
       # run
       data_set = the_search.execute_query
@@ -136,7 +120,7 @@ describe SavedSearch do
       data_set.items.size.should == 1
 
       data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r2.id], uuid:[r2.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
+        check_search_data_set_item(item, {id: [r2.id], uuid: [r2.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
       end
     end
 
@@ -150,16 +134,16 @@ describe SavedSearch do
       r3 = create(:audio_recording)
       r4 = create(:audio_recording)
 
-      the_search = Search.new({body_params: {project_ids: r3.site.projects.collect{|p| p.id}.concat([p1.id]) }})
+      the_search = SavedSearchStore.new(body_params: {project_id: p1.id})
 
       # run
       data_set = the_search.execute_query
 
       # check
-      data_set.items.size.should == 3
+      data_set.items.size.should == 2
 
       data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r1.id, r2.id, r3.id], uuid:[r1.uuid,r2.uuid,r3.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
+        check_search_data_set_item(item, {id: [r1.id, r2.id], uuid: [r1.uuid, r2.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
       end
     end
 
@@ -173,8 +157,9 @@ describe SavedSearch do
 
       # run
       expect {
-        the_search = Search.new({body_params: {site_ids: [1, -10]}})
-      }.to raise_error(ArgumentError, 'Invalid ids given: [-10]')
+        the_search = SavedSearchStore.new(body_params: {site_id: -10})
+        data_set = the_search.execute_query
+      }.to raise_error(ArgumentError, 'SavedSearchStoreBody has errors: {"site_id":["must be greater than or equal to 1"]}.')
 
       # check
 
@@ -186,8 +171,9 @@ describe SavedSearch do
 
       # run
       expect {
-        the_search = Search.new({body_params: {site_ids: [1, 0]}})
-      }.to raise_error(ArgumentError, 'Invalid ids given: [0]')
+        the_search = SavedSearchStore.new(body_params: {site_id:  0})
+        data_set = the_search.execute_query
+      }.to raise_error(ArgumentError, 'SavedSearchStoreBody has errors: {"site_id":["must be greater than or equal to 1"]}.')
 
       # check
 
@@ -198,7 +184,7 @@ describe SavedSearch do
       r1 = create(:audio_recording)
       r2 = create(:audio_recording)
 
-      the_search = Search.new({body_params: {site_ids: [r2.site.id]}})
+      the_search = SavedSearchStore.new(body_params: {site_id: r2.site.id})
 
       # run
       data_set = the_search.execute_query
@@ -207,7 +193,7 @@ describe SavedSearch do
       data_set.items.size.should == 1
 
       data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r2.id], uuid:[r2.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
+        check_search_data_set_item(item, {id: [r2.id], uuid: [r2.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
       end
     end
 
@@ -221,90 +207,118 @@ describe SavedSearch do
       r3 = create(:audio_recording)
       r4 = create(:audio_recording)
 
-      the_search = Search.new({body_params: {site_ids: [r1.site.id, r4.site.id] }})
+      the_search = SavedSearchStore.new(body_params: {site_id: s1.id})
 
       # run
-      data_set = the_search.execute_query
-
-      # check
-      data_set.items.size.should == 3
-
-      data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r1.id, r2.id, r4.id], uuid:[r1.uuid,r2.uuid,r4.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
-      end
-    end
-  end
-  describe 'date ranges' do
-    it 'should restrict the results to date range of one day' do
-      #prepare
-      current_date = DateTime.now
-      days_ago_2 = DateTime.now.advance({days: -2})
-      days_ago_1 = DateTime.now.advance({days: -1})
-
-      r1 = create(:audio_recording, recorded_date: days_ago_2)
-      r2 = create(:audio_recording, recorded_date: days_ago_1)
-      r3 = create(:audio_recording, recorded_date: current_date)
-
-      the_search = Search.new({body_params: {date_start: days_ago_1, date_end: days_ago_1 }})
-
-      # run
-      puts [r1.inspect, r2.inspect, r3.inspect]
-      data_set = the_search.execute_query
-
-      # check
-      data_set.items.size.should == 1
-
-      data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r2.id], uuid:[r2.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
-      end
-
-    end
-
-    it 'should restrict the results to date range of one week' do
-      #prepare
-      weeks_ago_2 = DateTime.now.advance({weeks: -2})
-      days_ago_1 = DateTime.now.advance({days: -1})
-      current_date = DateTime.now
-      r1 = create(:audio_recording, recorded_date: weeks_ago_2)
-      r2 = create(:audio_recording, recorded_date: days_ago_1)
-      r3 = create(:audio_recording, recorded_date: current_date)
-
-      the_search = Search.new({body_params: {date_start: days_ago_1, date_end: current_date }})
-
-      # run
-      puts [r1.inspect, r2.inspect, r3.inspect]
       data_set = the_search.execute_query
 
       # check
       data_set.items.size.should == 2
 
       data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r2.id, r3.id], uuid:[r2.uuid, r3.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
+        check_search_data_set_item(item, {id: [r1.id, r2.id], uuid: [r1.uuid, r2.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
       end
-
     end
   end
+  describe 'date ranges' do
+    it 'should restrict the results to date range of one day' do
+      #prepare
+      current_date = Time.current
+      days_ago_2 = Time.current.advance({days: -2})
+      days_ago_1 = Time.current.advance({days: -1})
 
-  describe 'time ranges 'do
-    it 'should restrict the results to within the time range' do
-      # prepare
-      r1 = create(:audio_recording, recorded_date: DateTime.now.change({hour: 10, min:0, sec: 30}))
-      r2 = create(:audio_recording, recorded_date: DateTime.now.change({hour: 9, min:0, sec: 30}))
-      r3 = create(:audio_recording, recorded_date: DateTime.now.change({hour: 8, min:59, sec: 30}))
+      r1 = create(:audio_recording, recorded_date: days_ago_2)
+      r2 = create(:audio_recording, recorded_date: days_ago_1)
+      r3 = create(:audio_recording, recorded_date: current_date)
 
-      the_search = Search.new({body_params: {time_ranges: [[DateTime.now.change({hour: 9, min:0, sec: 0}), DateTime.now.change({hour: 10, min:0, sec: 0})]] }})
+      the_search = SavedSearchStore.new(body_params: {date_start: days_ago_1, date_end: days_ago_1})
 
       # run
-      puts [r1.inspect, r2.inspect, r3.inspect, the_search]
       data_set = the_search.execute_query
 
       # check
       data_set.items.size.should == 1
 
       data_set.items.each do |item|
-        check_search_data_set_item(item, {id: [r2.id], uuid:[r2.uuid], start_offset_seconds:nil, start_offset_seconds:nil})
+        check_search_data_set_item(item, {id: [r2.id], uuid: [r2.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
       end
 
     end
+
+    it 'should restrict the results to date range of one week' do
+      #prepare
+      weeks_ago_2 = Time.current.advance({weeks: -2})
+      days_ago_1 = Time.now.advance({days: -1})
+      current_date = Time.current
+      r1 = create(:audio_recording, recorded_date: weeks_ago_2)
+      r2 = create(:audio_recording, recorded_date: days_ago_1)
+      r3 = create(:audio_recording, recorded_date: current_date)
+
+      the_search = SavedSearchStore.new(body_params: {date_start: days_ago_1, date_end: current_date})
+
+      # run
+      data_set = the_search.execute_query
+
+      # check
+      data_set.items.size.should == 2
+
+      data_set.items.each do |item|
+        check_search_data_set_item(item, {id: [r2.id, r3.id], uuid: [r2.uuid, r3.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
+      end
+
+    end
+  end
+
+  describe 'time ranges ' do
+    it 'should restrict the results to within the time range' do
+      # prepare
+      r1 = create(:audio_recording, recorded_date: Time.current.change({hour: 10, min: 0, sec: 30}))
+      r2 = create(:audio_recording, recorded_date: Time.current.change({hour: 9, min: 0, sec: 30}))
+      r3 = create(:audio_recording, recorded_date: Time.current.change({hour: 8, min: 59, sec: 30}))
+
+      the_search = SavedSearchStore.new(body_params: {time_start: Time.current.change({hour: 9, min: 0, sec: 0}), time_end: Time.current.change({hour: 10, min: 0, sec: 0})})
+
+      # run
+      data_set = the_search.execute_query
+
+      # check
+      data_set.items.size.should == 1
+
+      data_set.items.each do |item|
+        check_search_data_set_item(item, {id: [r2.id], uuid: [r2.uuid], start_offset_seconds: nil, start_offset_seconds: nil})
+      end
+
+    end
+  end
+
+  it "should return all audio recordings when given an empty search query" do
+
+    the_search = SavedSearchStore.new({})
+
+    data_set = the_search.execute_query
+
+    assert_equal AudioRecording.count, data_set.items.size
+
+    #audio_recording_id = AudioRecording.where(:uuid=>'1bd0d668-1471-4396-adc3-09ccd8fe949a').first!
+    #assert data_set.items.collect{ |item| item.audio_recording_id }.include?(audio_recording_id.id)
+
+  end
+
+  it "should be a complicated search" do
+
+    the_search = SavedSearchStore.new(:body_params => {
+        :project_ids => [1],
+        :site_ids => [2],
+        :audio_recording_ids => [3],
+        :date_start => Time.zone.parse('2012-11-21 10:40:00'), :date_end => Time.zone.parse('2012-11-21 15:30'),
+        time_start: Time.current.change({hour: 0, min: 10, sec: 0}),
+        time_end: Time.current.change({hour: 8, min: 40, sec: 0}),
+        # tags is just a simple array for now
+        :tags => %w(koala crow)
+    })
+
+    data_set = the_search.execute_query
+
+    #assert_equal 1, data_set.items[0].audio_recording_id
   end
 end
