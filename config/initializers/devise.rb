@@ -8,7 +8,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = BawSite::Application.config.custom_info.mailer_sender[:email]
+  config.mailer_sender = BawSite::Application.config.custom_mailer_sender[:email]
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -87,7 +87,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = BawSite::Application.config.custom_info.pepper
+  config.pepper = BawSite::Application.config.custom_pepper
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -223,34 +223,34 @@ Devise.setup do |config|
   # https://github.com/intridea/omniauth-browserid
   # https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
   # https://developer.mozilla.org/en-US/docs/Persona/Quick_Setup
-  config.omniauth :browser_id, BawSite::Application.config.custom_info.browser_id[:settings]
+  config.omniauth :browser_id, BawSite::Application.config.custom_browser_id[:settings]
 
   # https://github.com/zquestz/omniauth-google-oauth2
   # If you don't need a refresh token -- if you're only using Google for account creation/auth and don't need google services -- set the access_type to 'online'.
   # Also, set the approval prompt to an empty string, since otherwise it will be set to 'force', which makes users manually approve to the Oauth every time they log in.
   # See http://googleappsdeveloper.blogspot.com/2011/10/upcoming-changes-to-oauth-20-endpoint.html
-  config.omniauth :google_oauth2, BawSite::Application.config.custom_info.google_oauth2[:id],
-                  BawSite::Application.config.custom_info.google_oauth2[:secret],
-                  BawSite::Application.config.custom_info.google_oauth2[:settings]
+  config.omniauth :google_oauth2, BawSite::Application.config.custom_google_oauth2[:id],
+                  BawSite::Application.config.custom_google_oauth2[:secret],
+                  BawSite::Application.config.custom_google_oauth2[:settings]
 
   # https://github.com/mkdynamic/omniauth-facebook
-  config.omniauth :facebook, BawSite::Application.config.custom_info.facebook[:id],
-                  BawSite::Application.config.custom_info.facebook[:secret],
-                  BawSite::Application.config.custom_info.facebook[:settings]
+  config.omniauth :facebook, BawSite::Application.config.custom_facebook[:id],
+                  BawSite::Application.config.custom_facebook[:secret],
+                  BawSite::Application.config.custom_facebook[:settings]
 
   # https://github.com/arunagw/omniauth-twitter
-  config.omniauth :twitter, BawSite::Application.config.custom_info.twitter[:id],
-                  BawSite::Application.config.custom_info.twitter[:secret]
+  config.omniauth :twitter, BawSite::Application.config.custom_twitter[:id],
+                  BawSite::Application.config.custom_twitter[:secret]
 
   # https://github.com/joel/omniauth-windowslive
-  config.omniauth :windowslive, BawSite::Application.config.custom_info.windowslive[:id],
-                  BawSite::Application.config.custom_info.windowslive[:secret],
-                  BawSite::Application.config.custom_info.windowslive[:settings]
+  config.omniauth :windowslive, BawSite::Application.config.custom_windowslive[:id],
+                  BawSite::Application.config.custom_windowslive[:secret],
+                  BawSite::Application.config.custom_windowslive[:settings]
 
   # https://github.com/intridea/omniauth-github
-  config.omniauth :github, BawSite::Application.config.custom_info.github[:id],
-                  BawSite::Application.config.custom_info.github[:secret],
-                  BawSite::Application.config.custom_info.github[:settings]
+  config.omniauth :github, BawSite::Application.config.custom_github[:id],
+                  BawSite::Application.config.custom_github[:secret],
+                  BawSite::Application.config.custom_github[:settings]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

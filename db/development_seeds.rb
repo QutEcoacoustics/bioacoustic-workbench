@@ -1,4 +1,5 @@
 require 'database_cleaner'
+require './app/models/saved_search/saved_search_store'
 
 def ids(obj)
   obj.creator_id = @admin_id
@@ -200,8 +201,8 @@ def run_dev_seeds(admin_id)
 
   # saved searches
   puts "Creating Saved Searches..."
-  add(SavedSearch.create({:name => 'Goote', :search_object => Search.new( :body_params => { :project_ids => [2] } ).to_json}))
-  add(SavedSearch.create({:name => 'Testing', :search_object => Search.new( :body_params => { :project_ids => [1, 2],
+  add(SavedSearch.create({:name => 'Goote', :search_object => SavedSearchStore.new( :body_params => { :project_ids => [2] } ).to_json}))
+  add(SavedSearch.create({:name => 'Testing', :search_object => SavedSearchStore.new( :body_params => { :project_ids => [1, 2],
                                                                                               :site_ids => [1] } ).to_json}))
 
   # analysis scripts
