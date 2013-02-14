@@ -24,9 +24,11 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       class OpenID
         private
         def realm_url(req)
-          url = req.scheme + "://"
-          url << req.host
-          url
+          #url = req.scheme + "://"
+          #url << req.host
+          #url
+          # need this to match the OmniAuth full host
+          OmniAuth.config.full_host.dup
         end
       end
     end
