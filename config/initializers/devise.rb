@@ -8,6 +8,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
+  puts 'devise mailer sender'
   config.mailer_sender = BawSite::Application.config.custom_mailer_sender[:email]
 
   # Configure the class responsible to send e-mails.

@@ -57,6 +57,7 @@ BawSite::Application.config.custom_windowslive = {name: :windowslive, id: 'live 
 BawSite::Application.config.custom_github = {name: :github, id: 'live client id', secret: 'live id secret', settings: {scope: 'user'}}
 
 # config.mailer_sender = "please-change-me-at-config-initializers-custom_configs@example.com"
+puts 'setting custom mailer sender'
 BawSite::Application.config.custom_mailer_sender = {email: "please-change-me-at-config-initializers-custom_configs@example.com"}
 
 module BawSite
