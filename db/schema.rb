@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205030911) do
+ActiveRecord::Schema.define(:version => 20130215054221) do
 
   create_table "analysis_items", :force => true do |t|
     t.string   "worker_info"
@@ -280,6 +280,7 @@ ActiveRecord::Schema.define(:version => 20130205030911) do
     t.datetime "deleted_at"
     t.boolean  "admin",                  :default => false, :null => false
     t.string   "user_name"
+    t.boolean  "is_fake_email"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
