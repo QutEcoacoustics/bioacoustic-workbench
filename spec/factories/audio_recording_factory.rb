@@ -3,7 +3,7 @@ require 'faker'
 FactoryGirl.define do
   factory :audio_recording do |f|
 
-    f.recorded_date 7.days.ago
+    f.recorded_date { 7.days.ago }
     f.duration_seconds 350
     f.sample_rate_hertz 22050
     f.channels 1

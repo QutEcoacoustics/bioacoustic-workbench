@@ -23,7 +23,7 @@ describe SitesController do
       @response_body = json get: :new
       @expected_hash = {
           :id => nil,
-          :audio_recordings => [],
+          #:audio_recordings => [], # not included - way too many. Maybe some summary stats?
           :latitude => nil,
           :longitude => nil,
           :projects => [],

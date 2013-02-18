@@ -41,7 +41,7 @@ describe Progress do
 
 
   context 'pseudo composite key testing (via uniqueness constraint)' do
-    before(:all) do
+    before(:each) do
       @ss1 = create(:saved_search)
       @ss2 = create(:saved_search)
 
@@ -51,6 +51,17 @@ describe Progress do
       @ar1 = create(:audio_recording)
       @ar2 = create(:audio_recording)
 
+    end
+
+    after(:each) do
+      @ss1.destroy
+      @ss2.destroy
+
+      @u1.destroy
+      @u2.destroy
+
+      @ar1.destroy
+      @ar2.destroy
     end
 
 

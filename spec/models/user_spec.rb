@@ -50,11 +50,10 @@ describe User do
 
   }
 
-  it 'is invalid with a duplicate display_name (case-insensitive)' do
+  it 'is valid with a duplicate display_name (case-insensitive)' do
     create(:user, display_name: 'the_same name')
     u = build(:user, display_name: 'tHE_Same naMe')
-    u.should_not be_valid
-    u.should have(1).error_on(:display_name)
+    u.should be_valid
   end
 
   it { should validate_presence_of(:email) }

@@ -27,6 +27,7 @@ describe UsersController do
           :creator_id => nil,
           :display_name => nil,
           :email => '',
+          :is_fake_email => nil,
           :id => nil,
           :invitation_token => nil,
           :updated_at => nil,
