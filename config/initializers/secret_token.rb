@@ -6,6 +6,3 @@
 # no regular words or you'll be exposed to dictionary attacks.
 #BawSite::Application.config.secret_token =
 # set in custom_config.rb instead
-
-
-

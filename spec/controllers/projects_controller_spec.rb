@@ -29,6 +29,8 @@ describe ProjectsController do
           :photos => [],
           :sites => [],
           :urn => nil,
+          :latitude => nil,
+          :longitude => nil,
           :updated_at => nil,
           :created_at => nil,
           :updater_id => nil,
@@ -57,7 +59,7 @@ describe ProjectsController do
         @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_create_api_call, Project, {:name=>["can't be blank"], :urn=>["can't be blank", "is invalid"]}
+      it_should_behave_like :an_invalid_create_api_call, Project, {:name=>["can't be blank"], :urn=>["can't be blank", "is invalid"], :latitude=>["is not a number"], :longitude=>["is not a number"]}
     end
   end
 
