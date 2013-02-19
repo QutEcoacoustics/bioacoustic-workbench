@@ -34,7 +34,6 @@ FactoryGirl.define do
 
     f.association :saved_search
     f.association :creator, factory: :user
-    #f.association :creator, factory: :user
 
 
     factory :analysis_job_onrunning do

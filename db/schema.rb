@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215054221) do
+ActiveRecord::Schema.define(:version => 20130218060728) do
 
   create_table "analysis_items", :force => true do |t|
     t.string   "worker_info"
@@ -210,6 +210,8 @@ ActiveRecord::Schema.define(:version => 20130215054221) do
     t.integer  "updater_id"
     t.integer  "deleter_id"
     t.datetime "deleted_at"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
   end
 
   create_table "saved_searches", :force => true do |t|
@@ -246,6 +248,8 @@ ActiveRecord::Schema.define(:version => 20130215054221) do
     t.datetime "updated_at",                      :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.boolean  "retired"
+    t.text     "notes"
   end
 
   add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true

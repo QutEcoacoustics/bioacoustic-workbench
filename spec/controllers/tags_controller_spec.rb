@@ -28,6 +28,8 @@ describe TagsController do
           :is_taxanomic => false,
           :text => nil,
           :type_of_tag => nil,
+          :notes => nil,
+          :retired => false,
           :updated_at => nil,
           :created_at => nil,
           :updater_id => nil,
