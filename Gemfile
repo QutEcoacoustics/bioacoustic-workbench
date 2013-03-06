@@ -129,4 +129,5 @@ end
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'rvm-capistrano'
 
