@@ -63,4 +63,23 @@ describe Tag do
     end
   }
 
+  it 'should not allow nil for retired' do
+    t = build(:tag)
+    t.retired = nil
+    t.should_not be_valid
+  end
+  it 'ensures retired can be true or false' do
+    t = build(:tag)
+    t.should be_valid
+    t.retired = true
+    t.should be_valid
+    t.retired = false
+    t.should be_valid
+  end
+
+  it 'ensures retired should be false by default' do
+    t = Tag.new()
+    t.retired.should be_false
+  end
+
 end
