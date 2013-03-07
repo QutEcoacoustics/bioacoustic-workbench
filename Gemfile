@@ -118,7 +118,8 @@ group :production do
   gem 'activerecord-postgresql-adapter'
   gem 'bundler'
   gem 'execjs'
-  gem "therubyracer", :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
+  gem 'libv8', :platforms => :ruby
 end
 
 # To use ActiveModel has_secure_password
