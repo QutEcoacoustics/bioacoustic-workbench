@@ -116,6 +116,7 @@ end
 group :production do
   gem 'pg'
   gem 'activerecord-postgresql-adapter'
+  gem 'bundle'
 end
 
 # To use ActiveModel has_secure_password
@@ -130,5 +131,4 @@ end
 # Deploy with Capistrano
 gem 'capistrano'
 gem 'rvm-capistrano'
-gem 'capistrano-strategy-copy-bundled'
-
+#gem 'capistrano-strategy-copy-bundled'
