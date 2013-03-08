@@ -58,7 +58,7 @@ describe TagsController do
         @response_body = json(test)
       end
 
-      it_should_behave_like :an_invalid_create_api_call, Tag, {:type_of_tag=>["is not included in the list", "can't be blank"], :retired=>["is not included in the list"], :text=>["text must not be nil"]}
+      it_should_behave_like :an_invalid_create_api_call, Tag, {:type_of_tag=>["is not included in the list", "can't be blank"], :text=>["text must not be nil"]}
     end
   end
 

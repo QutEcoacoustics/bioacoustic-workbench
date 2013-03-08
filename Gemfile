@@ -116,6 +116,11 @@ end
 group :production do
   gem 'pg'
   gem 'activerecord-postgresql-adapter'
+  gem 'bundler'
+  gem 'execjs'
+  gem 'therubyracer', :platforms => :ruby
+  gem 'libv8', :platforms => :ruby
+  gem 'unicorn'
 end
 
 # To use ActiveModel has_secure_password
@@ -130,4 +135,3 @@ end
 # Deploy with Capistrano
 gem 'capistrano'
 gem 'rvm-capistrano'
-
