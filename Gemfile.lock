@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/brainspec/enumerize.git
-  revision: d07fda637ae07dcb17b37e0128767aa2eebbf9b3
+  revision: 9dea5216443b20c4d499478b3acea06c102ee010
   branch: master
   specs:
     enumerize (0.5.1)
@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/rails-api/active_model_serializers.git
-  revision: fabdc621ff97fbeca317f6301973dd4564b9e695
+  revision: a1755c5b27490c11470accd09285bf8fb08fa1a7
   specs:
     active_model_serializers (0.7.0)
       activemodel (>= 3.0)
@@ -123,6 +123,7 @@ GEM
       i18n (~> 0.5)
     faraday (0.8.6)
       multipart-post (~> 1.1)
+    ffi (1.4.0)
     ffi (1.4.0-x86-mingw32)
     gherkin (2.11.6-x86-mingw32)
       json (>= 1.7.6)
@@ -152,8 +153,8 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.7)
-    jwt (0.1.6)
-      multi_json (>= 1.0)
+    jwt (0.1.7)
+      multi_json (>= 1.5)
     launchy (2.2.0)
       addressable (~> 2.3)
     listen (0.7.3)
@@ -340,6 +341,7 @@ DEPENDENCIES
   active_model_serializers!
   activerecord-postgresql-adapter
   acts_as_paranoid (~> 0.4.0)
+  bundler
   cancan
   capistrano
   capybara
@@ -349,6 +351,7 @@ DEPENDENCIES
   database_cleaner
   devise
   enumerize!
+  execjs
   factory_girl_rails
   faker
   guard-rspec
@@ -357,6 +360,7 @@ DEPENDENCIES
   jasminerice
   jquery-rails
   launchy
+  libv8
   momentjs-rails
   omniauth
   omniauth-browserid
@@ -382,6 +386,7 @@ DEPENDENCIES
   simplecov
   sqlite3
   test-unit
+  therubyracer
   thin
   trollop
   uglifier (>= 1.0.3)
