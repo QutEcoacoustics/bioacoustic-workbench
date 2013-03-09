@@ -53,7 +53,7 @@ gem 'validates_timeliness', '~> 3.0'
 
 # a replacement for hash based formatting
 # https://github.com/rails-api/active_model_serializers
-gem 'active_model_serializers', :git => "git://github.com/rails-api/active_model_serializers.git"
+gem 'active_model_serializers', :git => 'git://github.com/rails-api/active_model_serializers.git'
 
 gem 'rubyzip'
 
@@ -105,7 +105,7 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 
-  gem 'jasmine', '>=1.0.2.1', :git => "git://github.com/pivotal/jasmine-gem.git"
+  gem 'jasmine', '>=1.0.2.1', :git => 'git://github.com/pivotal/jasmine-gem.git'
   gem 'jasminerice'
   gem 'headless', '>=0.1.0'
 
@@ -120,8 +120,13 @@ group :production do
   gem 'execjs'
   gem 'therubyracer', :platforms => :ruby
   gem 'libv8', :platforms => :ruby
-  gem 'unicorn'
 end
+
+# unicorn depends on kgio which is not supported on windows
+if !RUBY_PLATFORM =~ /mswin32/
+  gem 'unicorn', group: :production
+end
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
