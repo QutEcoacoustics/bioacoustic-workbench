@@ -32,70 +32,70 @@ def run_dev_seeds(admin_id)
   end
 
   # other users
-  puts "Creating other users..."
+  puts 'Creating other users...'
   u1 = add User.create({ user_name: 'normal_user', display_name: 'A normal user', email: 'example+normal@example.com', password: Devise.friendly_token[0,20] })
   u2 = add User.create({ user_name: 'complicated_user', display_name: 'A complicated user', email: 'example+complicated@example.com', password: Devise.friendly_token[0,20] })
 
   # projects
-  puts "Creating projects..."
-  p1 = add (Project.create({ description: "SERF Acoustic study aimed at detecting the <__> species",
-                             name:        "SERF AS Frogs", notes: { }, urn: "urn:http://localhost:3000/projects/serf_as_frogs",
+  puts 'Creating projects...'
+  p1 = add (Project.create({ description: 'SERF Acoustic study aimed at detecting the <__> species',
+                             name:        'SERF AS Frogs', notes: { }, urn: 'urn:http://localhost:3000/projects/serf_as_frogs',
                              latitude:-27.55, longitude: 151.95
                            }))
 
-  p2 = add (Project.create({ description: "Groote Island project dedicated to preventing canetoad infestation",
-                             name:        "Groote Canetoad", notes: { }, urn: "urn:http://localhost:3000/projects/groote_canetoad",
+  p2 = add (Project.create({ description: 'Groote Island project dedicated to preventing canetoad infestation',
+                             name:        'Groote Canetoad', notes: { }, urn: 'urn:http://localhost:3000/projects/groote_canetoad',
                              latitude: -13.966667, longitude: 136.583333
                            }))
 
-  p3 =add (Project.create({ description: "Collaborative study reusing data from several projects to monitor Koala calls",
-                            name:        "Qubar Collaborative", notes: { }, urn: "urn:http://localhost:3000/projects/qubar_collaborative",
+  p3 =add (Project.create({ description: 'Collaborative study reusing data from several projects to monitor Koala calls',
+                            name:        'Qubar Collaborative', notes: { }, urn: 'urn:http://localhost:3000/projects/qubar_collaborative',
                             latitude: -27.472778, longitude: 153.027778
                           }))
 
 
   # sites
-  puts "Creating Sites..."
-  s1 = ids Site.create({name: "South East", notes:{:environment => "wet"}, latitude:-27.472778, longitude: 153.027778})
+  puts 'Creating Sites...'
+  s1 = ids Site.create({name: 'South East', notes:{:environment => 'wet' }, latitude:-27.472778, longitude: 153.027778})
   s1.projects.push p1, p3
   sv s1
 
-  s2 = ids Site.create({name: "North East", notes:{:environment => "dry scrub"}, latitude:-27.472778, longitude: 153.027778})
+  s2 = ids Site.create({name: 'North East', notes:{:environment => 'dry scrub' }, latitude:-27.472778, longitude: 153.027778})
   s2.projects.push p1, p3
   sv s2
 
-  s3 = ids Site.create({name: "Beach", notes:{:this_note => :scowls}, latitude:-27.472778, longitude: 153.027778})
+  s3 = ids Site.create({name: 'Beach', notes:{:this_note => :scowls}, latitude:-27.472778, longitude: 153.027778})
   s3.projects.push p2, p3
   sv s3
 
   # photos
   # photos -> sites
-  puts "Creating Site Photos..."
-  sv Photo.create({description:"Koala Climbing a tree", copyright:"Wikimedia CC 3.0",
-                   uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
-                   imageable_type: "Site", imageable_id:p1.id })
-  sv Photo.create({description:"Lizard", copyright:"Wikimedia CC 3.0",
-                   uri:"http://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bartagame_fcm.jpg/250px-Bartagame_fcm.jpg",
-                   imageable_type: "Site", imageable_id:p2.id })
-  sv Photo.create({description:"Canetoad on a rock", copyright:"Wikimedia CC 3.0",
-                   uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
-                   imageable_type: "Site", imageable_id:s3.id })
+  puts 'Creating Site Photos...'
+  sv Photo.create({description:    'Koala Climbing a tree', copyright: 'Wikimedia CC 3.0',
+                   uri:            'http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg',
+                   imageable_type: 'Site', imageable_id:p1.id })
+  sv Photo.create({description:    'Lizard', copyright: 'Wikimedia CC 3.0',
+                   uri:            'http://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bartagame_fcm.jpg/250px-Bartagame_fcm.jpg',
+                   imageable_type: 'Site', imageable_id:p2.id })
+  sv Photo.create({description:    'Canetoad on a rock', copyright: 'Wikimedia CC 3.0',
+                   uri:            'http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG',
+                   imageable_type: 'Site', imageable_id:s3.id })
 
   # photos -> projects
-  puts "Creating Project Photos..."
-  sv Photo.create({description:"Koala Climbing  a tree", copyright:"Wikimedia CC 3.0",
-                   uri:"http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
-                   imageable_type: "Project", imageable_id:p1.id })
-  sv Photo.create({description:"Canetoad on a rock", copyright:"Wikimedia CC 3.0",
-                   uri:"http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG",
-                   imageable_type: "Project", imageable_id:p2.id })
-  sv Photo.create({description:"Jason Wimmer Deploying sensors", copyright:"Microsoft QUT eResearch center",
-                   uri:"http://sensor.mquter.qut.edu.au/graphics/welcome1.jpg",
-                   imageable_type: "Project", imageable_id:p3.id })
+  puts 'Creating Project Photos...'
+  sv Photo.create({description:    'Koala Climbing  a tree', copyright: 'Wikimedia CC 3.0',
+                   uri:            'http://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg',
+                   imageable_type: 'Project', imageable_id:p1.id })
+  sv Photo.create({description:    'Canetoad on a rock', copyright: 'Wikimedia CC 3.0',
+                   uri:            'http://upload.wikimedia.org/wikipedia/commons/8/85/Bufo_marinus_from_Australia.JPG',
+                   imageable_type: 'Project', imageable_id:p2.id })
+  sv Photo.create({description:    'Jason Wimmer Deploying sensors', copyright: 'Microsoft QUT eResearch center',
+                   uri:            'http://sensor.mquter.qut.edu.au/graphics/welcome1.jpg',
+                   imageable_type: 'Project', imageable_id:p3.id })
 
 
   # audio recordings
-  puts "Creating Audiorecordings..."
+  puts 'Creating Audiorecordings...'
   AudioRecording.send(:attr_accessible, :uuid)
 
   ar1_uuid = '1bd0d668-1471-4396-adc3-09ccd8fe949a'
@@ -140,8 +140,8 @@ def run_dev_seeds(admin_id)
   }
 
   # tags
-  puts "Creating Tags..."
-  dummy_tags =["Koala Bellow", "Eastern Koel", "Torresian Crow", "Sacred Kingfisher", "Lewin's Honeyeater", "Canetoad", "Crickets"]
+  puts 'Creating Tags...'
+  dummy_tags =['Koala Bellow', 'Eastern Koel', 'Torresian Crow', 'Sacred Kingfisher', "Lewin's Honeyeater", 'Canetoad', 'Crickets']
   dummy_tags.each { |tagName|
     t = ids Tag.create({text: tagName, is_taxanomic: true})
     t.type_of_tag = :common_name
@@ -149,13 +149,13 @@ def run_dev_seeds(admin_id)
   }
 
   # more types of tags
-  add Tag.create({text: "caw", is_taxanomic: false, type_of_tag: :sounds_like})
-  add Tag.create({text: "whistle", is_taxanomic: false, type_of_tag: :looks_like})
-  add Tag.create({text: "repeating", is_taxanomic: false, type_of_tag: :looks_like})
-  add Tag.create({text: "Corvus orru", is_taxanomic: true, type_of_tag: :species_name})
+  add Tag.create({text: 'caw', is_taxanomic: false, type_of_tag: :sounds_like})
+  add Tag.create({text: 'whistle', is_taxanomic: false, type_of_tag: :looks_like})
+  add Tag.create({text: 'repeating', is_taxanomic: false, type_of_tag: :looks_like})
+  add Tag.create({text: 'Corvus orru', is_taxanomic: true, type_of_tag: :species_name})
 
   # audo events
-  puts "Creating Audio Events..."
+  puts 'Creating Audio Events...'
   tags = Tag.all
 
   at1 = add( AudioEvent.create({start_time_seconds: 11.0, end_time_seconds: 13.5, low_frequency_hertz: 150,
@@ -174,49 +174,56 @@ def run_dev_seeds(admin_id)
 
 
   # audio events <-> tags
-  puts "Linking audio events and tags..."
-  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Torresian Crow"}.first))
-  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "caw"}.first))
-  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == "Corvus orru"}.first))
+  puts 'Linking audio events and tags...'
+  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == 'Torresian Crow'
+  }.first))
+  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == 'caw'
+  }.first))
+  add(at1.audio_event_tags.build(:tag => tags.select{|i| i.text == 'Corvus orru'
+  }.first))
 
-  add(at2.audio_event_tags.build(:tag => tags.select{|i| i.text == "Koala Bellow"}.first))
+  add(at2.audio_event_tags.build(:tag => tags.select{|i| i.text == 'Koala Bellow'
+  }.first))
 
   add(at3.audio_event_tags.build(:tag => tags.select{|i| i.text == "Lewin's Honeyeater"}.first))
-  add(at3.audio_event_tags.build(:tag => tags.select{|i| i.text == "repeating"}.first))
+  add(at3.audio_event_tags.build(:tag => tags.select{|i| i.text == 'repeating'
+  }.first))
 
-  add(at4.audio_event_tags.build(:tag => tags.select{|i| i.text == "Sacred Kingfisher"}.first))
+  add(at4.audio_event_tags.build(:tag => tags.select{|i| i.text == 'Sacred Kingfisher'
+  }.first))
 
-  puts "Adding more dummy tags..."
+  puts 'Adding more dummy tags...'
   [s1, s2, s3].each { |site|
     arx = AudioRecording.where(site_id: site.id).all.sample
 
     at = add(AudioEvent.create({start_time_seconds: rand(30), end_time_seconds: rand(30) + 30, low_frequency_hertz: rand(1000),
                                 high_frequency_hertz: rand(2000) +5000, is_reference: false, audio_recording_id: arx.id}))
 
-    add(at.audio_event_tags.build(:tag => tags.select{|i| i.text == "Torresian Crow"}.first))
+    add(at.audio_event_tags.build(:tag => tags.select{|i| i.text == 'Torresian Crow'
+    }.first))
   }
 
   # bookmarks
-  puts "Creating Bookmarks..."
+  puts 'Creating Bookmarks...'
   add(Bookmark.create({:audio_recording_id => ar1.id, :offset_seconds => 0, :name => 'start',
                        :notes => {:a_note => 'at the start of the recording'}}))
   add(Bookmark.create({:audio_recording_id => ar1.id, :offset_seconds => 50, :name => 'what\'s this?'}))
 
   # saved searches
-  puts "Creating Saved Searches..."
+  puts 'Creating Saved Searches...'
   add(SavedSearch.create({:name => 'Goote', :search_object => SavedSearchStore.new( :body_params => { :project_ids => [2] } ).to_json}))
   add(SavedSearch.create({:name => 'Testing', :search_object => SavedSearchStore.new( :body_params => { :project_ids => [1, 2],
                                                                                               :site_ids => [1] } ).to_json}))
 
   # analysis scripts
-  puts "Creating Analysis Scripts..."
+  puts 'Creating Analysis Scripts...'
   script1 = AnalysisScript.create({name: 'a_test_script', display_name: 'A Test Script', version: 'script version',
                                    description: 'script descr', settings: '\tmp', verified: false,
                                    extra_data: 'hi folks!' ,notes: {more: 'data'} })
   add(script1)
 
   # analysis jobs
-  puts "Creating Analysis Jobs..."
+  puts 'Creating Analysis Jobs...'
   job1 = ids(AnalysisJob.create({name: 'A Test Job', description: 'job descr',notes: {more: 'data'} ,process_new: false,
                           script_name: script1.name, script_version: script1.version,
                           script_description: script1.description, script_settings: script1.settings,
@@ -228,19 +235,19 @@ def run_dev_seeds(admin_id)
 
 
   # analysis items
-  puts "Creating Analysis Items..."
+  puts 'Creating Analysis Items...'
   ai1 = AnalysisItem.create({offset_start_seconds:10,offset_end_seconds:50, status: :ready})
   ai1.analysis_job = job1
   ai1.audio_recording = ar1
   sv(ai1)
 
   # permissions
-  puts "Creating Permissions..."
+  puts 'Creating Permissions...'
   per1 = Permission.create({user_id: admin_id, level: :owner, permissionable_id: p1.id, permissionable_type: 'Project'})
   add(per1)
 
   # progresses
-  puts "Creating Progresses..."
+  puts 'Creating Progresses...'
   offset_list =
     ([
         [0.0, 33.26],

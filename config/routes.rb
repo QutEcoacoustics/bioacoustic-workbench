@@ -43,7 +43,8 @@ BawSite::Application.routes.draw do
   end
 
   resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions,
-            :tags, :bookmarks,  :progresses, :saved_searches, :analysis_jobs, :analysis_scripts, :analysis_items
+            :tags, :bookmarks,  :progresses, :saved_searches, :analysis_jobs, :analysis_scripts, :analysis_items,
+            :experiments
 
   resources :audio_recordings do
     collection do
