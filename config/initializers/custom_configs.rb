@@ -19,6 +19,8 @@ BawSite::Application.config.custom_cached_audio_paths =
 BawSite::Application.config.custom_cached_audio_defaults = SharedSettings.settings[:cached_audio_defaults]
 BawSite::Application.config.custom_cached_spectrogram_defaults = SharedSettings.settings[:cached_spectrogram_defaults]
 
+BawSite::Application.config.custom_experiment_path = File.join(BawSite::Application.config.custom_base_dir, 'experiments')
+
 ########################
 # File secret_token.rb #
 ########################
