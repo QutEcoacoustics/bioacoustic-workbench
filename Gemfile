@@ -81,6 +81,10 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+
+  # https://github.com/rails/rails/issues/7906#issuecomment-9401059
+  # this must be in the test group, causes issue when run in development
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -96,7 +100,7 @@ group :development, :test do
   gem 'test-unit'
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+
   gem 'shoulda'
 
   gem 'ruby-prof'
