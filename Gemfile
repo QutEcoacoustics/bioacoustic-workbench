@@ -125,12 +125,13 @@ group :production do
   gem 'execjs'
   gem 'therubyracer', :platforms => :ruby
   gem 'libv8', :platforms => :ruby
+  gem 'unicorn', :platforms => :ruby
 end
 
 # unicorn depends on kgio which is not supported on windows
-if !RUBY_PLATFORM =~ /mswin32/
-  gem 'unicorn', group: :production
-end
+#if !RUBY_PLATFORM =~ /mswin32/
+#  gem 'unicorn', group: :production
+#end
 
 
 # To use ActiveModel has_secure_password
