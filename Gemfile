@@ -98,6 +98,7 @@ end
 group :development, :test do
 
   gem 'test-unit'
+  gem 'mocha', '0.12.9', require: false
   gem 'rspec'
   gem 'rspec-rails'
 
