@@ -1,4 +1,4 @@
-require 'database_cleaner'
+#require 'database_cleaner'
 require './app/models/saved_search/saved_search_store'
 
 def ids(obj)
