@@ -31,32 +31,38 @@ BawSite::Application.config.secret_token = 'some long secret token - at least 30
 # File devise.rb #
 ##################
 
+# Set proxy if not already set
+ENV['http_proxy'] ||= ENV['HTTP_PROXY'] ||= nil
+
+# proxy settings
+BawSite::Application.config.custom_proxy = ENV['http_proxy']
+
 # config.pepper (128 chars)
 BawSite::Application.config.custom_pepper = '128 char random pepper 128 char random pepper'
 
 # config.omniauth :browser_id, :audience_url => 'http://localhost:3000'
-BawSite::Application.config.custom_browser_id = {name: :browser_id, settings: {audience_url: 'http://localhost:3000'}}
+BawSite::Application.config.custom_browser_id = {name: :browser_id, settings: {audience_url: 'http://localhost:3000', proxy: BawSite::Application.config.custom_proxy}}
 
 # config.omniauth :google_oauth2, 'google id', 'google secret', {access_type: 'online', approval_prompt: ''}
 # change this at https://code.google.com/apis/console/
-BawSite::Application.config.custom_google_oauth2 = {name: :google_oauth2, id: 'google id', secret: 'google secret', settings: {access_type: 'online', approval_prompt: ''}}
+BawSite::Application.config.custom_google_oauth2 = {name: :google_oauth2, id: 'google id', secret: 'google secret', settings: {access_type: 'online', approval_prompt: '', proxy: BawSite::Application.config.custom_proxy}}
 
 # config.omniauth :facebook, 'APP_ID', 'APP_SECRET', :scope => 'email'
 # change this at https://developers.facebook.com/apps/
-BawSite::Application.config.custom_facebook = {name: :facebook, id: 'fb id', secret: 'fb secret', settings: {scope: 'email'}}
+BawSite::Application.config.custom_facebook = {name: :facebook, id: 'fb id', secret: 'fb secret', settings: {scope: 'email', proxy: BawSite::Application.config.custom_proxy}}
 
 # config.omniauth :twitter, "consumer_key", "consumer_secret"
 # change this at https://dev.twitter.com/apps
-BawSite::Application.config.custom_twitter = {name: :twitter, id: 'twitter key', secret: 'twitter secret'}
+BawSite::Application.config.custom_twitter = {name: :twitter, id: 'twitter key', secret: 'twitter secret', settings: {proxy: BawSite::Application.config.custom_proxy}}
 
 # live id
 # documentation http://msdn.microsoft.com/en-us/library/live/hh826543.aspx#rest
 # change this at https://manage.dev.live.com/Applications
-BawSite::Application.config.custom_windowslive = {name: :windowslive, id: 'live client id', secret: 'live id secret', settings: {scope: 'wl.basic'}}
+BawSite::Application.config.custom_windowslive = {name: :windowslive, id: 'live client id', secret: 'live id secret', settings: {scope: 'wl.basic', proxy: BawSite::Application.config.custom_proxy}}
 
 # github API http://developer.github.com/v3/oauth/
 # change this at https://github.com/settings/applications
-BawSite::Application.config.custom_github = {name: :github, id: 'live client id', secret: 'live id secret', settings: {scope: 'user'}}
+BawSite::Application.config.custom_github = {name: :github, id: 'live client id', secret: 'live id secret', settings: {scope: 'user', proxy: BawSite::Application.config.custom_proxy}}
 
 # config.mailer_sender = "please-change-me-at-config-initializers-custom_configs@example.com"
 puts 'setting custom mailer sender'

@@ -219,7 +219,7 @@ Devise.setup do |config|
   # https://github.com/intridea/omniauth/wiki/List-of-Strategies
 
   # openid
-  config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'open_id', :require => 'omniauth-openid'
+  config.omniauth :open_id, store: OpenID::Store::Filesystem.new('/tmp'), name: 'open_id', require: 'omniauth-openid', proxy: BawSite::Application.config.custom_proxy
 
   # https://github.com/intridea/omniauth-browserid
   # https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
@@ -240,6 +240,8 @@ Devise.setup do |config|
                   BawSite::Application.config.custom_facebook[:settings]
 
   # https://github.com/arunagw/omniauth-twitter
+  # proxy for twitter obtained from ENV['http_proxy']
+  # https://github.com/arunagw/omniauth-twitter/blob/master/lib/omniauth/strategies/twitter.rb
   config.omniauth :twitter, BawSite::Application.config.custom_twitter[:id],
                   BawSite::Application.config.custom_twitter[:secret]
 
