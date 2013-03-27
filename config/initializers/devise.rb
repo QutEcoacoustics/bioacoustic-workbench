@@ -240,9 +240,10 @@ Devise.setup do |config|
                   BawSite::Application.config.custom_facebook[:settings]
 
   # https://github.com/arunagw/omniauth-twitter
+  # proxy for twitter obtained from ENV['http_proxy']
+  # https://github.com/arunagw/omniauth-twitter/blob/master/lib/omniauth/strategies/twitter.rb
   config.omniauth :twitter, BawSite::Application.config.custom_twitter[:id],
-                  BawSite::Application.config.custom_twitter[:secret],
-                  BawSite::Application.config.custom_twitter[:settings]
+                  BawSite::Application.config.custom_twitter[:secret]
 
   # https://github.com/joel/omniauth-windowslive
   config.omniauth :windowslive, BawSite::Application.config.custom_windowslive[:id],
