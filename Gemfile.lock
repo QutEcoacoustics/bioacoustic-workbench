@@ -387,6 +387,7 @@ DEPENDENCIES
   therubyracer
   thin
   trollop
+  typhoeus
   uglifier (>= 1.0.3)
   unicorn
   userstamp!
