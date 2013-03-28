@@ -126,6 +126,8 @@ group :production do
   gem 'therubyracer', :platforms => :ruby
   gem 'libv8', :platforms => :ruby
   gem 'unicorn', :platforms => :ruby
+  # use typhosus instead of net/http to try to solve 'wrong status line' error.
+  gem 'typhoeus', :platforms => :ruby
 end
 
 # unicorn depends on kgio which is not supported on windows
