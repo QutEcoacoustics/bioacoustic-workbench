@@ -32,7 +32,7 @@ BawSite::Application.config.secret_token = 'some long secret token - at least 30
 ##################
 
 # Set proxy if not already set
-ENV['http_proxy'] ||= ENV['HTTP_PROXY'] ||= nil
+ENV['http_proxy'] ||= ENV['HTTP_PROXY'] ||= ENV['https_proxy'] ||= ENV['HTTPS_PROXY'] ||=nil
 
 # proxy settings
 BawSite::Application.config.custom_proxy = ENV['http_proxy']
