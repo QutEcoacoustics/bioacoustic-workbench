@@ -123,8 +123,9 @@ group :production do
   gem 'activerecord-postgresql-adapter'
   gem 'bundler'
   gem 'execjs'
-  gem 'therubyracer', :platforms => :ruby
   gem 'libv8', :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
+
   gem 'unicorn', :platforms => :ruby
   # use typhosus instead of net/http to try to solve 'wrong status line' error.
   gem 'typhoeus', :platforms => :ruby
