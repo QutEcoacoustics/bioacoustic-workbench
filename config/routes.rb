@@ -23,6 +23,8 @@ BawSite::Application.routes.draw do
   # i'm a teapot
   match '/whoami' => 'home#whoami', :via => [:get]
 
+  match '/proxy' => 'proxy#default', via: [:get]
+
   # this is the catch-all route that allows rails to respond to any route, and essentially 'forward' it to angular
   match '*path' => 'home#index', :constraints => AngularConstraint.new, :as => :angular_routing
 
