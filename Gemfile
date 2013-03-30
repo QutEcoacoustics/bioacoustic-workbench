@@ -123,7 +123,7 @@ group :production do
   gem 'activerecord-postgresql-adapter'
   gem 'bundler'
   gem 'execjs'
-  gem 'libv8', :platforms => :ruby
+  gem 'libv8', '~> 3.11.8', :platforms => :ruby
   gem 'therubyracer', :platforms => :ruby
 
   gem 'unicorn', :platforms => :ruby
