@@ -357,7 +357,7 @@ DEPENDENCIES
   jasminerice
   jquery-rails
   launchy
-  libv8
+  libv8 (~> 3.11.8)
   mocha (= 0.12.9)
   momentjs-rails
   omniauth
