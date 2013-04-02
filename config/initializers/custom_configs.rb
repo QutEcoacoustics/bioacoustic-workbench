@@ -21,6 +21,26 @@ BawSite::Application.config.custom_cached_spectrogram_defaults = SharedSettings.
 
 BawSite::Application.config.custom_experiment_path = File.join(BawSite::Application.config.custom_base_dir, 'experiments')
 
+################################
+# Proxy and site-wide settings #
+################################
+
+# Set proxy
+# to check if proxy works, use rails console:  Faraday.new('http://google.com', request: {timeout: 15}).get
+# might need to set ssl cert path as well
+ENV['http_proxy'] ||= ENV['HTTP_PROXY'] ||= ENV['https_proxy'] ||= ENV['HTTPS_PROXY'] ||= nil
+
+# proxy settings
+BawSite::Application.config.custom_proxy = ENV['http_proxy']
+
+# ssl settings
+BawSite::Application.config.custom_ssl_cert_path = nil
+
+BawSite::Application.config.custom_base_domain = 'localhost'
+BawSite::Application.config.custom_base_port = '3000'
+BawSite::Application.config.custom_base_domain_and_port = BawSite::Application.config.custom_base_domain+':'+BawSite::Application.config.custom_base_port
+BawSite::Application.config.custom_full_domain = 'http://' + BawSite::Application.config.custom_base_domain_and_port
+
 ########################
 # File secret_token.rb #
 ########################
@@ -31,17 +51,11 @@ BawSite::Application.config.secret_token = 'some long secret token - at least 30
 # File devise.rb #
 ##################
 
-# Set proxy if not already set
-ENV['http_proxy'] ||= ENV['HTTP_PROXY'] ||= ENV['https_proxy'] ||= ENV['HTTPS_PROXY'] ||= nil
-
-# proxy settings
-BawSite::Application.config.custom_proxy = ENV['http_proxy']
-
 # config.pepper (128 chars)
 BawSite::Application.config.custom_pepper = '128 char random pepper 128 char random pepper'
 
 # config.omniauth :browser_id, :audience_url => 'http://localhost:3000'
-BawSite::Application.config.custom_browser_id = {name: :browser_id, settings: {audience_url: 'http://localhost:3000', proxy: BawSite::Application.config.custom_proxy}}
+BawSite::Application.config.custom_browser_id = {name: :browser_id, settings: {audience_url: BawSite::Application.config.custom_full_domain, proxy: BawSite::Application.config.custom_proxy}}
 
 # config.omniauth :google_oauth2, 'google id', 'google secret', {access_type: 'online', approval_prompt: ''}
 # change this at https://code.google.com/apis/console/
@@ -69,10 +83,10 @@ puts 'setting custom mailer sender'
 BawSite::Application.config.custom_mailer_sender = {email: "please-change-me-at-config-initializers-custom_configs@example.com"}
 
 # set the full host for OmniAuth
-OmniAuth.config.full_host = 'http://your.domain'
+OmniAuth.config.full_host = BawSite::Application.config.custom_full_domain
 
 # set the host domain for this website
-BawSite::Application.config.action_mailer.default_url_options = { :host => 'http://your.domain' }
+BawSite::Application.config.action_mailer.default_url_options = { :host => BawSite::Application.config.custom_base_domain_and_port  }
 
 ###############################
 # Patch for Faraday for proxy #
