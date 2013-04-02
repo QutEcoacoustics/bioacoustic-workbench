@@ -20,7 +20,7 @@ gem 'cancan'
 
 # omniauth gems for strategies we want to use
 gem 'omniauth-browserid'
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '1.4.0'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-openid'
