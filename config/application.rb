@@ -71,5 +71,10 @@ module BawSite
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Disable request forgery protection in test environment
+    # coz we dodgy fucks
+    # srsly - webproxies suck
+    config.action_controller.allow_forgery_protection    = false
+
   end
 end
