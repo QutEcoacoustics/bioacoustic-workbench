@@ -21,12 +21,12 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     module Rack
 
       # fixing proxy setting
-      class Request
-        def initialize(env)
-          @env = env.dup
-          @env['http_proxy'] = @env['HTTP_PROXY'] = @env['https_proxy'] = @env['HTTPS_PROXY'] = BawSite::Application.config.custom_proxy
-        end
-      end
+      #class Request
+      #  def initialize(env)
+      #    @env = env.dup
+      #    @env['http_proxy'] = @env['HTTP_PROXY'] = @env['https_proxy'] = @env['HTTPS_PROXY'] = BawSite::Application.config.custom_proxy
+      #  end
+      #end
 
       # Fixing the realm url
       class OpenID
