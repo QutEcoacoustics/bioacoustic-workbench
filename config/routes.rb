@@ -40,8 +40,15 @@ BawSite::Application.routes.draw do
   devise_scope :user do
     # add a route for the ping action
     match '/security/ping' => 'api/sessions#ping', :via => [:get]
+
+    # might need this too?
+    #get '/security/ping', to: 'api/sessions#ping'
+
     # add a route for sending additional information from a prompt after authenticating with an external provider
     #match '/security/auth/additional_info' => 'api/callbacks#additional_info', :via => [:get]
+
+    # http://stackoverflow.com/questions/5508877/could-not-find-devise-mapping-for-path
+    #root :to => 'home#index'
   end
 
   resources :home, :projects, :sites, :photos, :users, :audio_recordings, :permissions,
