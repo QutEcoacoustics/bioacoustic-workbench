@@ -39,7 +39,8 @@ BawSite::Application.config.custom_ssl_cert_path = nil
 BawSite::Application.config.custom_base_domain = 'localhost'
 BawSite::Application.config.custom_base_port = '3000'
 BawSite::Application.config.custom_base_domain_and_port = BawSite::Application.config.custom_base_domain+':'+BawSite::Application.config.custom_base_port
-BawSite::Application.config.custom_full_domain = 'http://' + BawSite::Application.config.custom_base_domain_and_port
+BawSite::Application.config.custom_full_domain = 'http://' + BawSite::Application.config.custom_base_domain
+BawSite::Application.config.custom_full_domain_and_port = 'http://' + BawSite::Application.config.custom_base_domain_and_port
 
 ########################
 # File secret_token.rb #
@@ -86,7 +87,7 @@ BawSite::Application.config.custom_mailer_sender = {email: "please-change-me-at-
 OmniAuth.config.full_host = BawSite::Application.config.custom_full_domain
 
 # set the host domain for this website
-BawSite::Application.config.action_mailer.default_url_options = { :host => BawSite::Application.config.custom_base_domain_and_port  }
+BawSite::Application.config.action_mailer.default_url_options = { :host => BawSite::Application.config.custom_base_domain  }
 
 ###############################
 # Patch for Faraday for proxy #

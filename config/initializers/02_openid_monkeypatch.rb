@@ -18,13 +18,12 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     # this is set in the private configuration
     #OmniAuth.config.full_host = "http://example.com"
 
-
     module Rack
 
       # fixing proxy setting
       class Request
         def initialize(env)
-          @env = env
+          @env = env.dup
           @env['http_proxy'] = @env['HTTP_PROXY'] = @env['https_proxy'] = @env['HTTPS_PROXY'] = BawSite::Application.config.custom_proxy
         end
       end
