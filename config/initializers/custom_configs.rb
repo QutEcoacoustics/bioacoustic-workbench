@@ -32,7 +32,7 @@ BawSite::Application.config.secret_token = 'some long secret token - at least 30
 ##################
 
 # Set proxy if not already set
-ENV['http_proxy'] ||= ENV['HTTP_PROXY'] ||= ENV['https_proxy'] ||= ENV['HTTPS_PROXY'] ||=nil
+ENV['http_proxy'] ||= ENV['HTTP_PROXY'] ||= ENV['https_proxy'] ||= ENV['HTTPS_PROXY'] ||= nil
 
 # proxy settings
 BawSite::Application.config.custom_proxy = ENV['http_proxy']
@@ -68,19 +68,31 @@ BawSite::Application.config.custom_github = {name: :github, id: 'live client id'
 puts 'setting custom mailer sender'
 BawSite::Application.config.custom_mailer_sender = {email: "please-change-me-at-config-initializers-custom_configs@example.com"}
 
-module BawSite
-  class Application
+# set the full host for OmniAuth
+OmniAuth.config.full_host = 'http://your.domain'
 
-    Logging.set_logger(Rails.logger)
+# set the host domain for this website
+BawSite::Application.config.action_mailer.default_url_options = { :host => 'http://your.domain' }
 
-    # set the host domain for this website
-    def default_url_options
-      if Rails.env.production?
-        {:host => 'http://your.domain'}
-      else
-        {}
+###############################
+# Patch for Faraday for proxy #
+###############################
+
+# http://stackoverflow.com/questions/11948656/omniauth-google-faraday-behind-the-proxy-how-setup-proxy
+require 'faraday'
+module OAuth2
+  # The OAuth2::Client class
+  class Client
+    # The Faraday connection object
+    def connection
+      options[:connection_opts].merge!({:proxy => BawSite::Application.config.custom_proxy})
+      @connection ||= begin
+        conn = Faraday.new(site, options[:connection_opts])
+        conn.build do |b|
+          options[:connection_build].call(b)
+        end if options[:connection_build]
+        conn
       end
     end
-
   end
 end

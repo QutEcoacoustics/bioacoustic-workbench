@@ -19,8 +19,17 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     #OmniAuth.config.full_host = "http://example.com"
 
 
-    # Fixing the realm url
     module Rack
+
+      # fixing proxy setting
+      class Request
+        def initialize(env)
+          @env = env
+          @env['http_proxy'] = @env['HTTP_PROXY'] = @env['https_proxy'] = @env['HTTPS_PROXY'] = BawSite::Application.config.custom_proxy
+        end
+      end
+
+      # Fixing the realm url
       class OpenID
         private
         def realm_url(req)
