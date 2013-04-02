@@ -94,20 +94,20 @@ BawSite::Application.config.action_mailer.default_url_options = { :host => BawSi
 ###############################
 
 # http://stackoverflow.com/questions/11948656/omniauth-google-faraday-behind-the-proxy-how-setup-proxy
-require 'faraday'
-module OAuth2
-  # The OAuth2::Client class
-  class Client
-    # The Faraday connection object
-    def connection
-      options[:connection_opts].merge!({:proxy => BawSite::Application.config.custom_proxy})
-      @connection ||= begin
-        conn = Faraday.new(site, options[:connection_opts])
-        conn.build do |b|
-          options[:connection_build].call(b)
-        end if options[:connection_build]
-        conn
-      end
-    end
-  end
-end
+#require 'faraday'
+#module OAuth2
+#  # The OAuth2::Client class
+#  class Client
+#    # The Faraday connection object
+#    def connection
+#      options[:connection_opts].merge!({:proxy => BawSite::Application.config.custom_proxy})
+#      @connection ||= begin
+#        conn = Faraday.new(site, options[:connection_opts])
+#        conn.build do |b|
+#          options[:connection_build].call(b)
+#        end if options[:connection_build]
+#        conn
+#      end
+#    end
+#  end
+#end
