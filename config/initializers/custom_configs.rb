@@ -93,6 +93,10 @@ BawSite::Application.config.action_mailer.default_url_options = { :host => BawSi
 # Patch for Faraday for proxy #
 ###############################
 
+################################################
+# ENABLING THIS CAUSES THE PING SERVICE TO DIE
+#################################################
+
 # http://stackoverflow.com/questions/11948656/omniauth-google-faraday-behind-the-proxy-how-setup-proxy
 #require 'faraday'
 #module OAuth2
