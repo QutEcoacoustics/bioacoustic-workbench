@@ -129,6 +129,7 @@ shared_examples :a_delete_api_call do |klass, *options|
       if expected_response == :r204a
         it { should respond_with(:no_content) }
         it { should respond_with_content_type(:json) }
+
         it 'should return the archived_at date as a header' do
           has_header = @response.headers.include?(ARCHIVED_HEADER)
           has_header.should be_true
