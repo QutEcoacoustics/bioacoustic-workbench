@@ -366,7 +366,7 @@ DEPENDENCIES
   jasminerice (= 0.0.10)
   jquery-rails (= 2.2.1)
   launchy (= 2.3.0)
-  libv8 (~> 3.16.14)
+  libv8 (~> 3.11.8.12)
   mocha (~> 0.13)
   momentjs-rails (= 2.0.0.1)
   omniauth (= 1.1.4)
