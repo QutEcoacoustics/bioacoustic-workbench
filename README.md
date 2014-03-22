@@ -1,3 +1,5 @@
+# THIS PROJECT HAS BEEN DEPRECATED - REPLACED WITH NEWER PROJECTS
+
 bioacoustic-workbench
 =====================
 
